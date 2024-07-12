@@ -12,7 +12,8 @@ export default {
         'footer_image':"url('/footer-bg.svg');"
       },
       fontFamily:{
-        custom: ["Inter", "sans-serif"]
+        custom: ["Inter", "sans-serif"] 
+        // '''
       },
     },
   },
