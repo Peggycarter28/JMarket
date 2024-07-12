@@ -5,10 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {backgroundImage: 
+    extend: {
+      backgroundImage: 
       {
         'header_image':"url('/header-bg.svg')",
         'footer_image':"url('/footer-bg.svg');"
+      },
+      fontFamily:{
+        custom: ["Inter", "sans-serif"]
       },
     },
   },

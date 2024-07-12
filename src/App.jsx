@@ -10,13 +10,13 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
+    <div className="font-custom">
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="about" element={<Home/>} />
         <Route path="contact" element={<Home/>} />
       </Routes>
-    </>
+    </div>
   )
 }
 
