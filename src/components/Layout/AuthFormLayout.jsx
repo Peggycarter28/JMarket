@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom"
 
-const AuthFormLayout = () => {
+const AuthFormLayout = ({children}) => {
     return(<>
-    <div className="flex flex-col w-full justify-center align-center">
-        <div className="w-2/4 border p-8">
-            <Outlet/>
+    <div className="flex flex-col w-full items-center align-center">
+        <div className="w-2/4 border p-8 m-8 rounded">
+           {children}
         </div>
     </div>
     </>)

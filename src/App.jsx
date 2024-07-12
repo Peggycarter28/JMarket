@@ -17,8 +17,10 @@ function App() {
         <Route path="contact" element={<Home/>} />
         <Route path="auth/signin" element={<Login/>} />
         <Route path="auth/signup" element={<Register/>} />
-        
+
         <Route path="dashboard/vendor" element={<Home/>} />
+
+        <Route path="service/:service-slug" element={<Login/>} />
       </Routes>
     </div>
   )

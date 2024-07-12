@@ -15,12 +15,12 @@ import { useEffect } from 'react'
 function Home() {
 
     const items = [
-        { title: "Bee's Kitchen", description: "Test description" },
-        { title: "Hello world", description: "Test description" },
-        { title: "Bam's Food Clinic", description: "Test description" },
-        { title: "Bam's Food Clinic", description: "Test description" },
-        { title: "Bam's Food Clinic", description: "Test description" },
-        { title: "Bam's Food Clinic", description: "Test description" }
+        { title: "Bee's Kitchen", description: "Test description", url:"service/bees-kitchen-bauchi" },
+        { title: "CO electrical services", description: "Test description", url:"service/co-electrical-bauchi"  },
+        { title: "Mees Laundry services", description: "Test description", url:"service/mees-laundry"  },
+        { title: "Umar Bash Car hire services", description: "Test description", url:"service/umar-bash-car-hire-services"  },
+        { title: "BAC painters", description: "Test description", url:"service/bac-painters"  },
+        { title: "Musty logistics", description: "Test description", url:"service/m-logistics"  }
     ]
 
     useEffect(
