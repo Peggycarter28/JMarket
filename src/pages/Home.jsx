@@ -10,6 +10,7 @@ import TopVendorsCard from '../components/LandingPage/TopVendorsCard'
 import SignInNav from '../components/LandingPage/SignInNav'
 import siteLogo from '../assets/bauchi-connect-logo.svg'
 import LandingFooter2 from '../components/Footer/LandingFooter'
+import { useEffect } from 'react'
 
 function Home() {
 
@@ -21,6 +22,12 @@ function Home() {
         { title: "Bam's Food Clinic", description: "Test description" },
         { title: "Bam's Food Clinic", description: "Test description" }
     ]
+
+    useEffect(
+        ()=> {
+            document.title = "Bauchi Connect | Homepage"
+        }, []
+    )
     return (
         <>
         <main>
