@@ -13,12 +13,12 @@ import siteLogo from '../assets/bauchi-connect-logo.svg'
 function Home() {
 
     const items = [
-        { title: "Bam's Food Clinic", description: "lorem description is a description of some words that are into a group of words for the day" },
-        { title: "Hello world", description: "lorem description is a description of some words that are into a group of words for the day. So that" },
-        { title: "Bam's Food Clinic", description: "lorem description is a description of some words that are into a group of words for the day" },
-        { title: "Bam's Food Clinic", description: "lorem description is a description of some words that are into a group of words for the day" },
-        { title: "Bam's Food Clinic", description: "lorem description is a description of some words that are into a group of words for the day" },
-        { title: "Bam's Food Clinic", description: "lorem description is a description of some words that are into a group of words for the day" }
+        { title: "Bee's Kitchen", description: "Test description" },
+        { title: "Hello world", description: "Test description" },
+        { title: "Bam's Food Clinic", description: "Test description" },
+        { title: "Bam's Food Clinic", description: "Test description" },
+        { title: "Bam's Food Clinic", description: "Test description" },
+        { title: "Bam's Food Clinic", description: "Test description" }
     ]
     return (
         <main>

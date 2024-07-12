@@ -1,4 +1,4 @@
-const TopVendorsCard = ({title, items}) => {
+const TopVendorsCard = ({title, items, starRating=1}) => {
     return(
     <div className="flex-1">
     <h5>{title}</h5>
