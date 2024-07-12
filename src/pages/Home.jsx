@@ -9,6 +9,7 @@ import LeftsideBar from '../components/LandingPage/LeftSidebar'
 import TopVendorsCard from '../components/LandingPage/TopVendorsCard'
 import SignInNav from '../components/LandingPage/SignInNav'
 import siteLogo from '../assets/bauchi-connect-logo.svg'
+import LandingFooter2 from '../components/Footer/LandingFooter'
 
 function Home() {
 
@@ -21,6 +22,7 @@ function Home() {
         { title: "Bam's Food Clinic", description: "Test description" }
     ]
     return (
+        <>
         <main>
             <header className="h-[644px] w-100 bg-header_image bg-cover m-0 top-0 flex justify-between py-8 items-center flex-col">
             <nav className="flex w-full justify-around items-center">
@@ -33,8 +35,8 @@ function Home() {
                 ]} />
 
                 <SignInNav links={[
-                    { name: "Sign In", url: "" },
-                    { name: "Sign Up", url: "", isPrimary:true },
+                    { name: "Sign In", url: "auth/signin" },
+                    { name: "Sign Up", url: "auth/signup", isPrimary:true },
                 ]
                 } />
                 </div>
@@ -92,7 +94,8 @@ function Home() {
 
             </div>
         </main>
-
+        <LandingFooter2/>
+</>
     )
 }
 

@@ -10,7 +10,7 @@ const TopVendorsCard = ({ title, items, starRating = 1 }) => {
                     return <div key={index} className="w-[200px]">
                         {/* Image Container */}
                         <div className=" rounded-lg overflow-hidden">
-                            <img className="w-[200px] h-[120px] bg-green-600" src="./public/product.png" />
+                            <img className="w-[200px] h-[120px] bg-green-600" src="./product.png" />
                         </div>
         
 
