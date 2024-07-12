@@ -1,6 +1,7 @@
-import SidebarItem from "./SidebarItem"
+import SidebarItem from "../LandingPage/SidebarItem"
 
-const LeftsideBar = () => {
+
+const AgentSideBar = () => {
     const items = [
         {img: "", name:"Vehicles", count:699},
         {img: "", name:"Properties", count:699},
@@ -9,11 +10,11 @@ const LeftsideBar = () => {
         {img: "", name:"Beauty", count:699}
     ]
     return(
-        <aside className="w-[20vw]  mr-4 p-4 h-screen bg-[#F5F5F5] border border-[#EBEBEB]">
-            {items.map((item, index)=>{
+        <aside className="w-[20vw] h-[200px] mr-4 p-4 mt-10 box-content bg-[#F5F5F5] ">
+            {/* {items.map((item, index)=>{
                 return <SidebarItem itemObject={item} />
-            })}
+            })} */}
         </aside>
     )
 }
-export default LeftsideBar
+export default AgentSideBar

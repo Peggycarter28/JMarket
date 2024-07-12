@@ -7,8 +7,10 @@ export default {
   theme: {
     extend: {backgroundImage: 
       {
-        'header_image':"url('/public/header-bg.svg')"
-      }},
+        'header_image':"url('/header-bg.svg')",
+        'footer_image':"url('/footer-bg.svg');"
+      },
+    },
   },
   plugins: [],
 }

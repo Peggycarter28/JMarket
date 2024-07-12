@@ -7,7 +7,8 @@ import NavBar from '../components/LandingPage/NavBar'
 import ProductWithLeftSideBar from '../components/Layout/ProductWithLeftSidebar'
 import LeftsideBar from '../components/LandingPage/LeftSidebar'
 import TopVendorsCard from '../components/LandingPage/TopVendorsCard'
-
+import SignInNav from '../components/LandingPage/SignInNav'
+import siteLogo from '../assets/bauchi-connect-logo.svg'
 
 function Home() {
 
@@ -21,15 +22,26 @@ function Home() {
     ]
     return (
         <main>
-            <header className="h-[476px] w-100 bg-header_image bg-cover m-0 top-0 flex justify-around items-center flex-col">
+            <header className="h-[644px] w-100 bg-header_image bg-cover m-0 top-0 flex justify-between py-8 items-center flex-col">
+            <nav className="flex w-full justify-around items-center">
+    <img src={siteLogo} alt="" />
+
+                <div className='flex'>
                 <NavBar links={[
                     { name: "Find Vendors", url: "" },
-                    { name: "Vendors", url: "" },
-                    { name: "Sign In", url: "" },
-                    { name: "Sign Up", url: "" },
+                    { name: "Vendors", url: "" }
                 ]} />
-                <h1 className=" text-red-600 font-[48px] ">Discover more, connect better </h1>
-                <p>Bauchi Connect Puts Bauchi’s Best at Your Fingertips. Your Story of Connection Begins Now! </p>
+
+                <SignInNav links={[
+                    { name: "Sign In", url: "" },
+                    { name: "Sign Up", url: "", isPrimary:true },
+                ]
+                } />
+                </div>
+</nav>
+                <div className='flex-1 flex flex-col justify-center p-4 gap-8 items-center'>
+                <h1 className=" text-white font-semibold text-[48px] ">Discover more, connect better </h1>
+                <p className='text-[#F2F2F2] text-[24px] font-normal'>Bauchi Connect Puts Bauchi’s Best at Your Fingertips. Your Story of Connection Begins Now! </p>
 
                 <div className="flex gap-4">
                     <div className="h-[48px] w-[674px] bg-white border items-center flex rounded-full pl-3 pr-3">
@@ -43,30 +55,42 @@ function Home() {
                         <input className="flex-2 outline-none appearance-none" placeholder="Location" />
 
                     </div>
-                    <button className="bg-[orange] pl-4 pr-4">Search</button>
+                    <button className="bg-[#EF6C00] text-white rounded pl-4 pr-4 text-[16px] font-semibold">Search</button>
                 </div>
+
                 <div className="flex gap-8">
-                    <div className="bg-white p-2 rounded-full">
+                    <div className='w-[96px] h-[98px] flex flex-col items-center justify-start'>
+                    <div className="bg-white p-2 w-[56px] h-[56px] rounded-full">
                         <img src={star} />
                     </div>
-                    <div className="bg-white p-2 rounded-full items-center justify-center pt-5">
-                        <img src={CAC} />
+                    <p className='text-[#808080] text-[16px] font-semibold'>Top Vendors</p>
                     </div>
 
 
+                    <div className='w-[96px] h-[150px] flex flex-col items-center justify-start'>
+                    <div className="bg-white p-2 w-[56px] h-[56px] rounded-full">
+                        <img src={CAC} />
+                    </div>
+                    <p className='text-[#808080] text-[16px] font-semibold'>CAC <br /> Verified <br />Vendors</p>
+                    </div>
 
-                    <div className="bg-white p-2 rounded-full">
+                    <div className='w-[96px] h-[150px] flex flex-col items-center justify-start'>
+                    <div className="bg-white p-2 w-[56px] h-[56px] rounded-full">
                         <img src={vendorsNearYou} />
+                    </div>
+                    <p className='text-[#808080] text-[16px] font-semibold'>Vendors <br /> near <br />you</p>
+                    </div>
+
                     </div>
                 </div>
             </header>
 
-            <ProductWithLeftSideBar>
-                <LeftsideBar />
+            <div className="flex flex-row px-10 py-4">
 
+                <LeftsideBar />
                 <TopVendorsCard title={"Top Vendors"} items={items} />
 
-            </ProductWithLeftSideBar>
+            </div>
         </main>
 
     )
