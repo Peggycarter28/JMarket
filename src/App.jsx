@@ -6,6 +6,8 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
+import Vendors from './pages/vendors'
+import ChatVendor from './pages/vendors/ChatVendor'
 
 
 function App() {
@@ -20,7 +22,8 @@ function App() {
 
         <Route path="dashboard/vendor" element={<Home/>} />
 
-        <Route path="service/:service-slug" element={<Login/>} />
+        <Route path="service/:category/:title" element={<Vendors/>} />
+        <Route path="service/:category/:title/chat" element={<ChatVendor/>} /> 
       </Routes>
     </div>
   )
