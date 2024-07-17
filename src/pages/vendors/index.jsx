@@ -27,7 +27,7 @@ const Vendors = () => {
                         Category &gt;&gt; {category}
                     </div>
 
-                    <div className="fw-[600] text-[#464B4F] text-[48px] leading-[58.09px] flex gap-4 align-end">{title}
+                    <div className="fw-[600] text-[#464B4F] text-[48px] leading-[58.09px] flex gap-4 align-end">{title.replaceAll("-", " ")}
 
                         <div className="flex-2 flex gap-1 items-center text-[#808080] text-[16px]">
                             (4.2) <img className="size-[16px]" src="/vendors-star.svg" />

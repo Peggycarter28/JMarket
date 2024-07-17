@@ -8,22 +8,36 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Vendors from './pages/vendors'
 import ChatVendor from './pages/vendors/ChatVendor'
+import ProfileDetailsSettings from './pages/Dashboard/Client/Settings'
+import UserProfile from './pages/client/UserProfile'
 
 
 function App() {
   return (
     <div className="font-custom">
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="about" element={<Home/>} />
-        <Route path="contact" element={<Home/>} />
-        <Route path="auth/signin" element={<Login/>} />
-        <Route path="auth/signup" element={<Register/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="about" element={<Home />} />
+        <Route path="contact" element={<Home />} />
+        <Route path="auth/signin" element={<Login />} />
+        <Route path="auth/signup" element={<Register />} />
 
-        <Route path="dashboard/vendor" element={<Home/>} />
+        <Route path="dashboard/vendor" element={<Home />} />
 
-        <Route path="service/:category/:title" element={<Vendors/>} />
-        <Route path="service/:category/:title/chat" element={<ChatVendor/>} /> 
+        <Route path="user/:username" element={<UserProfile />} />
+
+        <Route path="dashboard">
+          <Route path='user'>
+            <Route path="" element={<Home />} />
+            
+            <Route path="chats" element={<ChatVendor />} />
+            <Route path="settings" element={<ProfileDetailsSettings />} />
+          </Route>
+
+        </Route>
+
+        <Route path="service/:category/:title" element={<Vendors />} />
+        <Route path="service/:category/:title/chat" element={<ChatVendor />} />
       </Routes>
     </div>
   )

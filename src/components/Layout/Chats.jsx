@@ -1,0 +1,24 @@
+const Chats = ({type, message, time}) => {
+    return(
+        <>
+        { type == "reply" ?
+        <div className="m-2 p-4 w-[60%] rounded-bl-[800px] rounded-r-[400px] ">
+        <div className="bg-[#F49D5440] rounded-bl-[800px] rounded-r-[400px] p-4 ">
+    <p className="text-[14px] text-[#464B4F]">Chats</p>
+    
+        </div>
+        <p className="text-[#808080] text-[14px]">{time}</p>
+        </div>
+        :
+        <div className="m-2 p-4 w-[60%] self-end rounded-l-[400px] rounded-br-[800px] ">
+        <div className="bg-[#58975B40] rounded-l-[400px] rounded-br-[800px] p-4">
+    <p className="text-[14px] text-[#464B4F]">Chats</p>
+        </div>
+        <p className="text-[#808080] text-[14px] text-right">{time}</p>
+        </div>
+        }
+        </>
+    )
+}
+
+export default Chats

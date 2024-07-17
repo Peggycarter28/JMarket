@@ -50,7 +50,7 @@ function Home() {
                             </div>
                             <button className="bg-[#EF6C00] text-white rounded pl-4 pr-4 text-[16px] font-semibold">Search</button>
                         </div>
-
+                        
                         <div className="flex gap-8">
                             <div className='w-[96px] h-[98px] flex flex-col items-center justify-start'>
                                 <div className="bg-white p-2 w-[56px] h-[56px] rounded-full">
