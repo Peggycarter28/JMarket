@@ -10,6 +10,7 @@ import Vendors from './pages/vendors'
 import ChatVendor from './pages/vendors/ChatVendor'
 import ProfileDetailsSettings from './pages/Dashboard/Client/Settings'
 import UserProfile from './pages/client/UserProfile'
+import ClientHome from './pages/Dashboard/Client/Home'
 
 
 function App() {
@@ -28,10 +29,10 @@ function App() {
 
         <Route path="dashboard">
           <Route path='user'>
-            <Route path="" element={<Home />} />
+            <Route path="" element={<ClientHome />} />
             
             <Route path="chats" element={<ChatVendor />} />
-            <Route path="settings" element={<ProfileDetailsSettings />} />
+            <Route path="settings/:curr_section" element={<ProfileDetailsSettings />} />
           </Route>
 
         </Route>

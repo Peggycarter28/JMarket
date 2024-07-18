@@ -1,46 +1,59 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import ChatsCard from "./ChatsCard"
 import GrayContainer from "./GrayContainer"
+import DashSideNav from "./DashSideNav"
 
 const UserDashboardLayout = ({ children }) => {
+
+    const { curr_section } = useParams()
+
+    const sub_sections = [
+        { name: "Profile Details", slug: "profile" },
+        { name: "Recently Viewed", slug: "viewed" },
+        { name: "Settings", slug: "settings" }
+    ]
+
     return (
         <>
             <GrayContainer noPadding={true}>
                 <div className="flex h-screen">
-                    <aside className="w-[103px] border bg-white">
-                        <nav className="flex flex-col items-center gap-2 pt-4">
-                            <div className="bg-[red] size-[50px] rounded-[25px] flex items-center justify-center">
-                                <img src="/user_thumbs/thumb.png" alt="Pic" />
-                            </div>
-
-                            <Link to={""}>
-                                <img src="/home.svg" alt="Pic" />
-                            </Link>
-
-                            <Link to={""}>
-                                <img src="/chat-menu-icon.svg" alt="Pic" />
-                            </Link>
-
-                            <Link to={""}>
-                                <img src="/setting-menu-icon.svg" alt="Pic" />
-                            </Link>
-                        </nav>
-                    </aside>
+                    <DashSideNav />
                     <main className="flex-1 flex border gap-4 p-4">
-                        <div className="flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex flex-col">
+                        <div className="flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex flex-col justify-center items-center">
                             {/* Title */}
-                            <h3 className="text-[48px] leading-[58.09px] text-bold">Chat</h3>
+                            <h3 className="py-8">
+                                <img className="" src="/logo.svg" alt="BauchiConnect Logo" />
+                            </h3>
 
-                            <div className=" flex-1">
+                            {/* USer Details */}
+                            <h4 className="text-[#464B4F] text-[24px] fw-600">Barakat Laushi</h4>
+                            <p className="text-[#808080] text-[16px]">petegambo@gmail.com</p>
+
+
+                            {/* User Settings */}
+                            <div className=" flex-1 w-full">
                                 {/* Settings Collections */}
-                                <ChatsCard />
-                                
+                                <ul className="">
+                                    {
+                                        sub_sections.map(sec =>
+                                            <Link key={sec.slug} to={`../settings/${sec.slug}`}>
+                                                <li className={`rounded-[12px] bg-[#F2F2F2] px-[24px] py-[20px] flex gap-[10px] mt-2 text-[#808080] text-bold ${curr_section == sec.slug ? "bg-[green] text-[white]" : ""}`}>
+
+                                                    {sec.name}
+
+                                                </li>
+                                            </Link>
+
+                                        )
+                                    }
+                                </ul>
+
                             </div>
 
                         </div>
 
                         {/* Chat Area */}
-                        <div className="flex-[8]  flex flex-col border rounded-[17px] bg-[#F9F9F9] ">
+                        <div className="flex-[8] p-4 flex flex-col border rounded-[17px] bg-[#F9F9F9] ">
                             {children}
                         </div>
                     </main>

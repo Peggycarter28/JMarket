@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import WhiteInGrayContainer from "../Layout/WhiteInGrayContainer"
 
 const ReviewCard = () => {
@@ -8,7 +9,7 @@ const ReviewCard = () => {
                     <div className="bg-[red] size-[50px] rounded-[25px] flex items-center justify-center">
                         <img src="/user_thumbs/thumb.png" alt="Pic" />
                     </div>
-                    <p>Abubakar Laushi</p>
+                    <Link to={"../user/petergambo"}><p>Abubakar Laushi</p></Link>
                 </div>
 
 

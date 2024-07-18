@@ -18,6 +18,7 @@ const Vendors = () => {
                     <img src={vendorImage} />
                 </div>
             </header>
+            
             <div className="p-8 px-[136px] flex flex-row gap-4">
 
                 {/* First Column */}
