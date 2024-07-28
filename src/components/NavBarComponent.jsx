@@ -4,13 +4,13 @@ import siteLogo from '../assets/bauchi-connect-logo.svg'
 
 const NavBarComponent = () => {
     return(
-        <nav className="flex w-full justify-around items-center p-8">
-                        <img src={siteLogo} alt="" />
+        <nav className="flex w-full justify-between md:justify-around items-center p-2 md:p-8">
+                        <img src={siteLogo} class alt="BConnect Logo" />
 
-                        <div className='flex'>
+                        <div className='hidden md:flex'>
                             <NavBar links={[
-                                { name: "Find Vendors", url: "" },
-                                { name: "Vendors", url: "" }
+                                { name: "Find Vendors", url: "/search" },
+                                { name: "Vendors", url: "/search" }
                             ]} />
 
                             <SignInNav links={[
@@ -18,7 +18,11 @@ const NavBarComponent = () => {
                                 { name: "Sign Up", url: "auth/signup", isPrimary: true },
                             ]
                             } />
+
+                            
                         </div>
+
+                        <div className="size-[50px] bg-[white] md:hidden">Mobile Nav</div>
                     </nav>
     )
 }

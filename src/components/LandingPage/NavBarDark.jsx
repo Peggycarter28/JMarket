@@ -2,16 +2,16 @@ import { Link } from "react-router-dom"
 import DropdownArrow from "../../assets/chevron-down.svg"
 
 
-const NavBarLanding = ({links}) => {
+const NavBar = ({links}) => {
     return <ul className="flex gap-2">
         {links.map(
             (link, index)=>{
                 return (<li key={index} className='px-5 py-3'> 
-                <Link className="text-black text-[16px] font-semibold flex gap-2 items-center justify-center" to={`${link.url}`}>{link.name} <img src={DropdownArrow} alt="drop-down-icon" /></Link>
+                <Link className="text-black text-[16px] font-semibold flex gap-2 items-center justify-center" to={link.url}>{link.name} <img src={DropdownArrow} alt="drop-down-icon" /></Link>
             </li>)
             }
         )}
     </ul>
 }
 
-export default NavBarLanding
+export default NavBar

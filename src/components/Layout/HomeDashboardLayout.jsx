@@ -35,7 +35,6 @@ const HomeDashboardLayout = ({ children }) => {
                                 <button className="bg-[#808080] px-[16px] py-[12px] mt-4 text-[white] rounded">Logout</button>
 
                                 <div className="flex-1"></div>
-
                         </div>
 
                          {/* Chat Area */}

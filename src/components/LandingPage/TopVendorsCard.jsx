@@ -4,17 +4,17 @@ const TopVendorsCard = ({ title, items, starRating = 1 }) => {
 
     return (
         <div className="flex-1">
-            <h5>
+            <h5 className="font-bold text-[24px] p-4 md:p-1">
                 {title}
             </h5>
 
-            <div className="flex flex-wrap gap-8">
+            <div className="flex flex-wrap gap-8 w-full">
                 {items.map((item, index) => {
-                    return <div key={index} className="w-[200px] border rounded-lg p-2">
+                    return <div key={index} className="w-full m-2 md:w-[200px] border md:border-none rounded-lg p-2">
                         {/* Image Container */}
                         <Link to={item.url}>
-                            <div className=" rounded-lg overflow-hidden">
-                                <img className="w-[200px] h-[120px] bg-green-600" src="./product.png" />
+                            <div className="w-full md:w-auto h-[190px] md:h-auto rounded-lg overflow-hidden border">
+                                <img className="w-full md:w-[200px] h-auto md:h-[120px] bg-green-600" src="./product.png" />
                             </div>
                         </Link>
 

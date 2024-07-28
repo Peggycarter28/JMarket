@@ -1,0 +1,1 @@
+export const API_URL = "https://bauchi-connect-v1.onrender.com"
