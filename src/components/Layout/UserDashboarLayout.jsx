@@ -18,7 +18,7 @@ const UserDashboardLayout = ({ children }) => {
             <GrayContainer noPadding={true}>
                 <div className="flex h-screen">
                     <DashSideNav />
-                    <main className="flex-1 flex border gap-4 p-4">
+                    <main className="flex-1 flex flex-col md:flex-row border gap-4 p-4">
                         <div className="flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex flex-col justify-center items-center">
                             {/* Title */}
                             <h3 className="py-8">
@@ -53,7 +53,7 @@ const UserDashboardLayout = ({ children }) => {
                         </div>
 
                         {/* Chat Area */}
-                        <div className="flex-[8] p-4 flex flex-col border rounded-[17px] bg-[#F9F9F9] ">
+                        <div className="flex-[8] p-4 md:flex flex-col border rounded-[17px] bg-[#F9F9F9] ">
                             {children}
                         </div>
                     </main>

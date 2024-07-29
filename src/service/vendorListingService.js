@@ -1,3 +1,4 @@
+import axios from "axios"
 import { API_URL } from "../constants/config"
 
 export const getAllVendorsService = async () => {
@@ -11,6 +12,7 @@ export const getAllVendorsCategoryService = async () => {
     const response = await axios.get(`${API_URL}/vendors/all-categories`)
     return response
 }
+
 
 export const getVendorByIdService = async (vendorId ) => {
 

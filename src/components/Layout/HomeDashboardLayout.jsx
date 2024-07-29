@@ -17,8 +17,8 @@ const HomeDashboardLayout = ({ children }) => {
             <GrayContainer noPadding={true}>
                 <div className="flex h-screen">
                     <DashSideNav />
-                    <main className="flex-1 flex border gap-4 p-4">
-                    <div className="flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex flex-col justify-center items-center">
+                    <main className="flex-1 flex border gap-2 md:gap-4 p-2 md:p-4">
+                    <div className="hidden flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 md:flex flex-col justify-center items-center">
                             {/* Title */}
                             <h3 className="py-8">
                                 <img className="" src="/logo.svg" alt="BauchiConnect Logo" />
@@ -38,7 +38,7 @@ const HomeDashboardLayout = ({ children }) => {
                         </div>
 
                          {/* Chat Area */}
-                         <div className="flex-[8] p-4 flex flex-col border rounded-[17px] bg-[#F9F9F9] ">
+                         <div className="flex-[8] p-2 overflow-y-scroll flex flex-col border rounded-[17px] bg-[#F9F9F9] ">
                             {children}
                         </div>
 

@@ -5,13 +5,22 @@ export const loginService = async (credentials) => {
 
     const response = await axios.post(`${API_URL}/api/auth/token/login/`, credentials)
 
+    // {"username":"aren", "password": "gpezeka"}
+
     return response
 }
 
 export const registerService = async (data ) => {
 
-    const response = await axios.post(`${API_URL}/api-v1/auth/login`, data)
+    const response = await axios.post(`${API_URL}/api/auth/users/`, data)
 
+    
+    // {
+//     "username": "new_user",
+//     "email": "new_user@example.com",
+//     "password": "your_secure_password",
+//     "re_password": "your_secure_password"
+// }
     return response
 }
 

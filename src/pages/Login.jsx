@@ -2,6 +2,7 @@ import { useState } from "react"
 import AuthFormLayout from "../components/Layout/AuthFormLayout"
 import { loginService } from "../service/authService"
 import { Link } from "react-router-dom"
+import LoaderScreen from "./LoaderScreen"
 
 const Login = () => {
     // Variables that will store the username and password as they type.
@@ -11,8 +12,16 @@ const Login = () => {
     // Function that will call the login service and pass the user data for authentication
     // It will be invoked by the login button in the form
     const handleLogin = async () => {
+        const credentials = {username:email, password: password}
         try {
-        await loginService(email, password)
+            const res = await loginService(credentials)
+
+            if(res.status == 200 || res.data == 201)
+            {
+                window.location.pathname = "/dashboard"
+            }
+
+            return alert("Invalid login credentials")
         }
         catch(err){
             alert('Error!', err)
@@ -22,7 +31,9 @@ const Login = () => {
 
     return (
         <AuthFormLayout>
-            <div className="w-full flex flex-col gap-6">
+            {/* <LoaderScreen/> */}
+
+            <div className="w-full flex flex-col gap-2 md:gap-6 items-center justify-center min-h-screen">
                 <div>
             <h2 className="font-bold text-[24px] text-center">Welcome Back</h2>
                     <p className="font-regular text-[16px] text-center">Stay connected with your favourite vendors - sign in now.</p>

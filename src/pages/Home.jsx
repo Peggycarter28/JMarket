@@ -9,6 +9,7 @@ import TopVendorsCard from '../components/LandingPage/TopVendorsCard'
 import LandingFooter2 from '../components/Footer/LandingFooter'
 import { useEffect } from 'react'
 import NavBarComponent from '../components/NavBarComponent'
+import NavBarLandingComponent from '../components/NavBarLandingComponent'
 
 function Home() {
 
@@ -32,7 +33,7 @@ function Home() {
         <>
             <main className='min-h-screen'>
                 <header className="h-screen p-4 md:h-[644px] w-full bg-header_image bg-cover m-0 top-0 flex justify-between py-8 items-center flex-col">
-                    <NavBarComponent />
+                    <NavBarLandingComponent/>
 
                     <div className='flex-1 flex flex-col justify-center p-4 gap-8 items-center'>
                         <h1 className=" text-white font-semibold text-[26px] w-[80vw] text-center md:text-[48px] ">Discover more, connect better </h1>
@@ -49,8 +50,11 @@ function Home() {
                                         placeholder="What are you looking for?" />
                                 </div>
                                 <img src={locationIcon} className=" h-[24px] w-[24px] flex-initial" />
-                                <div className="flex-1 md:flex-1" >
-                                    <input className="flex-1 md:flex-2 outline-none appearance-none" placeholder="Location" />
+                                <div className="flex-1 md:flex-2 flex" >
+                                    <select className="flex-1 md:flex-1 text-[#9caccb] outline-none appearance-none" placeholder="Location">
+                                        <option value="">Location</option>
+                                        <option value="">Bogoro</option>
+                                    </select>
                                 </div>
 
                             </div>

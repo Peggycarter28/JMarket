@@ -21,8 +21,9 @@ const ChatVendor = () => {
     return (
 
         <VendorChatLayout>
-            <main className="flex-1 flex border gap-4 p-4">
-                <div className="flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex flex-col">
+            <main className="flex-1 h-screen overflow-hidden flex flex-col md:flex-row border gap-4">
+
+                <div className="hidden md:flex flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex flex-col">
                     {/* Title */}
                     <h3 className="text-[48px] leading-[58.09px] text-bold">Chat</h3>
 
@@ -48,10 +49,10 @@ const ChatVendor = () => {
                 </div>
 
                 {/* Chat Area */}
-                <div className="flex-[8]  flex flex-col border rounded-[17px] bg-[#F9F9F9] bg-auth_form_image">
+                <div className="flex-[8] h-screen flex flex-col border rounded-[17px] bg-[#F9F9F9] bg-auth_form_image">
                     <div className="flex border gap-4 items-center justify-between h-[101px] bg-[#EDEDED] m-4 overflow-hidden rounded-[16px]">
 
-                        <div className="flex gap-4 items-center">
+                        <div className="flex items-start gap-4 items-center">
                             <div className="size-[81px] rounded-full overflow-hidden">
                                 <img className="h-[81px]" src="/product.png" alt="" />
                             </div>
@@ -85,7 +86,7 @@ const ChatVendor = () => {
                         <GrayContainer rounded={true}>
                             <div className="flex items-center">
                                 <img src="/photo-add.svg" className="size-[32px]" />
-                                <input className="flex-1 bg-transparent p-2" placeholder={`Send message to ${title}`} type="text" name="" id="" />
+                                <input className="flex-1 bg-transparent p-2 appearance-none outline-none" placeholder={`Send message to ${title}`} type="text" name="" id="" />
                             </div>
                         </GrayContainer>
 

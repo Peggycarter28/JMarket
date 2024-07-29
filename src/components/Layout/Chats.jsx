@@ -2,7 +2,7 @@ const Chats = ({type, message, time}) => {
     return(
         <>
         { type == "reply" ?
-        <div className="m-2 p-4 w-[60%] rounded-bl-[800px] rounded-r-[400px] ">
+        <div className="m-2 p-4 w-[60%] rounded-bl-[200px] md:rounded-bl-[400px] rounded-r-[100px] md:rounded-r-[200px] ">
         <div className="bg-[#F49D5440] rounded-bl-[800px] rounded-r-[400px] p-4 ">
     <p className="text-[14px] text-[#464B4F]">Chats</p>
     

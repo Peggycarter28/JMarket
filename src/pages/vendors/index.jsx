@@ -14,12 +14,12 @@ const Vendors = () => {
             <header>
                 <NavBarComponent />
                 {/* Vendor cover image */}
-                <div className="h-[480px] w-full overflow-hidden">
+                <div className="h-auto md:h-[480px] w-full overflow-hidden">
                     <img src={vendorImage} />
                 </div>
             </header>
             
-            <div className="p-8 px-[136px] flex flex-row gap-4">
+            <div className="p-8 px-2 md:px-[136px] flex flex-col md:flex-row gap-4">
 
                 {/* First Column */}
                 <div className="flex-[8] ">
@@ -28,7 +28,7 @@ const Vendors = () => {
                         Category &gt;&gt; {category}
                     </div>
 
-                    <div className="fw-[600] text-[#464B4F] text-[48px] leading-[58.09px] flex gap-4 align-end">{title.replaceAll("-", " ")}
+                    <div className="fw-[600] text-[#464B4F] text-[24px] md:text-[48px] leading-[58.09px] flex gap-4 align-end">{title.replaceAll("-", " ")}
 
                         <div className="flex-2 flex gap-1 items-center text-[#808080] text-[16px]">
                             (4.2) <img className="size-[16px]" src="/vendors-star.svg" />
@@ -41,9 +41,13 @@ const Vendors = () => {
                     </div>
 
                     {/*  */}
-                    <div className="flex justify-start mb-[30px]">
+                    <div className="flex gap-4 justify-start mb-[30px]">
                         <Link to="chat">
                         <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={true} title="Message" />
+                        </Link>
+
+                        <Link to="order">
+                        <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={false} title="Order Now" />
                         </Link>
                     </div>
 

@@ -2,8 +2,10 @@ import NavBar from "./LandingPage/NavBar"
 import SignInNav from "./LandingPage/SignInNav"
 import siteLogo from '../assets/bauchi-connect-logo.svg'
 import { Link } from "react-router-dom"
+import NavBarWhite from "./LandingPage/NavBarDark"
+import SignInNavWhite from "./LandingPage/SignInNavWhite"
 
-const NavBarComponent = () => {
+const NavBarLandingComponent = () => {
     return (
         <div className="flex w-full">
             <div className="flex w-full justify-end absolute top-0 right-0 mt-3 mr-3 index-[45]">
@@ -19,12 +21,12 @@ const NavBarComponent = () => {
                 </Link>
 
                 <div className='hidden md:flex'>
-                    <NavBar links={[
+                    <NavBarWhite links={[
                         { name: "Find Vendors", url: "/search" },
                         { name: "Vendors", url: "/search" }
                     ]} />
 
-                    <SignInNav links={[
+                    <SignInNavWhite links={[
                         { name: "Sign In", url: "auth/signin" },
                         { name: "Sign Up", url: "auth/signup", isPrimary: true },
                     ]
@@ -41,4 +43,4 @@ const NavBarComponent = () => {
     )
 }
 
-export default NavBarComponent
+export default NavBarLandingComponent
