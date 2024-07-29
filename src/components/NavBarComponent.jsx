@@ -25,8 +25,8 @@ const NavBarComponent = () => {
                             
                         </div>
 
-                        <div className="size-[50px] bg-[white] md:hidden">
-                            <img className="size-[30px] p-2" src="https://img.icon8.com/ios/50/FFFFFF/menu-v7.png" alt="Menu Icon" />
+                        <div className="size-[50px] p-2 md:hidden">
+                            <img className="size-[30px]" src="https://img.icons8.com/ios/50/FFFFFF/menu-v7.png" alt="Menu Icon" />
                         </div>
                     </nav>
     )
