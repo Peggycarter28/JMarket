@@ -1,11 +1,14 @@
 import NavBar from "./LandingPage/NavBar"
 import SignInNav from "./LandingPage/SignInNav"
 import siteLogo from '../assets/bauchi-connect-logo.svg'
+import { Link } from "react-router-dom"
 
 const NavBarComponent = () => {
     return(
         <nav className="flex w-full justify-between md:justify-around items-center p-2 md:p-8">
+                        <Link to={"/"}>
                         <img src={siteLogo} class alt="BConnect Logo" />
+                        </Link>
 
                         <div className='hidden md:flex'>
                             <NavBar links={[
@@ -22,7 +25,9 @@ const NavBarComponent = () => {
                             
                         </div>
 
-                        <div className="size-[50px] bg-[white] md:hidden">Mobile Nav</div>
+                        <div className="size-[50px] bg-[white] md:hidden">
+                            <img className="size-[30px] p-2" src="https://img.icon8.com/ios/50/FFFFFF/menu-v7.png" alt="Menu Icon" />
+                        </div>
                     </nav>
     )
 }
