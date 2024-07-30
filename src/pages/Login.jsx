@@ -19,7 +19,7 @@ const Login = () => {
 
             if(res.status == 200 || res.data == 201)
             {
-                Cookies.set('token', res.data['token'], {expires: 7})
+                Cookies.set('token', res.data['auth_token'], {expires: 7})
                 window.location.pathname = "/dashboard"
             }
 
