@@ -16,11 +16,6 @@ function Home() {
 
    const {user, setUser} = useContext(UserContext)
 
-   console.log(user)
-
-  const handleLangUpdate = (lang) => {
-    setUser(prev => ({...prev, lang: lang}))
-   }
 
     useEffect(
         () => {

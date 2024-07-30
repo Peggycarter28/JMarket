@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { getAllVendorsService } from "../../service/vendorListingService"
+import { UserContext } from "../../context/AppContextt"
 
 const TopVendorsCard = ({ title}) => {
+
+    
+   const {user, setUser} = useContext(UserContext)
+
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -61,8 +66,12 @@ const TopVendorsCard = ({ title}) => {
                                 <div className="text-[12px] text-[#808080] flex gap-1 items-center">
                                     <img className="w-[12px] h-[12px]" src="./vendors-location.svg" /> {item.local_government.name}
                                 </div>
-                                <p className="text-[#808080] text-[12px]">{item.description}</p>
+                                {
+                                user.lang == 'ha'
+                                ? 
                                 <p className="text-[#808080] text-[12px]">{item.description_ha}</p>
+                                :<p className="text-[#808080] text-[12px]">{item.description}</p>
+                        }
 
                                 <Link to={item.id} className="justify-left">View</Link>
                             </div>
