@@ -20,10 +20,12 @@ const Login = () => {
             if(res.status == 200 || res.data == 201)
             {
                 Cookies.set('token', res.data['auth_token'], {expires: 7})
-                window.location.pathname = "/dashboard"
+                alert("Logged In Successfully!")
+                return window.location.pathname = "/dashboard/user"
             }
-
+            else{
             return alert("Invalid login credentials")
+        }
         }
         catch(err){
             alert('Error!', err)
