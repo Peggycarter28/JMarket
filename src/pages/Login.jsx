@@ -14,7 +14,7 @@ const Login = () => {
     // It will be invoked by the login button in the form
     const handleLogin = async () => {
         username = password = "" ? alert("Username or password cannot be blank") : ""
-        
+
         const credentials = {username:email, password: password}
         try {
             const res = await loginService(credentials)
@@ -23,10 +23,11 @@ const Login = () => {
             {
                 Cookies.set('token', res.data['auth_token'], {expires: 7})
                 alert("Logged In Successfully!")
-                return window.location.pathname = "/dashboard/user"
+                 window.location.pathname = "/dashboard/user"
+                 
             }
             else{
-            return alert("Invalid login credentials")
+             alert("Invalid login credentials")
         }
         }
         catch(err){
