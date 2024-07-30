@@ -6,9 +6,32 @@ import WhiteInGrayContainer from "../../components/Layout/WhiteInGrayContainer"
 import LandingFooter2 from "../../components/Footer/LandingFooter"
 import CTAButton from "../../components/Forms/Buttons/CTAButton"
 import ReviewCard from "../../components/Services/ReviewCard"
+import { useEffect, useState } from "react"
+import { getVendorByIdService } from "../../service/vendorListingService"
 
 const Vendors = () => {
     const { category, title } = useParams()
+
+    const [item, setItem] = useState([])
+
+    useEffect(() => {
+        console.log("Viewing single Vendor")
+
+        const fetch = async () => {
+            
+            const res = await getVendorByIdService(title)
+
+            if (res.status == 200 || res.status == 201) {
+
+                console.log(res.data)
+
+                setItem(res.data)
+            }
+            else { alert("Unable to fetch vendor") }
+        }
+
+        fetch()
+    }, [])
     return (
         <>
             <header>
@@ -28,16 +51,16 @@ const Vendors = () => {
                         Category &gt;&gt; {category}
                     </div>
 
-                    <div className="fw-[600] text-[#464B4F] text-[24px] md:text-[48px] leading-[58.09px] flex gap-4 align-end">{title.replaceAll("-", " ")}
+                    <div className="fw-[600] text-[#464B4F] text-[24px] md:text-[48px] leading-[58.09px] flex gap-4 align-end">{item.name}
 
                         <div className="flex-2 flex gap-1 items-center text-[#808080] text-[16px]">
-                            (4.2) <img className="size-[16px]" src="/vendors-star.svg" />
+                            ({item?.rating}) <img className="size-[16px]" src="/vendors-star.svg" />
                         </div>
                     </div>
 
                     {/*  */}
                     <div className="text-[24px] text-[#808080] flex gap-1 items-center">
-                        <img className="size-[24px]" src="/vendors-location.svg" /> Bauchi
+                        <img className="size-[24px]" src="/vendors-location.svg" /> {item?.local_government?.name}
                     </div>
 
                     {/*  */}
@@ -55,7 +78,8 @@ const Vendors = () => {
                         <WhiteInGrayContainer>
                             <div>
                                 <h5 className="text-[#484848] leading-[19.36px]">Vendor Description</h5>
-                                <p className="text-[#808080] text-[14px] leading-[20px]">Your go-to for exquisite, flavorful dishes. Elevate your taste experience with our curated selection of gourmet treats and comforting classics. Your go-to for exquisite, flavorful dishes. Elevate your taste experience with our curated selection of gourmet treats and comforting classics. Your go-to for exquisite, flavorful dishes. Elevate your taste experience with our curated selection of gourmet treats and comforting classics. Your go-to for exquisite, flavorful dishes. Elevate your taste experience with our curated selection of gourmet treats and comforting classics.</p>
+                                <p className="text-[#808080] text-[14px] leading-[20px]">{item?.description}</p>
+                                <p className="text-[#808080] text-[14px] leading-[20px]">{item?.description_ha}</p>
                             </div>
                         </WhiteInGrayContainer>
 
