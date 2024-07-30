@@ -6,10 +6,14 @@ import WhiteInGrayContainer from "../../components/Layout/WhiteInGrayContainer"
 import LandingFooter2 from "../../components/Footer/LandingFooter"
 import CTAButton from "../../components/Forms/Buttons/CTAButton"
 import ReviewCard from "../../components/Services/ReviewCard"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { getVendorByIdService } from "../../service/vendorListingService"
+import { UserContext } from "../../context/AppContextt"
 
 const Vendors = () => {
+    
+   const {user, setUser} = useContext(UserContext)
+
     const { category, title } = useParams()
 
     const [item, setItem] = useState([])
@@ -48,7 +52,11 @@ const Vendors = () => {
                 <div className="flex-[8] ">
 
                     <div className="text[12px] font-regular leading-[14.52px] text-[#808080]">
-                        Category &gt;&gt; {category}
+                    {
+                                user.lang == 'ha'
+                                ? `Kategori`
+                                :  ` &gt;&gt; Category`
+}${category}
                     </div>
 
                     <div className="fw-[600] text-[#464B4F] text-[24px] md:text-[48px] leading-[58.09px] flex gap-4 align-end">{item.name}
@@ -66,40 +74,52 @@ const Vendors = () => {
                     {/*  */}
                     <div className="flex gap-4 justify-start mb-[30px]">
                         <Link to="chat">
-                        <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={true} title="Message" />
+                        <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={true} title={user.lang == 'ha' ? `Message` :`Message`} />
                         </Link>
 
                         <Link to="order">
-                        <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={false} title="Order Now" />
+                        <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={false} title={user.lang == 'ha' ? `Order Yanzu` :`Order Now`} />
                         </Link>
                     </div>
 
                     <GrayContainer>
                         <WhiteInGrayContainer>
                             <div>
-                                <h5 className="text-[#484848] leading-[19.36px]">Vendor Description</h5>
+                                <h5 className="text-[#484848] leading-[19.36px]">
+                                {user.lang == 'ha' ? `Bayanin Aiki` :`Vendor Description`}
+                                </h5>
                                 <p className="text-[#808080] text-[14px] leading-[20px]">{item?.description}</p>
                                 <p className="text-[#808080] text-[14px] leading-[20px]">{item?.description_ha}</p>
                             </div>
                         </WhiteInGrayContainer>
 
                         <WhiteInGrayContainer>
-                            <h5>Opening time</h5>
+                            <h5>
+                            {user.lang == 'ha' ? `Lokacin bude` :`Opening time`}
+                            </h5>
                             <p>Mon-Fri 09:00–16:00</p>
                             <p>Saturday (Only Appointments)</p>
                         </WhiteInGrayContainer>
 
                         <WhiteInGrayContainer>
-                            <h5>Rate and Review</h5>
+                            <h5>
+                            {user.lang == 'ha' ? `Kimanta da bita` :`Rate and Review`}
+                            </h5>
                             <hr />
-                            <h6>Your review</h6>
+                            <h6>
+                                {user.lang == 'ha' ? `Bincikinka` :`Your Review`}
+                            </h6>
                             <textarea className="border w-full min-h-[120px]" name="" id="">
                             </textarea>
 
-                            <fieldset><input id="rememberMe" type="checkbox" /> <label htmlFor="rememberMe">Save my name, email, and website in this browser for the next time I comment.</label></fieldset>
+                            <fieldset><input id="rememberMe" type="checkbox" /> <label htmlFor="rememberMe">
+                                {user.lang == 'ha' ? `Ajiye sunana, imel, da shafin yanar gizo a wanan mai bincike don karo na gaba da zan yi sharhi` :`Save my name, email, and website in this browser for the next time I comment.`}
+                                </label></fieldset>
 
                             <div>
-                                <h5>Your overall rating of this listing:</h5>
+                                <h5>
+                                {user.lang == 'ha' ? `Jimlar kimar wannan jerin` :`Your overall rating of this listing:.`}
+                                    </h5>
                                 <p className="flex-2 flex gap-1 items-start">
                                     <div className="flex-2 flex gap-1 items-center text-[#808080] text-[12px]">
                                         <img className="size-[16px]" src="/vendors-star.svg" />
@@ -118,7 +138,7 @@ const Vendors = () => {
 
                             {/* Submit call to action button */}
                             <div className="flex justify-start mt-2 mb-2">
-                                <CTAButton title={"Submit your review"} />
+                                <CTAButton title={user.lang == 'ha' ? "Aika bita naka": "Submit your review"} />
                             </div>
 
                         </WhiteInGrayContainer>
@@ -139,20 +159,21 @@ const Vendors = () => {
                     <GrayContainer rounded={true}>
                         <div className="p-4">
                             <WhiteInGrayContainer>
-                                <h3>Photo Gallery</h3>
+                                <h3>
+                                    {user.lang == 'ha' ? "Gidan hotuna" : "Photo Gallery"}</h3>
                             </WhiteInGrayContainer>
 
 
                             <WhiteInGrayContainer>
                                 <div className="text-center">
-                                Write a review
+                                {user.lang == 'ha' ? "Rubuta bita" : "Write a review"}
                                 </div>
                             </WhiteInGrayContainer>
                         </div>
                     </GrayContainer>
 
                     {/* Reviews */}
-                    <h3 className="text-xl py-8 text-center">Reviews</h3>
+                    <h3 className="text-xl py-8 text-center">{user.lang == 'ha' ? "Bita" : "Reviews"}</h3>
 
                     <GrayContainer rounded={true}>
                        
