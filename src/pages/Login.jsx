@@ -69,7 +69,7 @@ const Login = () => {
                 </form>
 
                 
-                    <button type="submit" onClick={handleLogin} className="border bg-[orange] text-white text-center py-2 w-full" >{isLoading && <Rings color="#660033"/>}</button>
+                    <button disabled={isLoading} type="submit" onClick={handleLogin} className="border bg-[orange] text-white text-center py-2 w-full" >Login {isLoading && <Rings color="#660033"/>}</button>
                 
             </div>
         </AuthFormLayout>
