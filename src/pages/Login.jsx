@@ -3,6 +3,7 @@ import AuthFormLayout from "../components/Layout/AuthFormLayout"
 import { loginService } from "../service/authService"
 import { Link } from "react-router-dom"
 import LoaderScreen from "./LoaderScreen"
+import Cookies from "js-cookie"
 
 const Login = () => {
     // Variables that will store the username and password as they type.
@@ -18,6 +19,7 @@ const Login = () => {
 
             if(res.status == 200 || res.data == 201)
             {
+                Cookies.set('token', res.data['token'], {expires: 7})
                 window.location.pathname = "/dashboard"
             }
 
