@@ -4,11 +4,13 @@ import { loginService } from "../service/authService"
 import { Link } from "react-router-dom"
 import LoaderScreen from "./LoaderScreen"
 import Cookies from "js-cookie"
+import Rings from "react-loading-icons/dist/esm/components/rings"
 
 const Login = () => {
     // Variables that will store the username and password as they type.
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     // Function that will call the login service and pass the user data for authentication
     // It will be invoked by the login button in the form
@@ -17,6 +19,7 @@ const Login = () => {
 
         const login = async () =>{
         const credentials = {username:email, password: password}
+        setIsLoading(true)
         try {
             const res = await loginService(credentials)
 
@@ -24,14 +27,17 @@ const Login = () => {
             {
                 Cookies.set('token', res.data['auth_token'], {expires: 7})
                 alert("Logged In Successfully!")
+                setIsLoading(false)
                  window.location.pathname = "/dashboard/user"
                  
             }
             else{
+                setIsLoading(false)
              alert("Invalid login credentials")
         }
         }
         catch(err){
+            setIsLoading(false)
             alert('Error!', err)
         }
     }
@@ -63,7 +69,7 @@ const Login = () => {
                 </form>
 
                 
-                    <button type="submit" onClick={handleLogin} className="border bg-[orange] text-white text-center py-2 w-full" >{"Login"}</button>
+                    <button type="submit" onClick={handleLogin} className="border bg-[orange] text-white text-center py-2 w-full" >{isLoading && <Rings color="#660033"/>}</button>
                 
             </div>
         </AuthFormLayout>

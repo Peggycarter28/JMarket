@@ -56,7 +56,7 @@ const Vendors = () => {
                                 user.lang == 'ha'
                                 ? `Kategori - `
                                 :  `Category - `
-}${category}
+}{category}
                     </div>
 
                     <div className="fw-[600] text-[#464B4F] text-[24px] md:text-[48px] leading-[58.09px] flex gap-4 align-end">{item.name}
