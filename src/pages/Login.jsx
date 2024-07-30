@@ -13,6 +13,8 @@ const Login = () => {
     // Function that will call the login service and pass the user data for authentication
     // It will be invoked by the login button in the form
     const handleLogin = async () => {
+        username = password = "" ? alert("Username or password cannot be blank") : ""
+        
         const credentials = {username:email, password: password}
         try {
             const res = await loginService(credentials)
