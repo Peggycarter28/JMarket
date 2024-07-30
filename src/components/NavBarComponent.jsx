@@ -2,12 +2,21 @@ import NavBar from "./LandingPage/NavBar"
 import SignInNav from "./LandingPage/SignInNav"
 import siteLogo from '../assets/bauchi-connect-logo.svg'
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { UserContext } from "../context/AppContextt"
 
 const NavBarComponent = () => {
+    const {user, setUser} = useContext(UserContext)
+
+ 
+    const handleLangUpdate = (lang) => {
+      setUser(prev => ({...prev, lang: lang}))
+     }
+
     return (
         <div className="flex w-full">
             <div className="flex w-full justify-end absolute top-0 right-0 mt-3 mr-3 index-[45]">
-                <select className="text-right" id="">
+                <select onChange={elem=> handleLangUpdate(elem.target.value)} className="text-right" id="">
                     <option value="">..select language</option>
                     <option value="en">English</option>
                     <option value="ha">Hausa</option>
