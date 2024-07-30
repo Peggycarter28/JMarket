@@ -54,8 +54,8 @@ const Vendors = () => {
                     <div className="text[12px] font-regular leading-[14.52px] text-[#808080]">
                     {
                                 user.lang == 'ha'
-                                ? `Kategori`
-                                :  ` &gt;&gt; Category`
+                                ? `Kategori - `
+                                :  `Category - `
 }${category}
                     </div>
 
@@ -88,8 +88,11 @@ const Vendors = () => {
                                 <h5 className="text-[#484848] leading-[19.36px]">
                                 {user.lang == 'ha' ? `Bayanin Aiki` :`Vendor Description`}
                                 </h5>
-                                <p className="text-[#808080] text-[14px] leading-[20px]">{item?.description}</p>
-                                <p className="text-[#808080] text-[14px] leading-[20px]">{item?.description_ha}</p>
+                                {
+                                    user.lang == 'ha'
+                                ? <p className="text-[#808080] text-[14px] leading-[20px]">{item?.description_ha}</p>
+                                :  <p className="text-[#808080] text-[14px] leading-[20px]">{item?.description}</p>
+                                }
                             </div>
                         </WhiteInGrayContainer>
 
