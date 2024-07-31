@@ -43,8 +43,12 @@ const NavBarLandingComponent = () => {
 
                 </div>
 
+                <div className="flex gap-2">
+                    {user.isLoggedIn == true && <p className="mr-2 text-white font-semibold">Hello {`${user.username}`}. Go to <Link to={'/dashboard/users/'}>Dashboard</Link></p>}
                 <div className="size-[50px] p-2 md:hidden">
+                    
                     <img className="size-[30px]" src="https://img.icons8.com/ios/50/FFFFFF/menu-v7.png" alt="Menu Icon" />
+                </div>
                 </div>
             </nav>
         </div>

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom"
 import { UserContext } from "../../context/AppContextt"
 import { sendChatService } from "../../service/chatService"
 
-const ComposeChat = ({updateMessageCallBack}) => {
+const ComposeChat = ({updateMessageCallBack, scrollToBottom}) => {
     const [message, setMessage] = useState("")
 
     const { category, serviceId, receiverId, chatId } = useParams()
@@ -26,7 +26,7 @@ const ComposeChat = ({updateMessageCallBack}) => {
             console.log(newMessage)
 
             updateMessageCallBack(prev => ([...prev, newMessage]))
-
+            scrollToBottom()
            }
         }
 

@@ -59,7 +59,7 @@ const TopVendorsCard = ({ title}) => {
                                     </Link>
                                     <div className="flex-2 flex gap-1 items-start">
                                         <div className="flex-2 flex gap-1 items-center text-[#808080] text-[12px]">
-                                            ({Math.round(item.rating)}) <img className="w-[12px] h-[12px]" src="./vendors-star.svg" />
+                                            ({Math.round(item.rating)}) <img className="w-[12px] h-[12px]" src={item.image_url} /> //./vendors-star.svg
                                         </div>
                                     </div>
                                 </div>

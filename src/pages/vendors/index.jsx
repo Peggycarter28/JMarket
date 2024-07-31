@@ -42,7 +42,7 @@ const Vendors = () => {
                 <NavBarComponent />
                 {/* Vendor cover image */}
                 <div className="h-auto md:h-[480px] w-full overflow-hidden">
-                    <img src={vendorImage} />
+                    <img src={item?.image_url} />
                 </div>
             </header>
             

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import Chats from "../../components/Layout/Chats"
 import GrayContainer from "../../components/Layout/GrayContainer"
 import OrangeContainer from "../../components/Layout/OrangeContainer"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { UserContext } from "../../context/AppContextt"
 import { loadChatService } from "../../service/chatService"
 import ComposeChat from "./ComposeChat"
@@ -46,7 +46,13 @@ const ChatsArea = () => {
             }
 
             chatId !== undefined ? fetchPool() : ""
-        }, [])
+        }, [chats])
+
+        const chatsRef = useRef(null)
+
+        const scrollToBottom = ()=>{
+            chatsRef.current.scrollTop = chatsRef.current.scrollHeight
+        }
 
     return (
         <div className={`${chatId !== undefined ? "" : "hidden"} flex-[8] h-screen flex flex-col border rounded-[17px] bg-[#F9F9F9] bg-auth_form_image`}>
@@ -70,7 +76,7 @@ const ChatsArea = () => {
 
             {/* Chats */}
             <div className="flex flex-1 flex-col gap-4 justify-end items-center overflow-hidden">
-                <div className=" overflow-y-scroll w-full">
+                <div ref={chatsRef} className=" overflow-y-scroll w-full">
                     <div className="flex justify-center">
                         <div className="text-center bg-[#D9D9D9] rounded-[15px] text-[#464B4F] px-2 text-[12px]">Today</div>
                     </div>
@@ -88,7 +94,7 @@ const ChatsArea = () => {
             </div>
             
             {/* Compose Area */}
-            <ComposeChat updateMessageCallBack={setChats}/>
+            <ComposeChat scrollToBottom={scrollToBottom} updateMessageCallBack={setChats}/>
         </div>
     )
 }

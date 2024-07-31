@@ -11,6 +11,9 @@ import { useContext, useEffect } from 'react'
 import NavBarComponent from '../components/NavBarComponent'
 import NavBarLandingComponent from '../components/NavBarLandingComponent'
 import { UserContext } from '../context/AppContextt.jsx'
+import axios from 'axios'
+import { API_URL } from '../constants/config.js'
+import Cookies from 'js-cookie'
 
 function Home() {
 
@@ -24,6 +27,28 @@ function Home() {
 
         }, []
     )
+
+    useEffect(()=>{
+        const fetchUser = async ()=> {
+           if( Cookies.get('token') !== null && (user.email == null || user.username == null ))
+           {
+            const userRes = await axios.get(`${API_URL}/api/auth/users/me/`,{headers: {"Authorization": `Token ${Cookies.get('token')}`}})
+            if(userRes.status == 200)
+            {
+                
+                setUser(prev => ({...prev, token: Cookies.get('token'), isLoggedIn: true, username: userRes.data.username, email: user.data.email}))
+                console.log(user) 
+            }
+           }
+           else{
+            console.log("no token")
+           }
+        }
+
+        fetchUser()
+    }, [])
+
+
     return (
         <>
             <main className='min-h-screen'>

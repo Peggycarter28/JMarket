@@ -26,8 +26,8 @@ const UserDashboardLayout = ({ children }) => {
                             </h3>
 
                             {/* USer Details */}
-                            <h4 className="text-[#464B4F] text-[24px] fw-600">Barakat Laushi</h4>
-                            <p className="text-[#808080] text-[16px]">petegambo@gmail.com</p>
+                            <h4 className="text-[#464B4F] text-[24px] fw-600">{user.username}</h4>
+                            <p className="text-[#808080] text-[16px]">{user.email}</p>
 
 
                             {/* User Settings */}
@@ -43,7 +43,6 @@ const UserDashboardLayout = ({ children }) => {
 
                                                 </li>
                                             </Link>
-
                                         )
                                     }
                                 </ul>
