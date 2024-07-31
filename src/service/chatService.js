@@ -1,22 +1,42 @@
+import axios from "axios"
 import { API_URL } from "../constants/config"
 
-export const newVendorChatService = async (vendorListingId, receiverId, senderId) => {
+export const getChatsListService = async (userId) => {
+   
+    console.log("Fetching chats list")
 
-    const response = await axios.post(`${API_URL}/chat/new-chat`)
+    const response = await axios.get(`${API_URL}/api/chat-list?id=${parseInt(userId)}`)
+
+    return response
+}
+
+export const newChatService = async (vendorListingId, receiverId, senderId) => {
+
+    const response = await axios.post(`${API_URL}/api/chat-list`, {receiver: receiverId, sender: senderId, listing: vendorListingId})
     
     return response
 }
 
 export const loadChatService = async (chatId ) => {
 
-    const response = await axios.get(`${API_URL}/chat/load`, {chatId: chatId})
+    console.log("Fetching chats with id: ", chatId)
+
+    const response = await axios.get(`${API_URL}/api/chat?chat_id=${chatId}`)
 
     return response
 }
 
-export const sendMessageService = async (content, receiverId, senderId, messageTime ) => {
-
-    const response = await axios.post(`${API_URL}/chat/send-message`, {content: content, receiverId: receiverId, senderId: senderId, messageTime: new Date(Date.now())})
+export const sendChatService = async (chatId, content, receiverId, senderId ) => {
+console.log(receiverId)
+console.log(typeof receiverId)
+    const response = await axios.post(`${API_URL}/api/chat`, 
+        {
+            chatId: parseInt(chatId),
+            receiver: parseInt(receiverId),
+            sender: parseInt(senderId),
+            content:content
+        }
+    )
 
     return response
 }
@@ -28,19 +48,6 @@ export const updateMessage = async (messageId, newContent ) => {
     return response
 }
 
-export const replyMessage = async (messageId, content ) => {
-
-    const response = await axios.delete(`${API_URL}/chat/reply-message`, {messageId: messageId, content: newContent})
-
-    return response
-}
-
-export const deleteMessage = async (messageId) => {
-
-    const response = await axios.delete(`${API_URL}/chat/delete-message`, {messageId: messageId})
-
-    return response
-}
 
 export const deleteChat = async (chatId) => {
 

@@ -38,7 +38,8 @@ function App() {
         </Route>
 
         <Route path="service/:category/:title" element={<Vendors />} />
-        <Route path="service/:category/:title/chat" element={<ChatVendor />} />
+        <Route path="service/:category/:serviceId/chat" element={<ChatVendor />} />
+        <Route path="service/:category/:serviceId/chat/:receiverId/:chatId" element={<ChatVendor />} />
       </Routes>
     </div>
   )
