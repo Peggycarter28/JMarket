@@ -39,10 +39,10 @@ const ChatsArea = () => {
                 }
             }
 
-            const fetchPool = () => {
+            const fetchPool = () => {  
                 setInterval(() => {
                     fetchChats()
-                }, 3000);
+                }, 10000);
             }
 
             chatId !== undefined ? fetchPool() : ""

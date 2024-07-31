@@ -1,11 +1,11 @@
 import axios from "axios"
 import { API_URL } from "../constants/config"
 
-export const loginService = async (credentials) => {
+export const loginService = async (email, password) => {
 
-    const response = await axios.post(`${API_URL}/api/auth/token/login/`, credentials)
+    const response = await axios.post(`${API_URL}/api/auth/token/login`, {"username":email, "password": password} )
 
-    // {"username":"aren", "password": "gpezeka"}
+    // 
 
     return response
 }

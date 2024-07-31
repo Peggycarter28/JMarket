@@ -6,9 +6,10 @@ export const UserProvider = ({children}) => {
 const [user, setUser] = useState(
     {
         lang: 'en',
-        name: "Barakat Abdullahi",
+        username: null,
         email: "baraka@gmail.com",
         isLoggedIn: true,
+        token: null,
         isChatScreen: false,
         id: 2
     }

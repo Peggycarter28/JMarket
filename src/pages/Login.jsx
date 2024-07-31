@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import AuthFormLayout from "../components/Layout/AuthFormLayout"
 import { loginService } from "../service/authService"
 import { Link } from "react-router-dom"
 import LoaderScreen from "./LoaderScreen"
 import Cookies from "js-cookie"
 import Rings from "react-loading-icons/dist/esm/components/rings"
+import SpinningCircles from "react-loading-icons/dist/esm/components/spinning-circles"
+import { UserContext } from "../context/AppContextt"
 
 const Login = () => {
     // Variables that will store the username and password as they type.
@@ -12,21 +14,23 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
+    const {user, setUser} = useContext(UserContext)
     // Function that will call the login service and pass the user data for authentication
     // It will be invoked by the login button in the form
-    const handleLogin = async () => {
-        email == ""  || password == "" ? alert("Username or password cannot be blank") : login()
+ 
 
-        const login = async () =>{
+    const login = async () =>{
         const credentials = {username:email, password: password}
         setIsLoading(true)
         try {
-            const res = await loginService(credentials)
+            const res = await loginService(email, password)
 
             if(res.status == 200 || res.data == 201)
             {
                 Cookies.set('token', res.data['auth_token'], {expires: 7})
+                setUser(prev => ({...prev, token: res.data['auth_token'], isLoggedIn: true, username: email}))
                 alert("Logged In Successfully!")
+
                 setIsLoading(false)
                  window.location.pathname = "/dashboard/user"
                  
@@ -41,9 +45,12 @@ const Login = () => {
             alert('Error!', err)
         }
     }
+
+    const handleLogin = async () => {
+        email == ""  || password == "" ? alert("Username or password cannot be blank") : login()
+
+        
     }
-
-
 
     return (
         <AuthFormLayout>
@@ -69,7 +76,7 @@ const Login = () => {
                 </form>
 
                 
-                    <button disabled={isLoading} type="submit" onClick={handleLogin} className="border bg-[orange] text-white text-center py-2 w-full" >Login {isLoading && <Rings color="#660033"/>}</button>
+                    <button disabled={isLoading} type="submit" onClick={handleLogin} className="border bg-[orange] text-white text-center py-4 w-full flex gap-2 justify-center items-center overflow-hidden" ><span>Login</span> {isLoading && <span><SpinningCircles fontSize={14} scale={0.5} color="#660033"/></span>}</button>
                 
             </div>
         </AuthFormLayout>
