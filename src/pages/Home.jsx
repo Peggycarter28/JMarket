@@ -42,6 +42,7 @@ function Home() {
                     isLoggedIn: true,
                     username: userRes.data.username,
                     email: userRes.data.email,
+                    id: userRes.data.username == "aren" ? 1 : 2
                 })
             )
                 console.log(user) 
