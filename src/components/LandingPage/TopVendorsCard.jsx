@@ -45,7 +45,7 @@ const TopVendorsCard = ({ title}) => {
                                 {/* Image Container */}
                                 <Link to={`/service/${item.category.name}/${item.id}`}>
                                     <div className="w-full md:w-auto h-[190px] md:h-auto rounded-lg overflow-hidden border">
-                                        <img className="w-full md:w-[200px] h-auto md:h-[120px] bg-green-600" src="./product.png" />
+                                        <img className="w-full md:w-[200px] h-auto md:h-[120px] bg-green-600" src={item.image_url} />
                                     </div>
                                 </Link>
 
@@ -59,7 +59,7 @@ const TopVendorsCard = ({ title}) => {
                                     </Link>
                                     <div className="flex-2 flex gap-1 items-start">
                                         <div className="flex-2 flex gap-1 items-center text-[#808080] text-[12px]">
-                                            ({Math.round(item.rating)}) <img className="w-[12px] h-[12px]" src={item.image_url} /> //./vendors-star.svg
+                                            ({Math.round(item.rating)}) <img className="w-[12px] h-[12px]" src="./vendors-star.svg" /> //./vendors-star.svg
                                         </div>
                                     </div>
                                 </div>

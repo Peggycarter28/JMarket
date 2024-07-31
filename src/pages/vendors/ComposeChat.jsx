@@ -26,6 +26,7 @@ const ComposeChat = ({updateMessageCallBack, scrollToBottom}) => {
             console.log(newMessage)
 
             updateMessageCallBack(prev => ([...prev, newMessage]))
+            setMessage('')
             scrollToBottom()
            }
         }

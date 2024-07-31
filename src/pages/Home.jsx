@@ -35,8 +35,15 @@ function Home() {
             const userRes = await axios.get(`${API_URL}/api/auth/users/me/`,{headers: {"Authorization": `Token ${Cookies.get('token')}`}})
             if(userRes.status == 200)
             {
-                
-                setUser(prev => ({...prev, token: Cookies.get('token'), isLoggedIn: true, username: userRes.data.username, email: user.data.email}))
+                console.log(userRes.data.email)
+                setUser(
+                    prev => ({...prev,
+                    token: Cookies.get('token'),
+                    isLoggedIn: true,
+                    username: userRes.data.username,
+                    email: userRes.data.email,
+                })
+            )
                 console.log(user) 
             }
            }

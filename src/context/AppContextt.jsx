@@ -7,7 +7,7 @@ const [user, setUser] = useState(
     {
         lang: 'en',
         username: null,
-        email: "baraka@gmail.com",
+        email: null,
         isLoggedIn: true,
         token: null,
         isChatScreen: false,
