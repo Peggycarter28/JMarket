@@ -38,7 +38,7 @@ const ComposeChat = ({updateMessageCallBack, scrollToBottom}) => {
 
     return(
        
-        <div className="p-2 flex gap-2 w-full border">
+        <div className="p-2 flex gap-2 w-full border m-2 mb-8">
              {/* Text Area */}
         <GrayContainer rounded={true}>
             <div className="flex items-center">
@@ -48,7 +48,7 @@ const ComposeChat = ({updateMessageCallBack, scrollToBottom}) => {
         </GrayContainer>
 
         <OrangeContainer>
-            <img onClick={handleSendChat} className="size-[24px]" src="/send.svg" alt="send" />
+            <img onClick={handleSendChat} className="size-[24px] mr-2" src="/send.svg" alt="send" />
         </OrangeContainer>
     </div>
     )

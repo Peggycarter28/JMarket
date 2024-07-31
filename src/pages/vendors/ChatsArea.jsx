@@ -42,7 +42,7 @@ const ChatsArea = () => {
             const fetchPool = () => {  
                 setInterval(() => {
                     fetchChats()
-                }, 10000);
+                }, 25000);
             }
 
             chatId !== undefined ? fetchPool() : ""
@@ -65,7 +65,7 @@ const ChatsArea = () => {
                     </div>
 
                     <div>
-                        <p>{"title"}</p>
+                        <p>{chats[0]?.sender.id !== user.id ? chats[0]?.sender.username : chats[0]?.receiver.username }</p>
                         <p>Offline</p>
                     </div>
                 </div>
