@@ -27,20 +27,27 @@ const Register = () => {
                 <form className="w-[100%] flex flex-col gap-2 bg-[#e8e8e899] p-4 justify-center items-center">
                     <input onChange={(elem) => setEmail(elem.target.value)} value={email} className="border px-4 py-2 w-full" name="email" placeholder="Enter email" type="email" />
 
+                    <input onChange={(elem) => setUsername(elem.target.value)} value={username} className="border px-4 py-2 w-full" name="username" placeholder="Enter username" type="text" />
+
                     <input onChange={(elem) => setPassword(elem.target.value)} value={password} className="border px-4 py-2 w-full" name="password" placeholder="Enter password" type="password" />
-                    <div className="flex justify-end w-full">
-                        <Link to={"/auth/forgot-password"}>Forgot Password</Link>
-                    </div>
-                    <div className="w-full p-2 flex justify-center gap-8">
-                        <div className="size-[45px] bg-black rounded-full"></div>
-                        <div className="size-[45px] bg-black rounded-full"></div>
-                    </div>
+
+                    <input onChange={(elem) => setRepeatPassword(elem.target.value)} value={repeatPassword} className="border px-4 py-2 w-full" name="password" placeholder="Re-type password" type="password" />
+
+                    <fieldset><input type="checkbox" name="tc" id="tc" /> <label htmlFor="tc">I accept BConnect's terms and conditions</label></fieldset>
+                   
 
                 </form>
 
                 
-                    <button type="submit" onClick={handleRegister} className="border bg-[orange] text-white text-center py-2 w-full" >{"Login"}</button>
-                
+                    <button type="submit" onClick={handleRegister} className="border bg-[orange] text-white text-center py-2 w-full" >{"Register"}</button>
+                    <p>Or Register with</p>
+                    <div className="w-full p-2 flex justify-center gap-8">
+                        <div className="size-[45px] bg-black rounded-full"></div>
+                        <div className="size-[45px] bg-black rounded-full"></div>
+                    </div>
+                    <div className="flex justify-center w-full">
+                        <Link to={"/auth/signin"}>Already have an account? Login</Link>
+                    </div>
             </div>
         </AuthFormLayout>
     )

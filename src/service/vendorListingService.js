@@ -13,6 +13,13 @@ export const getAllVendorsCategoryService = async () => {
     return response
 }
 
+export const getVendorCategoriesService = async () => {
+
+    const response = await axios.get(`${API_URL}/api/category`)
+    return response
+}
+
+
 
 export const getVendorByIdService = async (vendorId ) => {
 
@@ -20,6 +27,7 @@ export const getVendorByIdService = async (vendorId ) => {
 
     return response
 }
+
 
 export const getVendorByLgaService = async (lgaSlug ) => {
 

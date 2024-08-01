@@ -3,7 +3,7 @@ import DropdownArrow from "../../assets/chevron-down.svg"
 
 
 const NavBarLanding = ({links}) => {
-    return <ul className="flex gap-2">
+    return <ul className="flex flex-col md:flex-row gap-2">
         {links.map(
             (link, index)=>{
                 return (<li key={index} className='px-5 py-3'> 

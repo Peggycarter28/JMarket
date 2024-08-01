@@ -1,8 +1,9 @@
+import axios from "axios"
 import { API_URL } from "../constants/config"
 
-export const newVendorChatService = async (vendorListingId, receiverId, senderId) => {
+export const getReviews = async () => {
 
-    const response = await axios.post(`${API_URL}/chat/new-chat`)
+    const response = await axios.get(`${API_URL}/api/reviews`)
     
     return response
 }

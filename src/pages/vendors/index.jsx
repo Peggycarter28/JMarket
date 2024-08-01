@@ -9,6 +9,11 @@ import ReviewCard from "../../components/Services/ReviewCard"
 import { useContext, useEffect, useState } from "react"
 import { getVendorByIdService } from "../../service/vendorListingService"
 import { UserContext } from "../../context/AppContextt"
+import ReviewsComponent from "./ReviewsComponent"
+import PaymentModal from "../../components/Modals/PaymentModal"
+import axios from "axios"
+import Cookies from 'js-cookie'
+import { API_URL } from "../../constants/config"
 
 const Vendors = () => {
     
@@ -17,6 +22,10 @@ const Vendors = () => {
     const { category, title } = useParams()
 
     const [item, setItem] = useState([])
+
+    const [fetchedUser, setFetchedUser] = useState(null)
+
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         console.log("Viewing single Vendor")
@@ -28,6 +37,7 @@ const Vendors = () => {
             if (res.status == 200 || res.status == 201) {
 
                 console.log(res.data)
+                
 
                 setItem(res.data)
             }
@@ -35,18 +45,69 @@ const Vendors = () => {
         }
 
         fetch()
+
     }, [])
+
+    const handleProcessOrder = () => {
+    //    Show modal
+    setShowModal(!showModal)
+
+    }
+
+    useEffect(()=>{
+        const fetchUser = async ()=> {
+           if( Cookies.get('token') !== null && (user.email == null || user.username == null ))
+           {
+            const userRes = await axios.get(`${API_URL}/api/auth/users/me/`,{headers: {"Authorization": `Token ${Cookies.get('token')}`}})
+            
+                if(userRes.status == 200 || userRes.status == 201)
+            {
+                console.log(userRes.data)
+
+                console.log(user)
+
+                console.log(Cookies.get('token'))
+
+               
+
+                setUser(
+                    prev => ({...prev,
+                    token: Cookies.get('token'),
+                    isLoggedIn: true,
+                    username: userRes.data.username,
+                    email: userRes.data.email,
+                    id: userRes.data.id
+                }) 
+            )
+
+            setFetchedUser(userRes.data)
+
+            alert(fetchedUser.email)
+            
+            }
+           }
+           else{
+            console.log("no token")
+           }
+        }
+
+        fetchUser()
+    }, [])
+
+
+
     return (
-        <>
+        <> 
+        <div className="absolute w-full min-h-screen">
             <header>
                 <NavBarComponent />
                 {/* Vendor cover image */}
-                <div className="h-auto md:h-[480px] w-full overflow-hidden">
-                    <img src={item?.image_url} />
+                <div className="h-auto md:h-[480px] w-full overflow-hidden bg-[gray] flex justify-center">
+                    <img src={item?.image_url} className=""/>
                 </div>
             </header>
             
-            <div className="p-8 px-2 md:px-[136px] flex flex-col md:flex-row gap-4">
+            <div className="relative p-8 px-2 md:px-[136px] flex flex-col md:flex-row gap-4">
 
                 {/* First Column */}
                 <div className="flex-[8] ">
@@ -77,9 +138,9 @@ const Vendors = () => {
                         <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={true} title={user.lang == 'ha' ? `Message` :`Message`} />
                         </Link>
 
-                        <Link to="order">
+                        <div onClick={handleProcessOrder}>
                         <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={false} title={user.lang == 'ha' ? `Order Yanzu` :`Order Now`} />
-                        </Link>
+                        </div>
                     </div>
 
                     <GrayContainer>
@@ -175,26 +236,19 @@ const Vendors = () => {
                         </div>
                     </GrayContainer>
 
-                    {/* Reviews */}
-                    <h3 className="text-xl py-8 text-center">{user.lang == 'ha' ? "Bita" : "Reviews"}</h3>
-
-                    <GrayContainer rounded={true}>
-                       
-                            <ReviewCard/>
-                            <ReviewCard/>
-                            <ReviewCard/>
-                            <ReviewCard/>
-                        
-                        <div className="text-center">
-                                View more
-                                </div>
-                    </GrayContainer>
+                  <ReviewsComponent/>
                 </div>
                 {/* Right Column Ends */}
             </div>
+          
 
             <LandingFooter2 />
-        </>)
+        </div>
+        {showModal &&
+            <PaymentModal fetchedUser={fetchedUser} amount={item.service_charge} service_id={item.id} handleModal={handleProcessOrder}/>
+            }
+        </>
+        )
 }
 
 export default Vendors

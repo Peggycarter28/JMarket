@@ -48,7 +48,7 @@ const ComposeChat = ({updateMessageCallBack, scrollToBottom}) => {
         </GrayContainer>
 
         <OrangeContainer>
-            <img onClick={handleSendChat} className="size-[24px] mr-2" src="/send.svg" alt="send" />
+            <img onClick={handleSendChat} className="size-[24px]" src="/send.svg" alt="send" />
         </OrangeContainer>
     </div>
     )

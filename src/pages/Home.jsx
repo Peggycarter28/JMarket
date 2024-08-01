@@ -33,19 +33,18 @@ function Home() {
            if( Cookies.get('token') !== null && (user.email == null || user.username == null ))
            {
             const userRes = await axios.get(`${API_URL}/api/auth/users/me/`,{headers: {"Authorization": `Token ${Cookies.get('token')}`}})
-            if(userRes.status == 200)
+            if(userRes.status == 200 || userRes.status == 201)
             {
-                console.log(userRes.data.email)
                 setUser(
                     prev => ({...prev,
                     token: Cookies.get('token'),
                     isLoggedIn: true,
                     username: userRes.data.username,
                     email: userRes.data.email,
-                    id: userRes.data.username == "aren" ? 1 : 2
+                    id: userRes.data.id
                 })
             )
-                console.log(user) 
+            
             }
            }
            else{
