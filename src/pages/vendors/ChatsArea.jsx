@@ -11,16 +11,35 @@ const ChatsArea = () => {
 
     const { category, serviceId, chatId } = useParams()
 
-    const { user, setUser } = useContext(UserContext)
+    // const { user, setUser } = useContext(UserContext)
 
+    let thisUser;
+    // const {user, setUser} = useContext(UserContext)
+    const storedUser = localStorage.getItem('user')
+
+    if(storedUser)
+    {
+        thisUser = JSON.parse(storedUser)
+    } 
+    const [user, setUser] = useState(thisUser)
+    
     const [chats, setChats] = useState([])
 
     useEffect(
         () => {
+            
+            const storedChats = localStorage.getItem(`chat-${chatId}`)
+
+            if(storedChats)
+            {
+                setChats(JSON.parse(storedChats))
+            }
 
             const fetchChats = async () => {
 
                 console.log("Fetching chats")
+
+                    
 
                 const res = await loadChatService(chatId)
 
@@ -28,6 +47,7 @@ const ChatsArea = () => {
                     
                     if(res.data.length > chats)
                     {
+                    localStorage.setItem(`chat-${chatId}`, JSON.stringify(res.data))
                     setChats(res.data)
                     }
                     else {

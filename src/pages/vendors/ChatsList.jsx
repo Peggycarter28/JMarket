@@ -6,20 +6,37 @@ import { UserContext } from "../../context/AppContextt"
 
 const ChatsList = () => {
 
-    const { category, serviceId, chatId } = useParams()
+    const {chatId} = useParams()
 
-    const {user, setUser} = useContext(UserContext)
+    let thisUser;
+    // const {user, setUser} = useContext(UserContext)
+    const storedUser = localStorage.getItem('user')
+
+    if(storedUser)
+    {
+        thisUser = JSON.parse(storedUser)
+    } 
+    const [user, setUser] = useState(thisUser)
 
     const [chatsList, setChatsList] = useState([])
     
     useEffect(()=>{
+
+
+        const storedChatsList = localStorage.getItem('myChatsList')
+
+        if(storedChatsList)
+            {
+                setChatsList(JSON.parse(storedChatsList))
+            } 
+
         const fetchChats = async () =>{
-            
-            const res = await getChatsListService(user.id)
+
+            const res = await getChatsListService(user?.id)
 
             if(res.status == 200 || res.status == 201)
             {
-                console.log(res.data)
+                localStorage.setItem('myChatsList', JSON.stringify(res.data))
                 setChatsList(res.data)
             }
             else{
@@ -32,7 +49,7 @@ const ChatsList = () => {
 
    
     return(
-        <div className={` ${chatId !== undefined ? "hidden" : ""}  md:flex flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex flex-col`}>
+        <div className={` ${chatId !== undefined ? "hidden md:flex" : ""}  flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex-col`}>
         {/* Title */}
         <h3 className="text-[48px] leading-[58.09px] text-bold">Chat</h3>
 
@@ -48,7 +65,7 @@ const ChatsList = () => {
             {/* Chats Collections */}
             
             {
-                chatsList.map(data =><ChatsCard key={data.chatUniqueId} data={data} />)
+                chatsList.map(data =><ChatsCard key={data.chatUniqueId} data={data} userId={user.id} />)
 }
         </div>
 
