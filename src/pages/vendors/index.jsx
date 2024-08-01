@@ -82,7 +82,7 @@ const Vendors = () => {
 
             setFetchedUser(userRes.data)
 
-            alert(fetchedUser.email)
+            alert(fetchedUser?.email)
             
             }
            }
