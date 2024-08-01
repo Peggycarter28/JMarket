@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import ChatsCard from "../../components/Layout/ChatsCard"
 import { useContext, useEffect, useState } from "react"
 import { getChatsListService } from "../../service/chatService"
@@ -47,7 +47,13 @@ const ChatsList = () => {
         fetchChats()
     }, [])
 
-   
+    const nav = useNavigate();
+
+    const handleBack = () => {
+        nav(-1)
+
+
+    }   
     return(
         <div className={` ${chatId !== undefined ? "hidden md:flex" : ""}  flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex-col`}>
         {/* Title */}
@@ -65,7 +71,8 @@ const ChatsList = () => {
             {/* Chats Collections */}
             
             {
-                chatsList.map(data =><ChatsCard key={data.chatUniqueId} data={data} userId={user.id} />)
+                chatId == undefined ? chatsList.map(data =><ChatsCard key={data.chatUniqueId} data={data} userId={user.id} />)
+                : <button className="border-b border-b-[2px] p-4" onClick={handleBack}>&lt; Back to Chats List</button>
 }
         </div>
 

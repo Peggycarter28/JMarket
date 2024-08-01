@@ -9,9 +9,7 @@ import ChatsList from "./ChatsList"
 import ChatsArea from "./ChatsArea"
 
 const ChatVendor = () => {
-    const { category, serviceId } = useParams()
-
-    console.log(serviceId)
+    const { category, serviceId, chatId } = useParams()
 
     useEffect(
         () => {
@@ -29,7 +27,7 @@ const ChatVendor = () => {
 
                <ChatsList/>
 
-               <ChatsArea/>
+              {chatId !== undefined && <ChatsArea/>}
                
             </main>
         </VendorChatLayout>

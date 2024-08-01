@@ -42,18 +42,19 @@ const ComposeChat = ({ updateMessageCallBack, scrollToBottom }) => {
     };
 
     return (
-        <div className="p-2 flex gap-2 w-full border m-2 mb-8">
+        <div className="p-1 flex gap-2 w-full m-2 mb-8">
             {/* Text Area */}
             <GrayContainer rounded={true}>
                 <div className="flex items-center">
-                    <img src="/photo-add.svg" className="size-[32px]" alt="Add Photo" />
-                    <input
+                    <img src="/photo-add.svg" className="size-[24px] md:size-[32px]" alt="Add Photo" />
+                    <textarea
+                    rows={1}
                         value={message}
                         onChange={elem => setMessage(elem.target.value)}
-                        className="flex-1 bg-transparent p-2 appearance-none outline-none"
+                        className="flex-1 text-[12px] md:text-[14px] bg-transparent p-2 appearance-none outline-none"
                         placeholder={`Send message to ${receiverId || "User"}`}
                         type="text"
-                    />
+                    ></textarea>
                 </div>
             </GrayContainer>
 

@@ -53,16 +53,18 @@ const ChatsArea = () => {
         }
     };
 
+
+
     return (
         <div className={`${chatId ? "" : "hidden"} flex-[8] h-screen flex flex-col border rounded-[17px] bg-[#F9F9F9] bg-auth_form_image`}>
             {/* Chat Area */}
-            <div className="flex border gap-4 items-center justify-between h-[101px] bg-[#EDEDED] m-4 overflow-hidden rounded-[16px]">
+            <div className="flex border gap-4 items-center justify-between h-[70px] md:h-[101px] bg-[#EDEDED] m-4 overflow-hidden rounded-[16px]">
                 <div className="flex items-start gap-4">
-                    <div className="size-[81px] rounded-full overflow-hidden">
-                        <img className="h-[81px]" src="/product.png" alt="" />
+                    <div className="size-[50px] md:size-[81px] rounded-full overflow-hidden">
+                        <img className="h-[50px] md:h-[81px]" src="/product.png" alt="" />
                     </div>
                     <div>
-                        <p>{chats[0]?.sender.id !== user.id ? chats[0]?.sender.username : chats[0]?.receiver.username}</p>
+                        <p>{chats[0]?.sender == user.id ? chats[0]?.receiver : chats[0]?.sender}</p>
                         <p>Offline</p>
                     </div>
                 </div>
@@ -77,7 +79,7 @@ const ChatsArea = () => {
                     </div>
                     <div className="flex flex-col gap-1 w-full">
                         {chats.map(chat => (
-                            <Chats key={chat.id} type={chat.sender.id === user.id ? "reply" : "response"} time={"9:30am"} message={chat.content} />
+                            <Chats key={chat.id} type={chat.sender === user.id ? "reply" : "response"} time={"9:30am"} message={chat.content} />
                         ))}
                     </div>
                 </div>

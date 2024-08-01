@@ -5,7 +5,7 @@ import DashSideNav from "./DashSideNav"
 const VendorChatLayout = ({ children }) => {
     return (
         <GrayContainer noPadding={true}>
-            <div className="flex h-screen gap-2">
+            <div className="flex h-screen gap-1">
                 <DashSideNav/>
                 {children}
             </div>

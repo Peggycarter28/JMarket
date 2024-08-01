@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 const DashSideNav = () => {
     return(
-    <aside className="w-[75px] md:w-[103px] border bg-white">
+    <aside className="w-[60px] md:w-[103px] border bg-white">
         <nav className="flex flex-col items-center gap-6 pt-6">
             <div className="size-[50px] rounded-[25px] flex items-center justify-center">
                 <img src="/user_thumbs/thumb.png" alt="Pic" />
