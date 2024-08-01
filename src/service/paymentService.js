@@ -2,17 +2,22 @@ import axios from "axios"
 import { API_URL } from "../constants/config"
 
 export const initializePayment = async (data) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/payment`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response;
+    } catch (error) {
+        console.error("Payment error:", error.response ? error.response.data : error.message);
+        throw error; // Rethrow the error to be handled in the modal
+    }
+};
 
-    const response = await axios.post(`${API_URL}/api/payment`, data )
+export const verifyPayment = async (reference ) => {
 
-    // 
-
-    return response
-}
-
-export const registerService = async (data ) => {
-
-    const response = await axios.post(`${API_URL}/api/auth/users/`, data)
+    const response = await axios.get(`${API_URL}/api/payment/verify/${reference}`)
 
     
     // {

@@ -82,13 +82,21 @@ const Vendors = () => {
 
             setFetchedUser(userRes.data)
 
-            alert(fetchedUser?.email)
+            localStorage.setItem('user', JSON.stringify(userRes.data))
             
             }
            }
            else{
             console.log("no token")
            }
+        }
+
+        const storedUser = localStorage.getItem('user')
+
+        if(storedUser)
+        {
+            setFetchedUser(JSON.parse(storedUser))
+            fetchUser()
         }
 
         fetchUser()

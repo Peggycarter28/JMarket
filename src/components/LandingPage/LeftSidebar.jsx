@@ -12,7 +12,13 @@ const LeftsideBar = () => {
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
-        console.log("Viewing single Vendor")
+        console.log("Viewing categories")
+
+        const storedCategories = localStorage.getItem('categories')
+
+        if(storedCategories) {
+            setCategories(JSON.parse(storedCategories))
+        }
 
         const fetch = async () => {
             
@@ -20,12 +26,13 @@ const LeftsideBar = () => {
 
             if (res.status == 200 || res.status == 201) {
 
-                console.log(res.data)
-
                 setCategories(res.data)
+                
+                localStorage.setItem('categories', JSON.stringify(res.data))
+                
                 setLoaded(true)
             }
-            else { alert("Unable to fetch vendor") 
+            else { alert("Unable to fetch categories") 
                 setLoaded(true)
             }
         }
@@ -33,13 +40,6 @@ const LeftsideBar = () => {
         fetch()
     }, [name])
 
-    const items = [
-        {img: "./service-icons/vehicles.svg", name:"Vehicles", count:699},
-        {img: "./service-icons/property.svg", name:"Properties", count:699},
-        {img: "./service-icons/mobile.svg", name:"Mobile Phones", count:699},
-        {img: "", name:"Electronics", count:699},
-        {img: "", name:"Beauty", count:699}
-    ]
     return(
         <aside className="w-full md:w-[20vw] gap-4 md:gap-none overflow-auto flex md:flex-col mr-none md:mr-4 p-4 h-[90px] md:h-screen md:bg-[#F5F5F5] border border-[#EBEBEB] rounded-lg">
            <div className="flex md:flex-col gap-4 md:gap-1">

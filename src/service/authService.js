@@ -10,17 +10,23 @@ export const loginService = async (email, password) => {
     return response
 }
 
-export const registerService = async (data ) => {
+export const registerService = async (username, email, password, repeatPassword) => {
 
-    const response = await axios.post(`${API_URL}/api/auth/users/`, data)
+    console.log("Calling service")
 
-    
-    // {
-//     "username": "new_user",
-//     "email": "new_user@example.com",
-//     "password": "your_secure_password",
-//     "re_password": "your_secure_password"
-// }
+
+
+    const response = await axios.post(`${API_URL}/api/auth/users/`, {
+        "username": `${username}`,
+        "email": `${email}`,
+        "password": `${password}`,
+        "re_password": `${repeatPassword}`
+    },{
+        headers:{
+        "Content-Type":"application/json"
+    }})
+
+
     return response
 }
 

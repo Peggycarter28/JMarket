@@ -13,15 +13,21 @@ const TopVendorsCard = ({ title}) => {
     useEffect(() => {
         console.log("Vendors Area")
 
+        const storedItems = localStorage.getItem('vendors')
+
+        if(storedItems) {
+            setItems(JSON.parse(storedItems))
+        }
+
         const fetch = async () => {
             
             const res = await getAllVendorsService()
 
             if (res.status == 200 || res.status == 201) {
 
-                console.log(res.data)
-
                 setItems(res.data)
+
+                localStorage.setItem('items', JSON.stringify(res.data))
             }
             else { alert("Unable to fetch vendors") }
         }

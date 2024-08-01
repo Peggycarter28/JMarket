@@ -13,7 +13,11 @@ const Register = () => {
     // Function that will call the login service and pass the user data for authentication
     // It will be invoked by the login button in the form
     const handleRegister = async ()=> {
-        await registerService(email, password, username)
+
+       const res = await registerService(username, email, password, repeatPassword)
+
+       console.log(res.status, res.statusText)
+        
     }
 
     return(

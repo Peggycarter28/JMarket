@@ -44,6 +44,8 @@ function Home() {
                     id: userRes.data.id
                 })
             )
+
+            localStorage.setItem('user', JSON.stringify(userRes.data))
             
             }
            }

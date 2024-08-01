@@ -1,30 +1,42 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/AppContextt"
-import { initializePayment } from "../../service/paymentService"
+import { initializePayment, verifyPayment } from "../../service/paymentService"
 
 const PaymentModal = ({handleModal, amount, fetchedUser, service_id}) => {
     const user = useContext(UserContext)
 
     const [inProgress, setInProgress] = useState(false)
 
+    const [newWindow, setNewWindow] = useState(null)
+
+    const [paymentRef, setPaymentRef] = useState(null)
+
     const handlePayment = async () => {
         setInProgress(true)
         const data = {
             "email": fetchedUser?.email,
-            "amount": (parseInt(amount) + (5/100 * amount)) * 1000,
-            "metadata": {
+            "amount": (parseInt(amount) + (5 / 100 * amount)) * 100,
                 "service_id": service_id,
                 "user_id": fetchedUser?.id
-            }
         }
 
-        console.log(data)
 const res = await initializePayment(data)
 
 if (res.status == 200 || res.status == 201)
 {
-    setInProgress(false)
-    alert("Order generated successfully")
+    console.log('generated')
+    const url = res.data['authorization_url']
+    
+    setPaymentRef(res.data['reference'])
+
+    // Open new window to finalize payment
+    const win = window.open(url, '_blank','width=600,height=400' )
+    
+    setNewWindow(win)
+
+   console.log(newWindow)
+    
+   
 }
 
 else {
@@ -32,6 +44,40 @@ else {
     alert("Failed! Something bad happened.")
 }
     }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          if (newWindow && newWindow.closed) {
+            clearInterval(interval);
+            handleWindowClose();
+          }
+        }, 1000); // Check every second
+    
+        return () => clearInterval(interval);
+      }, [newWindow]);
+    
+      const handleWindowClose = async () => {
+
+        console.log('New window closed!');
+        // Trigger your function here
+
+        const verify = await verifyPayment(paymentRef)
+
+        if(verify.status == 200 || verify.status == 201)
+        {
+            console.log(verify.data)
+            setInProgress(false)
+            handleModal()
+            alert("Payment Successful")
+        }
+
+        else {
+
+            setInProgress(false)
+            alert("Payment Failed")
+
+        }
+      };
 
     return(
     <div className="fixed h-screen w-full bg-[#808080a3] left-0 right-0 bottom-0 flex flex-col items-center justify-center">

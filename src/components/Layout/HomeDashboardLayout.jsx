@@ -1,16 +1,31 @@
 import { Link, useParams } from "react-router-dom"
 import GrayContainer from "./GrayContainer"
 import DashSideNav from "./DashSideNav"
+import { useEffect, useState } from "react"
 
 const HomeDashboardLayout = ({ children }) => {
 
     const { curr_section } = useParams()
+
+    const [user, setUser] = useState(null)
 
     const sub_sections = [
         { name: "Profile Details", slug: "profile" },
         { name: "Recently Viewed", slug: "viewed" },
         { name: "Settings", slug: "settings" }
     ]
+
+    useEffect(()=>{
+        const storedUser = localStorage.getItem('user')
+
+        if(storedUser){
+            console.log(storedUser)
+            setUser(JSON.parse(storedUser))
+        }
+        else{
+            setUser({})
+        }
+    }, [])
 
     return (
         <>
@@ -25,8 +40,8 @@ const HomeDashboardLayout = ({ children }) => {
                             </h3>
 
                             {/* USer Details */}
-                            <h4 className="text-[#464B4F] text-[24px] fw-600">Barakat Laushi</h4>
-                            <p className="text-[#808080] text-[16px]">barakalaushi@gmail.com</p>
+                            <h4 className="text-[#464B4F] text-[24px] fw-600">{user?.username}</h4>
+                            <p className="text-[#808080] text-[16px]">{user?.email}</p>
 
 
                        
