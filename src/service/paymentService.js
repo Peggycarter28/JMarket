@@ -19,13 +19,6 @@ export const verifyPayment = async (reference ) => {
 
     const response = await axios.get(`${API_URL}/api/payment/verify/${reference}`)
 
-    
-    // {
-//     "username": "new_user",
-//     "email": "new_user@example.com",
-//     "password": "your_secure_password",
-//     "re_password": "your_secure_password"
-// }
     return response
 }
 

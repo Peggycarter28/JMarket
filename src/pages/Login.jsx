@@ -31,8 +31,6 @@ const Login = () => {
                 setUser(prev => ({...prev, token: res.data['auth_token'], isLoggedIn: true, username: email}))
                 alert("Logged In Successfully! You can make your orders now")
 
-                console.log(user)
-
                 setIsLoading(false)
                 window.location.pathname = "/"
                  

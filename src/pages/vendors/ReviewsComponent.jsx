@@ -23,6 +23,8 @@ const ReviewsComponent = () => {
 
             if (res.status == 200 || res.status == 201) {
 
+                console.log("FOund reviews")
+
                 console.log(res.data)
 
                 setReviews(res.data)
@@ -41,7 +43,7 @@ const ReviewsComponent = () => {
 
 <GrayContainer rounded={true}>
    {reviews.length > 0
-       ? <ReviewCard/>
+       ? reviews.map(item=> <ReviewCard item={item} key={item.id}/>)
        : <p className="text-center">No reviews yet</p>
    }
     <div className="text-center">

@@ -1,9 +1,20 @@
 import axios from "axios"
 import { API_URL } from "../constants/config"
 
-export const getReviews = async () => {
+export const getReviews = async (listing_id) => {
 
-    const response = await axios.get(`${API_URL}/api/reviews`)
+    console.log(listing_id)
+
+    const response = await axios.get(`${API_URL}/api/reviews?listing_id=${listing_id}`)
+    
+    return response
+}
+
+export const getPhotos = async (listing_id) => {
+
+    console.log(listing_id)
+    
+    const response = await axios.get(`${API_URL}/api/listing-images?serviceID=${listing_id}`)
     
     return response
 }

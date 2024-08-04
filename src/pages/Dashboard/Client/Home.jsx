@@ -1,7 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import GrayContainer from "../../../components/Layout/GrayContainer"
 import HomeDashboardLayout from "../../../components/Layout/HomeDashboardLayout"
 import UserDashboardLayout from "../../../components/Layout/UserDashboarLayout"
+import { fetchTransactions } from "../../../service/transactionService"
+import RenderTransactions from "./Transactions"
 
 const ClientHome = () => {
 
@@ -264,114 +266,7 @@ const renderServices = () => {
     </>)
 }
 
-const renderTransactions = () => {
-    return(<>
-     <h3 className="font-bold text-[36px] text-[#b4b4b4]">Transactions</h3>
 
-<div>
-    <table className="w-full border text-[12px]">
-        <tr>
-            <td>Sn</td>
-            <td>Date</td>
-            <td>From</td>
-            <td>Service</td>
-            <td>Status</td>
-        </tr>
-        <tr className="bg-[#e8e8e8]">
-            <td className="p-2">1</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">2</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">4</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">5</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">6</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">7</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-    </table>
-</div>
-
-    </>)
-}
 
     return (
         <>
@@ -405,7 +300,7 @@ const renderTransactions = () => {
                     </div>
                 </div>
 
-                <div className="flex rounded-full h-[37px] overflow-hidden bg-[#e8e8e8] p-1 mt-10">
+                <div className="flex rounded-full h-[150px] bg-[#e8e8e8] p-1 mt-10">
                     <h4 onClick={()=>{handleTabChange(0)}} className={`p-2 ${currTab == 0 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} flex justify-center items-center`}>Orders</h4>
                     <h4 onClick={()=>{handleTabChange(1)}} className={`p-2 ${currTab == 1 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>My Services</h4>
                     <h4 onClick={()=>{handleTabChange(2)}} className={`p-2 ${currTab == 2 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Transaction History</h4>
@@ -413,7 +308,7 @@ const renderTransactions = () => {
                 
                 {currTab == 0 ? renderOrders()
                 : currTab == 1 ? renderServices()
-                : currTab == 2 ? renderTransactions()
+                : currTab == 2 ? <RenderTransactions/>
                 : ""    
             }
             </HomeDashboardLayout>

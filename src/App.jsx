@@ -30,7 +30,7 @@ function App() {
         <Route path="dashboard">
           <Route path='user'>
             <Route path="" element={<ClientHome />} />
-            
+            <Route path="chats/:receiverId/:chatId" element={<ChatVendor />} />
             <Route path="chats" element={<ChatVendor />} />
             <Route path="settings/:curr_section" element={<ProfileDetailsSettings />} />
           </Route>

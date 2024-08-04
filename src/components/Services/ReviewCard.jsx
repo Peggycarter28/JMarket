@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import WhiteInGrayContainer from "../Layout/WhiteInGrayContainer"
 
-const ReviewCard = () => {
+const ReviewCard = ({item}) => {
     return (<>
         <div className="p-2">
             <WhiteInGrayContainer rounded={true}>
@@ -9,7 +9,7 @@ const ReviewCard = () => {
                     <div className="bg-[red] size-[50px] rounded-[25px] flex items-center justify-center">
                         <img src="/user_thumbs/thumb.png" alt="Pic" />
                     </div>
-                    <Link to={"../user/petergambo"}><p>Abubakar Laushi</p></Link>
+                    <Link to={"../user/petergambo"}><p>{item.reviewBy.first_name !== "" || item.reviewBy.last_name !== "" ? `${item.reviewBy.first_name} ${item.reviewBy.last_name}` : item.reviewBy.username}</p></Link>
                 </div>
 
 
@@ -24,8 +24,8 @@ const ReviewCard = () => {
                 </div>
 
                 <div>
-                    <p>A very nice experience!!</p>
-                    <p>"Fantastic experience! [Vendor's Name] was with us every step of the way, offering support and guidance."</p>
+                    <p>{item.title}</p>
+                    <p>{item.body}</p>
                 </div>
 
             </WhiteInGrayContainer>
