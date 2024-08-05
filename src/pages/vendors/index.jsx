@@ -16,6 +16,7 @@ import Cookies from 'js-cookie'
 import { API_URL } from "../../constants/config"
 import ReviewPhotoGallery from "./ReviewPhotoGallery"
 import SubmitReview from "./SubmitReview"
+import MessageVendorButton from "./MessageVendorButton"
 
 const Vendors = () => {
     
@@ -144,9 +145,7 @@ const Vendors = () => {
 
                     {/*  */}
                     <div className="flex gap-4 justify-start mb-[30px]">
-                        <Link to="chat">
-                        <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={true} title={user.lang == 'ha' ? `Message` :`Message`} />
-                        </Link>
+                        { item.id && <MessageVendorButton listing_id={item?.id} receiver_id={item?.owner.id}/>}
 
                         <div onClick={handleProcessOrder}>
                         <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={false} title={user.lang == 'ha' ? `Order Yanzu` :`Order Now`} />
@@ -175,7 +174,7 @@ const Vendors = () => {
                             <p>Saturday (Only Appointments)</p>
                         </WhiteInGrayContainer>
 
-                       <SubmitReview/> 
+                       <SubmitReview listing_id={item?.id}/> 
 
                         <WhiteInGrayContainer>
                             <p className="text-[#808080] text-[14px] leading-[20px]">BauchiConnect Directory/ Find A Vendor section is NOT an endorsement of any

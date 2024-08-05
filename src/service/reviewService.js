@@ -19,16 +19,16 @@ export const getPhotos = async (listing_id) => {
     return response
 }
 
-export const viewReviewService = async (chatId ) => {
+export const viewReviewService = async (reviewId ) => {
 
-    const response = await axios.get(`${API_URL}/chat/load`, {chatId: chatId})
+    const response = await axios.get(`${API_URL}/api/reviews/${reviewId}`)
 
     return response
 }
 
-export const sendReviewService = async (content, receiverId, senderId, messageTime ) => {
+export const sendReviewService = async (data) => {
 
-    const response = await axios.post(`${API_URL}/chat/send-message`, {content: content, receiverId: receiverId, senderId: senderId, messageTime: new Date(Date.now())})
+    const response = await axios.post(`${API_URL}/api/reviews`, data)
 
     return response
 }

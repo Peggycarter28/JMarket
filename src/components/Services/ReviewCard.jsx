@@ -2,6 +2,15 @@ import { Link } from "react-router-dom"
 import WhiteInGrayContainer from "../Layout/WhiteInGrayContainer"
 
 const ReviewCard = ({item}) => {
+    const getRating = () => {
+console.log(Math.ceil(item.client_rating))
+        for (let index = 0; index < Math.ceil(item.client_rating); index++) {
+            return  <img className="size-[16px]" src="/vendors-star.svg" />
+            
+        }
+
+        
+    }
     return (<>
         <div className="p-2">
             <WhiteInGrayContainer rounded={true}>
@@ -15,12 +24,11 @@ const ReviewCard = ({item}) => {
 
                 <div className="flex items-center gap-2">
                     <div className="flex items-center justify-center">
-                        <img className="size-[16px]" src="/vendors-star.svg" />
-                        <img className="size-[16px]" src="/vendors-star.svg" />
-                        <img className="size-[16px]" src="/vendors-star.svg" />
-                        <img className="size-[16px]" src="/vendors-star.svg" />
+                        {
+                            getRating()                
+}
                     </div>
-                    <p>12/01/2024</p>
+                    <p>{new Date(item.date).toDateString()}</p>
                 </div>
 
                 <div>

@@ -77,6 +77,8 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
 
             const orderCreate = await createOrder(order_data)
 
+            console.log(orderCreate)
+
             const transaction_data = {
                 reference: verify.data.reference,
                 status: verify.data.status,
