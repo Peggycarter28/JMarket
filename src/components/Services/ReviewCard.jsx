@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom"
 import WhiteInGrayContainer from "../Layout/WhiteInGrayContainer"
+import { useContext } from "react"
+import { UserContext } from "../../context/AppContextt"
 
 const ReviewCard = ({item}) => {
+
+    const {user, setUser} = useContext(UserContext)
+
     const getRating = () => {
 console.log(Math.ceil(item.client_rating))
         for (let index = 0; index < Math.ceil(item.client_rating); index++) {
@@ -32,8 +37,10 @@ console.log(Math.ceil(item.client_rating))
                 </div>
 
                 <div>
-                    <p>{item.title}</p>
-                    <p>{item.body}</p>
+                {user.lang == 'ha' ? <p>{item.title_ha}</p> : <p>{item.title}</p>}
+                    
+                {user.lang == 'ha' ?  <p>{item.body_ha}</p> :  <p>{item.body}</p>}
+                   
                 </div>
 
             </WhiteInGrayContainer>
