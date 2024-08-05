@@ -9,9 +9,11 @@ const RenderTransactions = () => {
 
     useEffect(()=>{
 
+        const user = JSON.parse(localStorage.getItem('user'))
+
         const fetch = async ()=>{
 
-        const tx = await fetchTransactions()
+        const tx = await fetchTransactions(user.id)
 
         if(tx.status == 200 || tx.status == 201)
         {

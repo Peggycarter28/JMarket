@@ -22,9 +22,7 @@ function App() {
         <Route path="contact" element={<Home />} />
         <Route path="auth/signin" element={<Login />} />
         <Route path="auth/signup" element={<Register />} />
-
         <Route path="dashboard/vendor" element={<Home />} />
-
         <Route path="user/:username" element={<UserProfile />} />
 
         <Route path="dashboard">
@@ -34,7 +32,6 @@ function App() {
             <Route path="chats" element={<ChatVendor />} />
             <Route path="settings/:curr_section" element={<ProfileDetailsSettings />} />
           </Route>
-
         </Route>
 
         <Route path="service/:category/:title" element={<Vendors />} />

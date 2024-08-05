@@ -69,10 +69,13 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
 
             // Add order and transaction records to database
             const order_data = {
-
+                by: verify.data.customer.email,
+                referenceId: verify.data.reference,
+                service: service_id,
+                amount: verify.data.amount
             }
 
-            // const orderCreate = await createOrder(order_data)
+            const orderCreate = await createOrder(order_data)
 
             const transaction_data = {
                 reference: verify.data.reference,

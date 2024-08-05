@@ -1,6 +1,15 @@
 import axios from "axios"
 import { API_URL } from "../constants/config"
 
+
+export const createVendorService = async (data) => {
+
+    const response = await axios.post(`${API_URL}/api/vendors`, data)
+    
+    return response
+}
+
+
 export const getAllVendorsService = async () => {
 
     const response = await axios.get(`${API_URL}/api/vendors`)

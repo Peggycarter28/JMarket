@@ -8,8 +8,8 @@ export const createTransaction = async (data) => {
     return response
 }
 
-export const fetchTransactions = async () => {
-    const response = await axios.get(`${API_URL}/api/transactions`)
+export const fetchTransactions = async (owner_id) => {
+    const response = await axios.get(`${API_URL}/api/transactions?owner_id=${owner_id}`)
 
     return response
 }

@@ -64,7 +64,7 @@ const ChatsArea = () => {
                         <img className="h-[50px] md:h-[81px]" src="/product.png" alt="" />
                     </div>
                     <div>
-                        <p>{chats[0]?.sender == user.id ? chats[0]?.receiver : chats[0]?.sender}</p>
+                        <p>{chats[0]?.sender.id == user.id ? chats[0]?.receiver.username : chats[0]?.sender.username}</p>
                         <p>Offline</p>
                     </div>
                 </div>
