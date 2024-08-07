@@ -47,6 +47,7 @@ const getLocation = () => {
             document.title = "Bauchi Connect | Homepage"
 
             getLocation();
+            console.log(location)
         }, []
     )
 
