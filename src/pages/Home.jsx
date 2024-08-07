@@ -139,15 +139,14 @@ const getLocation = () => {
                                 <p className='text-[#808080] text-[14px] md:text-[16px] font-semibold'> {user.lang == 'ha' ? "Masu Aiki" : `Top Vendors`}</p>
                             </div>
 
-
-                            <div className='w-[96px] h-[150px] flex flex-col items-center justify-start'>
+                            {/* <div className='w-[96px] h-[150px] flex flex-col items-center justify-start'>
                                 <div className="bg-white p-2 w-[56px] h-[56px] rounded-full">
                                     <img className='mt-3' src={CAC} />
                                 </div>
                                 <p className='text-[#808080] text-[14px] md:text-[16px] text-center font-semibold w-[80px] flex flex-wrap'>
                                 {user.lang == 'ha' ? "Masu CAC" : `CAC Verified Vendors`}</p>
                                     
-                            </div>
+                            </div> */}
 
                             <div className='w-[96px] h-[150px] flex flex-col items-center justify-start'>
                                 <div className="bg-white p-2 w-[56px] h-[56px] rounded-full">
