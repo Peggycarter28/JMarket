@@ -11,15 +11,17 @@ export const createOrder = async (data ) => {
 
 export const getOrders = async (serviceId ) => {
 
-    const response = await axios.get(`${API_URL}/api/orders?service_id=${serviceId}`)
+    // const response = await axios.get(`${API_URL}/api/orders?service_id=${serviceId}`)
+
+    const response = await axios.get(`${API_URL}/api/orders`)
 
     return response
 }
 
 
-export const updateOrder = async (data) => {
+export const updateOrder = async (data, orderId) => {
 
-    const response = await axios.patch(`${API_URL}/api/orders`, data)
+    const response = await axios.put(`${API_URL}/api/orders/${orderId}`, data)
 
     return response
     

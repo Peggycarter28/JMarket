@@ -17,7 +17,7 @@ const UserDashboardLayout = ({ children }) => {
         {
             setUser(JSON.parse(storedUser))
         }
-    })
+    }, [])
 
     const sub_sections = [
         { name: "Profile Details", slug: "profile" },

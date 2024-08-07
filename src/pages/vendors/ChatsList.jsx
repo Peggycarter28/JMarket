@@ -71,8 +71,9 @@ const ChatsList = () => {
             {/* Chats Collections */}
             
             {
-                chatId == undefined ? chatsList.map(data =><ChatsCard key={data.chatUniqueId} data={data} userId={user.id} />)
-                : <button className="border-b border-b-[2px] p-4" onClick={handleBack}>&lt; Back to Chats List</button>
+                chatId == undefined && chatsList.length !== 0 ? chatsList.map(data =><ChatsCard key={data.chatUniqueId} data={data} userId={user.id} />)
+                : chatsList.length == 0 ? <p>Inbox is empty</p>
+                    : <button className="border-b border-b-[2px] p-4" onClick={handleBack}>&lt; Back to Chats List</button>
 }
         </div>
 

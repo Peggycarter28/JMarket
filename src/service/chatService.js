@@ -10,9 +10,22 @@ export const getChatsListService = async (userId) => {
     return response
 }
 
+const chatUniqueId = (vendorListingId, senderId) => {
+    let id = vendorListingId + "" + Date.now() + "" + senderId
+    console.log(id)
+    return id
+}
+
 export const newChatService = async (vendorListingId, receiverId, senderId) => {
 
-    const response = await axios.post(`${API_URL}/api/chat-list`, {receiver: receiverId, sender: senderId, listing: vendorListingId})
+    const response = await axios.post(`${API_URL}/api/chat-list`, 
+        {
+            receiver: receiverId, 
+            sender: senderId, 
+            listing: vendorListingId,
+            chatUniqueId: chatUniqueId(vendorListingId, senderId)
+        }
+)
     
     return response
 }

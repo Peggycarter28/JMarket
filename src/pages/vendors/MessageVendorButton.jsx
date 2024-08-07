@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react"
 import CTAButton from "../../components/Forms/Buttons/CTAButton"
 import { UserContext } from "../../context/AppContextt"
 import { useNavigate } from "react-router-dom"
+import Cookies from "js-cookie"
 
 const MessageVendorButton = ({listing_id, receiver_id}) => {
 
@@ -16,6 +17,10 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
     const navigate = useNavigate()
 
     const handleChat = async () => {
+
+        if(Cookies.get('token'))
+
+        {
                if(existing.length > 0)
             {
                 let thisChat = existing.filter(chat =>{ return chat.listing.id == listing_id && (chat.receiver.id == receiver_id || chat.receiver.id == user.id || chat.sender.id == receiver_id || chat.sender.id == user.id)})
@@ -32,12 +37,10 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
                 {
                     console.log("Old chats found")
                     
-                    
-
-      navigate(`/dashboard/user/chats/${receiver_id}/${thisChat[0].id}`)
-                    // window.location.pathname = 
+                    navigate(`/dashboard/user/chats/${receiver_id}/${thisChat[0].id}`) 
                 }
             }
+
             else {
                 // create new chat
                 const newChatList = await newChatService(listing_id, receiver_id, userState.id)
@@ -51,12 +54,13 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
                     console.log("New chat created")
 
                     navigate(`/dashboard/user/chats/${receiver_id}/${newChatList.data.id}`)
-
                 }
-                
             }
-        
-
+        }
+        else{
+            // Not Logged In
+            Alert("Log in to chat with Vendor")
+        }
     }
 
     useEffect(()=>{
@@ -65,7 +69,7 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
         if(storedUser)
             {
                 setUserState(JSON.parse(storedUser))
-            } 
+            }
 
             const storedChatsList = localStorage.getItem('myChatsList')
 

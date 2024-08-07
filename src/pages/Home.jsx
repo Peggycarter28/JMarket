@@ -19,7 +19,6 @@ function Home() {
 
    const {user, setUser} = useContext(UserContext)
 
-
     useEffect(
         () => {
 
@@ -54,7 +53,20 @@ function Home() {
            }
         }
 
+        const fetchCategories = async ()=> {
+            
+             const userRes = await axios.get(`${API_URL}/api/category`) //Fix this and change to local government
+             if(userRes.status == 200 || userRes.status == 201)
+             {
+ 
+             localStorage.setItem('localGovernmentAreas', JSON.stringify(userRes.data))
+             
+             }
+            }
+
         fetchUser()
+
+        fetchCategories()
     }, [])
 
 

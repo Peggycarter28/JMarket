@@ -4,6 +4,8 @@ import HomeDashboardLayout from "../../../components/Layout/HomeDashboardLayout"
 import UserDashboardLayout from "../../../components/Layout/UserDashboarLayout"
 import RenderTransactions from "./Transactions"
 import RenderOrders from "./Orders"
+import RenderServices from "./Services"
+import { fetchTransactions } from "../../../service/transactionService"
 
 const ClientHome = () => {
 
@@ -15,132 +17,53 @@ const ClientHome = () => {
 
     const [transactions, setTransactions] = useState(null)
 
+    const [transactionsList, setTransactionsList] = useState(null)
+
     const handleTabChange = (currIndex) => {
         setCurrTab(currIndex)
     }
-const renderServices = () => {
-    return(<>
-     <h3 className="font-bold text-[36px] text-[#b4b4b4]">Services</h3>
 
-<div>
-    <table className="w-full border text-[12px]">
-        <tr>
-            <td>Sn</td>
-            <td>Date</td>
-            <td>From</td>
-            <td>Service</td>
-            <td>Status</td>
-        </tr>
-        <tr className="bg-[#e8e8e8]">
-            <td className="p-2">1</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">2</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[#e8e8e8]">
-            <td className="p-2">3</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">4</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">5</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">6</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">7</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-    </table>
-</div>
+    useEffect(
+        ()=>{
+           const storedOrders = localStorage.getItem('userOrders')
+           if(storedOrders)
+           {
+            setOrders(JSON.parse(storedOrders).length)
+           }
+        },[]
+    )
 
-    </>)
-}
+    useEffect(()=>{
+
+        const user = JSON.parse(localStorage.getItem('user'))
+
+        const fetch = async ()=>{
+
+        const tx = await fetchTransactions(user.id)
+
+        if(tx.status == 200 || tx.status == 201)
+        {
+            setTransactionsList(tx.data)
+            localStorage.setItem("userTransactions", JSON.stringify(tx.data))
+
+            if(tx.data.length > 0)
+            {
+                console.log(tx.data)
+                // Sum up total using reduce function
+                const sum = tx.data.reduce((accumulator, transactionItem)=>{
+                    return accumulator + (parseInt(transactionItem.amount)) //ParseInt because our transactions was coming as a string from database. You cant sum up strings
+                }, 0)
+
+                console.log(sum)
+
+                setTransactions(sum/1000)
+            }
+        }
+        }
+
+        fetch()
+
+    }, [])
 
 
 
@@ -148,26 +71,26 @@ const renderServices = () => {
         <>
             <HomeDashboardLayout>
                 <div className="flex flex-wrap">
-                    <div className="p-2 flex w-full h-[120px] flex md:w-1/3 overflow-hidden ">
+                    <div className="p-2 flex w-full h-[120px] flex md:w-1/2 overflow-hidden ">
                         <div className="text-[#ef6c00] border shadow-lg text-white w-full p-2 rounded-[16px]">
                             <h5 className="text-[#2e7d32] font-semibold text-[18px]">Orders</h5>
-                            <p className="text-[gray] text-[2.5rem] font-bold">0</p>
+                            <p className="text-[gray] text-[2.5rem] font-bold">{orders}</p>
                         </div>
                     </div>
 
-                    <div className="p-2 flex w-full h-[120px] flex md:w-1/3 overflow-hidden ">
+                    <div className="p-2 flex w-full h-[120px] flex md:w-1/2 overflow-hidden ">
                         <div className="text-[#2e7d32]  border shadow-lg text-white w-full p-2 rounded-[16px]">
-                        <h5 className="text-[#2e7d32] font-semibold text-[18px]">Amount Spent</h5>
-                        <p className="text-[gray] text-[2.5rem] font-bold">N0</p>
+                        <h5 className="text-[#2e7d32] font-semibold text-[18px]">Acrued Income</h5>
+                        <p className="text-[gray] text-[2.5rem] font-bold">N{transactions}</p>
                         </div>
                     </div>
 
-                    <div className="p-2 flex w-full h-[120px] flex md:w-1/3 overflow-hidden ">
+                    {/* <div className="p-2 flex w-full h-[120px] flex md:w-1/3 overflow-hidden ">
                         <div className="text-[#ef6c00]  border shadow-lg text-white w-full p-2 rounded-[16px]">
                         <h5 className="text-[#2e7d32] font-semibold text-[18px]">Reviews</h5>
                         <p className="text-[gray] text-[2.5rem] font-bold">0</p>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="p-2 w-full h-[120px] flex overflow-hidden rounded-[16px]">
                     <GrayContainer noPadding={true}>
@@ -185,8 +108,8 @@ const renderServices = () => {
                 {
                 
                 currTab == 0 ? <RenderOrders/>
-                : currTab == 1 ? renderServices()
-                : currTab == 2 ? <RenderTransactions/>
+                : currTab == 1 ? <RenderServices/>
+                : currTab == 2 ? <RenderTransactions transactionsList={transactionsList}/>
                 : ""    
             }
             </HomeDashboardLayout>

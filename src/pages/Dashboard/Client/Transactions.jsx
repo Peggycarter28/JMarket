@@ -1,29 +1,13 @@
 import { useEffect, useState } from "react"
 import { fetchTransactions } from "../../../service/transactionService"
 
-const RenderTransactions = () => {
+const RenderTransactions = ({transactionsList}) => {
 
-    const [transactions, setTransactions] = useState([])
+    const [transactions, setTransactions] = useState(transactionsList)
 
     const [isTxLoading, setIsTxLoading] = useState(false)
 
-    useEffect(()=>{
-
-        const user = JSON.parse(localStorage.getItem('user'))
-
-        const fetch = async ()=>{
-
-        const tx = await fetchTransactions(user.id)
-
-        if(tx.status == 200 || tx.status == 201)
-        {
-            setTransactions(tx.data)
-        }
-        }
-
-        fetch()
-
-    }, [])
+   
 
     return(<>
      <h3 className="font-bold text-[36px] text-[#b4b4b4]">Transactions - {transactions.length}</h3>
@@ -45,7 +29,7 @@ const RenderTransactions = () => {
             <td className="p-2">{index + 1}</td>
             <td className="p-2">Income</td>
             <td>{new Date(item.date).toDateString()}</td>
-            <td>{item.currency}{item.amount - ((5/100) * item.amount)}</td>
+            <td>{item.currency}{(item.amount - ((5/100) * item.amount))/1000}</td>
             <td>{item.by}</td>
             <td>{item.service}</td>
             <td>{item.status}</td>

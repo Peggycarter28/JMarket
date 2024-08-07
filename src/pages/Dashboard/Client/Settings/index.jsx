@@ -10,7 +10,7 @@ import { API_URL } from "../../../../constants/config"
 const ProfileDetailsSettings = () => {
     const { curr_section } = useParams()
 
-    const [user, setUser] = useState(null)
+    const [fetchedUser, setUser] = useState(null)
 
     console.log(curr_section)
 
