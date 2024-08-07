@@ -38,7 +38,10 @@ const NavBarLandingComponent = () => {
                     <img src={siteLogo} className="w-[120px] md:w-auto" alt="BConnect Logo" />
                 </Link>
 
-                <div className='hidden md:flex'>
+                {
+                    user.isLoggedIn == true && user.username !== null 
+                    ? ""
+                    : <div className='hidden md:flex'>
                     <NavBarWhite links={[
                         { name: "Find Vendors", url: "/search" },
                         { name: "Vendors", url: "/search" }
@@ -52,9 +55,10 @@ const NavBarLandingComponent = () => {
 
 
                 </div>
+}
 
                 <div className="flex gap-1">
-                    {user.isLoggedIn == true && user.username !== null && <p className="mr-2 mt-2 text-[#d9d9d9] font-semibold text-[10px] md:text-[14px]">Hello {`${user.username}`}. {user.id} <br/>Go to <Link to={'/dashboard/user/'}>Dashboard</Link></p>}
+                    {user.isLoggedIn == true && user.username !== null && <p className="mr-2 mt-2 text-[#d9d9d9] font-semibold text-[10px] md:text-[14px]">Hello {`${user.username}`}.<br/>Go to <Link to={'/dashboard/user/'}>Dashboard</Link></p>}
                 <div className="size-[50px] p-2 md:hidden">
                     
                     <img className="size-[30px]" onClick={handleToggleNavBar} src="https://img.icons8.com/ios-filled/50/737373/menu--v1.png" alt="Menu Icon" />
