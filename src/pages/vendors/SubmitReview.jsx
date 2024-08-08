@@ -15,10 +15,14 @@ const SubmitReview = ({listing_id}) => {
 
     const [userr, setUserr] = useState(null)
 
+    const [loading, setLoading] = useState(false)
+
     const {user, setUser} = useContext(UserContext)
 
     const handleReviewSubmit = async () => {
         console.log("ReviewSubmit Called")
+
+        setLoading(true)
 
         const data = {
             body: body,
@@ -38,11 +42,13 @@ const SubmitReview = ({listing_id}) => {
             setBody("")
             setTitle("")
             setStars(0)
+            setLoading(false)
             alert("Submitted Successfully")
         }
 
         else {
                 console.log(res.data)
+                setLoading(false)
                 alert("Something bad happened")
         }
 
@@ -92,7 +98,7 @@ const SubmitReview = ({listing_id}) => {
 
         {/* Submit call to action button */}
         <div onClick={handleReviewSubmit} className="flex justify-start mt-2 mb-2">
-            <CTAButton title={user.lang == 'ha' ? "Aika bita naka": "Submit your review"} />
+            <CTAButton loadingState={loading} title={user.lang == 'ha' ? "Aika bita naka": "Submit your review"} />
         </div>
 
     </WhiteInGrayContainer>)

@@ -14,7 +14,10 @@ const ReviewsComponent = () => {
 
     const [reviews, setReviews] = useState([])
 
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
+        
         console.log("Fetching Listing Reviews")
 
         const fetch = async () => {

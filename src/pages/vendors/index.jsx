@@ -196,7 +196,7 @@ const Vendors = () => {
                             <WhiteInGrayContainer>
                                 <div className="text-center">
                                 {user.lang == 'ha' ? "Rubuta bita" : "Write a review"}
-                                </div>
+                                </div> 
                             </WhiteInGrayContainer>
                         </div>
                     </GrayContainer>
