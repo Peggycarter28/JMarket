@@ -10,6 +10,8 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
 
     const [existing, setExisting] = useState([])
 
+    const [loading, setLoading] = useState(false)
+
     const [userState, setUserState] = useState(null)
 
     const {user, setUser} = useContext(UserContext)
@@ -21,6 +23,12 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
         if(Cookies.get('token'))
 
         {
+            setLoading(true)
+            if(receiver_id == user.id){
+                alert("Sorry! you cannot chat yourself")
+                setLoading(false)
+                return
+            }
                if(existing.length > 0)
             {
                 let thisChat = existing.filter(chat =>{ return chat.listing.id == listing_id && (chat.receiver.id == receiver_id || chat.receiver.id == user.id || chat.sender.id == receiver_id || chat.sender.id == user.id)})
@@ -36,8 +44,13 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
                 if(thisChat.length > 0)
                 {
                     console.log("Old chats found")
+
+                    setTimeout(() => {
+                        setLoading(false)
+                        navigate(`/dashboard/user/chats/${receiver_id}/${thisChat[0].id}`) 
+                    }, 1500);
                     
-                    navigate(`/dashboard/user/chats/${receiver_id}/${thisChat[0].id}`) 
+                    
                 }
             }
 
@@ -52,8 +65,12 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
                     localStorage.setItem('myChatsList', JSON.stringify(existing))
 
                     console.log("New chat created")
+                    setTimeout(() => {
+                        setLoading(false)
+                        navigate(`/dashboard/user/chats/${receiver_id}/${newChatList.data.id}`)
+                    }, 1500);
 
-                    navigate(`/dashboard/user/chats/${receiver_id}/${newChatList.data.id}`)
+                   
                 }
             }
         }
@@ -81,7 +98,7 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
 
     return(
    <div onClick={handleChat}>
-            <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={true} title={user.lang == 'ha' ? `Message` :`Message`} />
+            <CTAButton loadingState={loading} iconBtnUrl="/message-text.svg" isIconBtn={true} title={user.lang == 'ha' ? `Message` :`Message`} />
             </div>
     )
 }

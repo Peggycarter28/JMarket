@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { getAllVendorsService } from "../../service/vendorListingService"
 import { UserContext } from "../../context/AppContextt"
+import { ClipLoader } from "react-spinners"
 
 const TopVendorsCard = ({ title}) => {
 
@@ -10,6 +11,8 @@ const TopVendorsCard = ({ title}) => {
 
     const [items, setItems] = useState([])
 
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
         console.log("Vendors Area")
 
@@ -17,6 +20,7 @@ const TopVendorsCard = ({ title}) => {
 
         if(storedItems) {
             setItems(JSON.parse(storedItems))
+            setLoading(false)
         }
 
         const fetch = async () => {
@@ -28,8 +32,11 @@ const TopVendorsCard = ({ title}) => {
                 setItems(res.data)
 
                 localStorage.setItem('items', JSON.stringify(res.data))
+                setLoading(false)
             }
-            else { alert("Unable to fetch vendors") }
+            else { 
+                setLoading(false)
+                alert("Unable to fetch vendors. Kindly reload page again.") }
         }
 
         fetch()
@@ -43,7 +50,10 @@ const TopVendorsCard = ({ title}) => {
 
             <div className="flex flex-wrap gap-8 w-full">
                 {
-                    items.length == 0
+                    loading == true ? <div className="flex justify-center items-center w-full text-[#EF6C00]">
+                    <ClipLoader color="#EF6C00" size={35} />
+                  </div>
+                  : loading == false && items.length == 0
                         ? "No Vendors found"
 
                         : items.map((item, index) => {

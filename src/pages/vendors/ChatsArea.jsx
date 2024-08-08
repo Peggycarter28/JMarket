@@ -79,7 +79,7 @@ const ChatsArea = () => {
                     </div>
                     <div className="flex flex-col gap-1 w-full">
                         {chats.map(chat => (
-                            <Chats key={chat.id} type={chat.sender === user.id ? "reply" : "response"} time={"9:30am"} message={chat.content} />
+                            <Chats key={chat.id} type={chat.sender.id === user.id ? "reply" : "response"} time={"9:30am"} message={chat.content} />
                         ))}
                     </div>
                 </div>

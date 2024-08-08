@@ -3,6 +3,7 @@ import { UserContext } from "../../context/AppContextt"
 import { initializePayment, verifyPayment } from "../../service/paymentService"
 import { createOrder } from "../../service/orderService"
 import { createTransaction } from "../../service/transactionService"
+import { ClipLoader } from "react-spinners"
 
 const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_creator }) => {
     const user = useContext(UserContext)
@@ -138,7 +139,14 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
                 </div>
 
                 <div className="flex">
-                    <button onClick={handlePayment} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg">{inProgress == true ? "Processing..." : "Pay with Paystack"}</button>
+                    <button onClick={handlePayment} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg flex gap-2 justify-center items-center">{inProgress == true ? "Processing..." : "Pay with Paystack"}
+                    <div className="size-[16px]">
+             
+             { inProgress == true && <ClipLoader color="#ccc" size={18} />}
+           
+</div>
+                    </button>
+                    
                 </div>
 
             </div>
