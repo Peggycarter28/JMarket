@@ -19,6 +19,8 @@ const ClientHome = () => {
 
     const [transactionsList, setTransactionsList] = useState(null)
 
+    const [user, setUser] = useState(null)
+
     const handleTabChange = (currIndex) => {
         setCurrTab(currIndex)
     }
@@ -36,6 +38,10 @@ const ClientHome = () => {
     useEffect(()=>{
 
         const user = JSON.parse(localStorage.getItem('user'))
+
+        if(user) {
+            setUser(user)
+        }
 
         const fetch = async ()=>{
 
@@ -109,7 +115,7 @@ const ClientHome = () => {
                 
                 currTab == 0 ? <RenderOrders/>
                 : currTab == 1 ? <RenderServices/>
-                : currTab == 2 ? <RenderTransactions transactionsList={transactionsList}/>
+                : currTab == 2 ? <RenderTransactions transactionsList={transactionsList} user={user}/>
                 : ""    
             }
             </HomeDashboardLayout>

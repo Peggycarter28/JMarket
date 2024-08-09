@@ -3,7 +3,10 @@ import { getOrders, updateOrder } from "../../../service/orderService"
 
 const RenderOrders = () => {
     const name = "orders"
+
     const [orders, setOrders] = useState([])
+
+    const [user, setUser] = useState(null)
 
     const [isTxLoading, setIsTxLoading] = useState(false)
 
@@ -45,12 +48,21 @@ const RenderOrders = () => {
             {setOrders(JSON.parse(order))}
             
          }
+
+         const fetchStoredUser  = () => {
+            const user = localStorage.getItem('user')
+            if(user)
+            {setUser(JSON.parse(user))}
+            
+         }
  
     
 
     useEffect(()=>{
 
         storedOrders()
+
+        fetchStoredUser()
 
         const user = JSON.parse(localStorage.getItem('user'))
 
@@ -99,18 +111,20 @@ const RenderOrders = () => {
             <td>Status</td>
         </tr>
         {orders.length > 0 ? orders.map((item, index)=>
-        <tr key={item+index} className={item.status == "PENDING" ? `bg-[#ffc2c2]` : `bg-[white]`}>
+        <tr key={item+index} className={item.status == "PENDING" && item.by !== user?.username ? `bg-[#ffc2c2]` : `bg-[white]`}>
             <td className="p-2">{index+1}</td>
             <td>{new Date(item.date).toDateString()}</td>
-            <td>{item.by}</td>
+            <td>{item.by !== user?.username ? item.by : "You"}</td>
             <td>{item.service.name}</td>
             <td>
                 <p>{item.status}</p>
+                {item.by !== user?.username &&
                 <select name="" id="" onChange={elem=> handleOrderStatusUpdate(item.id, elem.target.value, index, item)}>
                     <option value="">...option</option>
                     <option value="IN PROGRESS">In Progress</option>
                     <option value="COMPLETED">Completed</option>
                 </select>
+                }
             </td>
         </tr>)
 
