@@ -66,8 +66,8 @@ const TopVendorsCard = ({ title}) => {
                             return <div key={index} className="w-full m-2 md:w-[200px] border md:border-none rounded-lg p-2">
                                 {/* Image Container */}
                                 <Link to={`/service/${item.category.name}/${item.id}`}>
-                                    <div className="w-full md:w-auto h-[190px] md:h-auto rounded-lg overflow-hidden border">
-                                        <img className="w-full md:w-[200px] h-auto md:h-[120px] bg-green-600" src={item.image_url} />
+                                    <div className="w-full flex justify-center items-center md:w-auto h-[190px] rounded-lg overflow-hidden border">
+                                        <img className="bg-green-600" src={item.image_url} />
                                     </div>
                                 </Link>
 

@@ -14,9 +14,10 @@ import PaymentModal from "../../components/Modals/PaymentModal"
 import axios from "axios"
 import Cookies from 'js-cookie'
 import { API_URL } from "../../constants/config"
-import ReviewPhotoGallery from "./ReviewPhotoGallery"
+
 import SubmitReview from "./SubmitReview"
 import MessageVendorButton from "./MessageVendorButton"
+import ReviewPhotoGallery from "./ReviewPhotoGallery.jsx"
 
 const Vendors = () => {
     

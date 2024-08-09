@@ -42,8 +42,10 @@ const ReviewPhotoGallery = () => {
 
             <ul className="flex">
                 {photos.map((photo, index) => {
-                    return(<li key={photo+index} className="bg-[red] w-1/3">
-                        <img  height={60} width={60} src={photo.image_url} alt={photo.name} />
+                    return(<li key={photo+index} className="w-1/3">
+                        <div className="p-2 ">
+                        <img className="p-2 border shadow-lg " height={60} width={60} src={photo.image_url} alt={photo.name} />
+                        </div>
                     </li>)
                 })}
             </ul>
