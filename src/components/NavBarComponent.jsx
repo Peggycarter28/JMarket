@@ -44,7 +44,7 @@ const NavBarComponent = () => {
 
                 <div className="size-[50px] p-2 md:hidden">
                     {user.isLoggedIn == true && <p className="mr-2">Hello {`${user.username}`}</p>}
-                    <img className="size-[30px]" src="https://img.icons8.com/ios/50/FFFFFF/menu-v7.png" alt="Menu Icon" />
+                    <img className="size-[30px]" src="https://img.icons8.com/ios-filled/50/737373/menu--v1.png" alt="Menu Icon" />
                 </div>
             </nav>
         </div>

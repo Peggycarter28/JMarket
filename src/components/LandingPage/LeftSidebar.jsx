@@ -18,6 +18,7 @@ const LeftsideBar = () => {
         if (storedCategories) {
             setCategories(JSON.parse(storedCategories));
             setOfflineFound(true);
+            setLoaded(true)
         }
     }, [name]);
 

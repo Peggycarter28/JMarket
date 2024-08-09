@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../constants/config";
 import { ClipLoader } from "react-spinners";
+import Cropper from 'react-easy-crop';
 
 const AddServiceModal = ({ handleModal, fetchedUser }) => {
     const user = useContext(UserContext);
@@ -26,10 +27,53 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
     const [photoFour, setPhotoFour] = useState(null);
     const [uploadedUrls, setUploadedUrls] = useState([]);
 
-    const photos = [coverPhoto, photoOne, photoTwo, photoThree, photoFour];
+    // Image Cropping
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedImage, setCroppedImage] = useState(null)
+    const [croppedImages, setCroppedImages] = useState({
+        coverPhoto: null,
+        photoOne: null,
+        photoTwo: null,
+        photoThree: null,
+        photoFour: null,
+    });
+    const [cropImageModal, setCropImageModal] = useState(false);
+    const [imageToCrop, setImageToCrop] = useState(null);
+    const [currentImage, setCurrentImage] = useState(null);
+
+    
+    const handleFileChange = (setter, currentImageName) => (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            console.log("Selected file:", file);
+            setImageToCrop(URL.createObjectURL(file));
+            setter(file);
+            setCropImageModal(true);
+            setCurrentImage(currentImageName);
+        }
+    };
+    
+
+    const onCropComplete = async (croppedArea, croppedAreaPixels) => {
+        const croppedImageUrl = await getCroppedImg(imageToCrop, croppedAreaPixels);
+        console.log("Cropped Image URL:", croppedImageUrl); // Debug log
+        setCroppedImage(croppedImageUrl);
+    };
+    
+
+    const handleCroppedImage = () => {
+        setCroppedImages((prev) => ({
+            ...prev,
+            [currentImage]: croppedImage, // This should be the Blob or File object
+        }));
+        console.log("Cropped Images:", croppedImages); // Debug log
+        setCropImageModal(false);
+    };
+    
 
     // Function to upload the files to Cloudinary
-    const uploadToCloudinary = async () => {
+    const uploadToCloudinary = async (photos) => {
         const uploadedUrlsTemp = []; // Temporary array to hold uploaded URLs
 
         for (const photo of photos) {
@@ -55,6 +99,7 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
 
     const handleAddListing = async () => {
         setInProgress(true);
+        console.log("Adding Listing STarted")
 
         if (!description || !title) {
             alert("Title or description cannot be blank");
@@ -63,11 +108,26 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
         }
 
         // Upload images and store their URLs
-        const urls = await uploadToCloudinary();
+        console.log("Adding Images to CLoudinary")
+
+         // Upload images including cropped ones
+    const imagesToUpload = [
+        croppedImages.coverPhoto, // Use the cropped cover photo
+        croppedImages.photoOne,
+        croppedImages.photoTwo,
+        croppedImages.photoThree,
+        croppedImages.photoFour,
+    ];
+
+    console.log("Images are are: ", imagesToUpload) 
+
+        const urls = await uploadToCloudinary(imagesToUpload);
         setUploadedUrls(urls);
 
+        console.log("Links are: ", urls)
+
         if (urls.length > 0) {
-            console.log("Adding Service");
+            console.log("Adding Service with uploaded urls");
 
             const data = {
                 owner: fetchedUser.id,
@@ -191,32 +251,31 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                 </div>
 
                 <div className="flex-1">
-                    <p>Cover Photo</p>
-                    <input onChange={(elem) => setCoverPhoto(elem.target.files[0])} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
-
-                    </div>
+                <p>Cover Photo</p>
+                <input onChange={handleFileChange(setCoverPhoto, "coverPhoto")} className="border px-4 py-2 w-full" name="coverPhoto" type="file" />
+            </div>
 
                     <div className="flex-1">
                     <p>Service Picture 1</p>
-                    <input onChange={(elem) => setPhotoOne(elem.target.files[0])} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
+                    <input onChange={handleFileChange(setPhotoOne, "photoOne")} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
 
                     </div>
 
                     <div className="flex-1">
                     <p>Service Picture 2 (Optional)</p>
-                    <input onChange={(elem) => setPhotoTwo(elem.target.files[0])} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
+                    <input onChange={handleFileChange(setPhotoTwo, "photoTwo")} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
 
                     </div>
 
                     <div className="flex-1">
                     <p>Service Picture 3  (Optional)</p>
-                    <input onChange={(elem) => setPhotoThree(elem.target.files[0])} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
+                    <input onChange={handleFileChange(setPhotoThree, "photoThree")} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
 
                     </div>
 
                     <div className="flex-1">
                     <p>Service Picture 4  (Optional)</p>
-                    <input onChange={(elem) => setPhotoFour(elem.target.files[0])} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
+                    <input onChange={handleFileChange(setPhotoFour, "photoFour")} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
 
                     </div>
 
@@ -226,13 +285,49 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                     <label>By proceeding, you agree to <Link to={"/tc"}>BConnect's vendors terms and conditions </Link></label>
                     </div>
 
+                      {/* Add cropper modal here */}
+            
+                     {cropImageModal && (
+    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+            <Cropper
+                image={imageToCrop}
+                crop={crop}
+                zoom={zoom}
+                aspect={currentImage == "coverPhoto" ? 900/300 : 3/4} // Adjust the aspect ratio as needed
+                onCropChange={setCrop}
+                onZoomChange={setZoom}
+                onCropComplete={onCropComplete}
+            />
+            <div className="flex absolute bottom-0 gap-4 justify-between mt-4">
+                <button
+                    onClick={() => setCropImageModal(false)}
+                    className="bg-red-500 text-white rounded px-4 py-2"
+                >
+                    Cancel
+                </button>
+                <button
+                    onClick={handleCroppedImage} // Add the function to confirm cropping
+                    className="bg-green-500 text-white rounded px-4 py-2"
+                >
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+)}
+
                 <div className="flex">
-                    <button onClick={handleAddListing} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg flex justify-center items-center">
+                    <button disabled={inProgress} onClick={handleAddListing} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg flex justify-center items-center">
                         <span>{inProgress == true ? "Proceeding..." : "Add Service"}
                         </span>
-                        <span>
+                       
+                        {inProgress == true &&
+                         <span>
                         <ClipLoader color="#ccc" size={18} />
+
                         </span>
+}
                         </button>
                 </div>
 
@@ -241,3 +336,32 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
 }
 
 export default AddServiceModal
+
+// You also need to create a utility function for cropping the image
+async function getCroppedImg(imageSrc, pixelCrop) {
+    const image = new Image();
+    image.src = imageSrc;
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
+
+    ctx.drawImage(
+        image,
+        pixelCrop.x,
+        pixelCrop.y,
+        pixelCrop.width,
+        pixelCrop.height,
+        0,
+        0,
+        pixelCrop.width,
+        pixelCrop.height
+    );
+
+    return new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+            resolve(blob);
+        }, "image/jpeg");
+    });
+}

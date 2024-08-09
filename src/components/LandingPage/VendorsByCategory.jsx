@@ -4,49 +4,17 @@ import { getAllVendorsService } from "../../service/vendorListingService"
 import { UserContext } from "../../context/AppContextt"
 import { ClipLoader } from "react-spinners"
 
-const TopVendorsCard = ({ title}) => {
+const VendorsByCategory = ({ title, foundItems}) => {
 
     
    const {user, setUser} = useContext(UserContext)
 
     const [items, setItems] = useState([])
 
-    const [loading, setLoading] = useState(true)
+    useEffect(()=>{
+        setItems(foundItems)
+    }, [foundItems])
 
-    useEffect(()=> {
-        
-        const storedItems = localStorage.getItem('items')
-        
-        console.log("Searching existing Data:", storedItems)
-        
-        if(storedItems) {
-            setItems(JSON.parse(storedItems))
-            setLoading(false)
-        }
-    }, [])
-
-    useEffect(() => {
-        console.log("Vendors Area")
-
-
-        const fetch = async () => {
-            
-            const res = await getAllVendorsService()
-
-            if (res.status == 200 || res.status == 201) {
-
-                setItems(res.data)
-
-                localStorage.setItem('items', JSON.stringify(res.data))
-                setLoading(false)
-            }
-            else { 
-                setLoading(false)
-                alert("Unable to fetch vendors. Kindly reload page again.") }
-        }
-
-        fetch()
-    }, [])
 
     return (
         <div className="flex-1">
@@ -56,10 +24,10 @@ const TopVendorsCard = ({ title}) => {
 
             <div className="flex flex-wrap gap-8 w-full">
                 {
-                    loading == true ? <div className="flex justify-center items-center w-full text-[#EF6C00]">
+                    items == undefined ? <div className="flex justify-center items-center w-full text-[#EF6C00]">
                     <ClipLoader color="#EF6C00" size={35} />
                   </div>
-                  : loading == false && items.length == 0
+                  : items.length == 0
                         ? "No Vendors found"
 
                         : items.map((item, index) => {
@@ -104,4 +72,4 @@ const TopVendorsCard = ({ title}) => {
     )
 }
 
-export default TopVendorsCard
+export default VendorsByCategory

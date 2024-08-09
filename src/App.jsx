@@ -11,6 +11,7 @@ import ChatVendor from './pages/vendors/ChatVendor'
 import ProfileDetailsSettings from './pages/Dashboard/Client/Settings'
 import UserProfile from './pages/client/UserProfile'
 import ClientHome from './pages/Dashboard/Client/Home'
+import SearchByCategory from './pages/SearchByCategory'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <div className="font-custom">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="search/category/:categoryId" element={<SearchByCategory />} />
         <Route path="about" element={<Home />} />
         <Route path="contact" element={<Home />} />
         <Route path="auth/signin" element={<Login />} />
@@ -37,6 +39,8 @@ function App() {
         <Route path="service/:category/:title" element={<Vendors />} />
         <Route path="service/:category/:serviceId/chat" element={<ChatVendor />} />
         <Route path="service/:category/:serviceId/chat/:receiverId/:chatId" element={<ChatVendor />} />
+
+
       </Routes>
     </div>
   )
