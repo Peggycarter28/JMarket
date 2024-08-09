@@ -98,8 +98,22 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
     };
 
     const handleAddListing = async () => {
+
+        console.log(fetchedUser)
+        
         setInProgress(true);
-        console.log("Adding Listing STarted")
+        if(fetchedUser.id == '' || fetchedUser.id == undefined || fetchedUser.id == null)
+            {console.log("You are probably not logged in")
+                alert("We could not identify you. Kindly reload page or login and try again")
+                return true
+            }
+
+        else if (localGovernment == '' || category == '' || title == '' || description == '' || service_phone == '' || serviceCharge == '')
+        {console.log("One or more required parameters is missing")
+            alert("One or more required parameters is missing")
+            return true}
+
+        console.log("Adding Listing STarted") 
 
         if (!description || !title) {
             alert("Title or description cannot be blank");
@@ -131,7 +145,7 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
 
             const data = {
                 owner: fetchedUser.id,
-                local_government: localGovernment,
+                local_government: localGovernment ,
                 category: category,
                 name: title,
                 description: description,

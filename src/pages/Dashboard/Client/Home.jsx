@@ -37,10 +37,11 @@ const ClientHome = () => {
 
     useEffect(()=>{
 
-        const user = JSON.parse(localStorage.getItem('user'))
+        const userr = JSON.parse(localStorage.getItem('user'))
 
         if(user) {
-            setUser(user)
+            console.log("Stored user is: ",userr)
+            setUser(userr)
         }
 
         const fetch = async ()=>{

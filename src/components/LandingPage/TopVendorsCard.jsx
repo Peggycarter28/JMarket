@@ -35,9 +35,12 @@ const TopVendorsCard = ({ title}) => {
 
             if (res.status == 200 || res.status == 201) {
 
-                setItems(res.data)
+                // Sort result based on date first
+                const sortedItems = res.data.sort((a, b) => new Date(b.date_listed) - new Date(a.date_listed));
 
-                localStorage.setItem('items', JSON.stringify(res.data))
+                setItems(sortedItems)
+
+                localStorage.setItem('items', JSON.stringify(sortedItems))
                 setLoading(false)
             }
             else { 
@@ -49,7 +52,7 @@ const TopVendorsCard = ({ title}) => {
     }, [])
 
     return (
-        <div className="flex-1">
+        <div className="flex-1"> 
             <h5 className="font-bold text-[24px] p-4 md:p-1">
                 {title}
             </h5>
@@ -67,7 +70,7 @@ const TopVendorsCard = ({ title}) => {
                                 {/* Image Container */}
                                 <Link to={`/service/${item.category.name}/${item.id}`}>
                                     <div className="w-full flex justify-center items-center md:w-auto h-[190px] rounded-lg overflow-hidden border">
-                                        <img className="bg-green-600" src={item.image_url} />
+                                        <img className="bg-green-600 object-cover h-full w-full" src={item.image_url} />
                                     </div>
                                 </Link>
 
