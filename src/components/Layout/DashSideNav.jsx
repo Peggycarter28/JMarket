@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
 
 const DashSideNav = () => {
+    const user = JSON.parse(localStorage.getItem('user'))
     return(
     <aside className="w-[60px] md:w-[103px] border bg-white">
         <nav className="flex flex-col items-center gap-6 pt-6">
-            <div className="size-[50px] rounded-[25px] flex items-center justify-center">
-                <img src="/user_thumbs/thumb.png" alt="Pic" />
+            <div className="size-[50px] rounded-[25px] flex items-center justify-center overflow-hidden">
+                <img src={user ? user.image_url : `/user_thumbs/thumb.png`} alt="Pic" />
             </div>
             
             <Link to={"/dashboard/user"}>

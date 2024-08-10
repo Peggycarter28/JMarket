@@ -1,15 +1,14 @@
 const getItems = () => {
     const stored = localStorage.getItem('recentlyViwed')
 
-    if(stored)
-    {return JSON.parse(stored)}
+    if (stored) { return JSON.parse(stored) }
 
     return []
 }
 
 
 export class RecetlyViwedItems {
-    constructor(maxSize=12) {
+    constructor(maxSize = 12) {
         this.maxSize = maxSize;
         this.items = getItems();
     }
@@ -27,7 +26,15 @@ export class RecetlyViwedItems {
     }
 
     getItems() {
-        return this.items;
+        const items = this.items
+
+        if (items.length > 1) {
+            const sortedItems = items.sort((a, b) => new Date(b.date_listed) - new Date(a.date_listed));
+            return sortedItems;
+        }
+        else {
+            return this.items
+        }
     }
 }
 

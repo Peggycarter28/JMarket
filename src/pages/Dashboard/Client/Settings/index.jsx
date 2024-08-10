@@ -7,6 +7,8 @@ import Cookies from 'js-cookie'
 import { API_URL } from "../../../../constants/config"
 import UserProfile from "./UserProfile"
 import UserProfileEdit from "./UserProfileEdit"
+import RecentlyViewed from "../../../../components/LandingPage/RecentlyViwedVendorsCard"
+import { RecetlyViwedItems } from "../../../../helpers/RecentlyViewed"
 
 
 const ProfileDetailsSettings = () => {
@@ -34,12 +36,16 @@ const ProfileDetailsSettings = () => {
     
     }, [])
 
+    const recentlyViewed = new RecetlyViwedItems();
+
     return (
         <>
             <UserDashboardLayout>
                <h5 className="font-bold text-[16px] text-[#e8e8e8] py-2"> {curr_section} </h5>
                 {curr_section.toLowerCase()=="profile" && <UserProfile/>}
                 {curr_section.toLowerCase()=="edit-profile" && <UserProfileEdit/>}
+                {curr_section.toLowerCase()=="viewed" && <RecentlyViewed items={recentlyViewed.getItems()}/>} 
+                
             </UserDashboardLayout>
         </>)
 }

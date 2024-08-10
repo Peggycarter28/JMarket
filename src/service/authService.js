@@ -35,7 +35,7 @@ export const updateProfile = async (data, profileId) => {
 
     console.log("Calling update service")
 
-    const response = await axios.patch(`${API_URL}/api/update-profile/${profileId}`, data,{
+    const response = await axios.put(`${API_URL}/api/update-profile/${profileId}`, data,{
         headers:{
         "Content-Type":"application/json"
     }})

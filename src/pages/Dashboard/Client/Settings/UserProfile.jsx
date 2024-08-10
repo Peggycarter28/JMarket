@@ -19,8 +19,6 @@ const UserProfile = ({ }) => {
         if (storedUser) {
             setUser(JSON.parse(storedUser))
         }
-
-
     }, [])
 
     return (<>
@@ -50,11 +48,6 @@ const UserProfile = ({ }) => {
         <div className="p-2">
             <p className="font-semibold">Last Name</p>
             <p>{fetchedUser?.last_name !== "" ? fetchedUser?.last_name : "Null"}</p>
-        </div>
-
-        <div className="p-2">
-            <p className="font-semibold">Local Government</p>
-            <p>{fetchedUser?.local_governmentID !== "" ? fetchedUser?.local_governmentID : "Null"}</p>
         </div>
 
         <div className="p-2">

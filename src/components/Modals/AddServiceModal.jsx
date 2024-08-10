@@ -19,7 +19,6 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
     const [cac, setCAC] = useState(null);
     const [terms, setTerms] = useState(null);
     const [service_phone, setPhone] = useState(null);
-    const [serviceCharge, setServiceCharge] = useState(null);
     const [coverPhoto, setCoverPhoto] = useState(null);
     const [photoOne, setPhotoOne] = useState(null);
     const [photoTwo, setPhotoTwo] = useState(null);
@@ -108,7 +107,7 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                 return true
             }
 
-        else if (localGovernment == '' || category == '' || title == '' || description == '' || service_phone == '' || serviceCharge == '')
+        else if (localGovernment == '' || category == '' || title == '' || description == '' || service_phone == '' )
         {console.log("One or more required parameters is missing")
             alert("One or more required parameters is missing")
             return true}
@@ -152,7 +151,7 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                 phone: service_phone,
                 image_url: urls[0], // Use the first URL as the cover photo
                 cac_number: cac,
-                service_charge: serviceCharge,
+                service_charge: 0,
                 is_approved: false,
                 date_listed: new Date(Date.now()).toISOString(),
             };
@@ -225,11 +224,6 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                 <div className="">
                     <p>Business Line</p> <p>{}</p>
                     <input onChange={(elem) => setPhone(elem.target.value)} value={service_phone} className="border px-4 py-2 w-full" name="title" placeholder="Enter Phone" type="text" />
-                </div>
-
-                <div className="">
-                    <p>Service Charge</p> <p>{}</p>
-                    <input onChange={(elem) => setServiceCharge(elem.target.value)} value={serviceCharge} className="border px-4 py-2 w-full" name="title" placeholder="Enter Phone" type="text" />
                 </div>
 
                 <div className="flex justify-between gap-4">

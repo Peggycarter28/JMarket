@@ -14,7 +14,13 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
 
     const [paymentRef, setPaymentRef] = useState(null)
 
+    const [url, setUrl] = useState(null)
+
+    const [stage, setStage] = useState(0)
+
     const handlePayment = async () => {
+        if(stage == 0)
+        {
         setInProgress(true)
         const data = {
             "email": fetchedUser?.email,
@@ -27,16 +33,16 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
 
         if (res.status == 200 || res.status == 201) {
             console.log('generated')
-            const url = res.data['authorization_url']
+
+            setUrl(res.data['authorization_url'])
 
             setPaymentRef(res.data['reference'])
 
+            setStage(1)
+
+            setInProgress(false)
+
             // Open new window to finalize payment
-            const win = window.open(url, '_blank', 'width=600,height=400')
-
-            setNewWindow(win)
-
-            console.log(newWindow)
 
 
         }
@@ -45,6 +51,16 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
             setInProgress(false)
             alert("Failed! Something bad happened.")
         }
+    }
+
+    else if(stage == 1) {
+        setInProgress(true)
+        const win = window.open(url, '_blank', 'width=600,height=400')
+
+            setNewWindow(win)
+
+            console.log(newWindow)
+    }
     }
 
     useEffect(() => {
@@ -61,7 +77,10 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
     const handleWindowClose = async () => {
 
         console.log('New window closed!');
-        // Trigger your function here
+        // Trigger your function here 
+
+        setStage(2)
+        setInProgress(true)
 
         const verify = await verifyPayment(paymentRef)
 
@@ -101,6 +120,7 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
             handleModal()
 
             alert("Payment Successful")
+
         }
 
         else {
@@ -139,7 +159,7 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
                 </div>
 
                 <div className="flex">
-                    <button onClick={handlePayment} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg flex gap-2 justify-center items-center">{inProgress == true ? "Processing..." : "Pay with Paystack"}
+                    <button onClick={handlePayment} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg flex gap-2 justify-center items-center">{ stage == 0 ? "Proceed" : stage == 1 ? "Proceed to Paystack" : stage == 2 ? "Checking Payment status": ""}
                     <div className="size-[16px]">
              
              { inProgress == true && <ClipLoader color="#ccc" size={18} />}

@@ -4,6 +4,7 @@ import { updateProfile } from "../../../../service/authService";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Ensure axios is imported
 import CTAButton from "../../../../components/Forms/Buttons/CTAButton";
+import { ClipLoader } from "react-spinners";
 
 const UserProfileEdit = () => {
     const [fetchedUser, setUser] = useState(null);
@@ -12,7 +13,10 @@ const UserProfileEdit = () => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
     const [cropping, setCropping] = useState(false);
+    const [isPictureUploading, setIsPictureUploading] = useState(false);
+
     const profilePicElem = useRef();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,24 +54,43 @@ const UserProfileEdit = () => {
         setImage(null); // Clear the image after cropping
 
         // Upload cropped image to Cloudinary and update user profile
+        setIsPictureUploading(true)
         const cloudUrl = await uploadToCloudinary(croppedImg);
+
         if (cloudUrl) {
-            const serverRes = await updateProfile({image_url: cloudUrl}, fetchedUser.id);
+            console.log("Uploaded URL is: ",cloudUrl)
+            const newObject = fetchedUser
+            newObject.image_url   = cloudUrl
+
+            console.log(newObject)
+            
+            const serverRes = await updateProfile(newObject, fetchedUser.id);
 
         if (serverRes.status === 200 || serverRes.status === 201) {
+            console.log(serverRes.data)
             setUser((prev) => ({ ...prev, image_url: cloudUrl })); // Update fetchedUser's image_url
+            localStorage.setItem('user', JSON.stringify(fetchedUser))
+            setIsPictureUploading(false)
         }
+        setIsPictureUploading(false)
         }
+        setIsPictureUploading(false)
         
     };
 
     const handleProfileUpdate = async () => {
         const data = fetchedUser;
+
+        console.log(data)
+
         const update = await updateProfile(data, data.id);
 
         if (update.status === 200 || update.status === 201) {
+
             localStorage.setItem("user", JSON.stringify(data));
+
             alert("Profile updated successfully!");
+
             navigate('../settings/profile');
         }
     };
@@ -102,13 +125,19 @@ const UserProfileEdit = () => {
     return (
         <>
             <div className="flex justify-between items-center">
-                <div onClick={handleFileOpen} className="size-[150px] border rounded-full flex justify-center items-center cursor-pointer">
+                <div onClick={handleFileOpen} className="relative size-[150px] border rounded-full shadow-lg flex justify-center items-center cursor-pointer">
                     {fetchedUser?.image_url ? (
-                        <img className="rounded-full" src={fetchedUser.image_url} alt="Profile" />
+                        <img className="rounded-full shadow-lg" src={fetchedUser.image_url} alt="Profile" />
                     ) : (
-                        <img className="rounded-full" src={fetchedUser?.image_url} alt="Profile" />
+                        <img className="rounded-full shadow-lg" src={fetchedUser?.image_url} alt="Profile" />
                     )}
+
+<div className="absolute"> 
+{isPictureUploading ? <ClipLoader className="" speedMultiplier={2} color="#EF6C00" size={24} /> : <p className="text-[white]" onClick={handleFileOpen}>Change Picture </p>}</div>
                 </div>
+
+               
+
                 <input type="file" ref={profilePicElem} onChange={handleFileChange} style={{ display: "none" }} />
               
             </div>
@@ -124,8 +153,10 @@ const UserProfileEdit = () => {
                         onZoomChange={setZoom}
                         onCropComplete={handleCropComplete}
                     />
-                    <button onClick={handleCrop}>Crop Image</button>
-                    <button onClick={() => setCropping(false)}>Cancel</button>
+                    <div className="absolute left-0 ml-1 flex flex-col gap-2">
+                    <button className="bg-[green] p-2 text-white rounded" onClick={handleCrop}>Crop Image</button>
+                    <button className="bg-[red] p-2 text-white rounded" onClick={() => setCropping(false)}>Cancel</button>
+                    </div>
                 </div>
             )}
 
@@ -171,7 +202,7 @@ const UserProfileEdit = () => {
                 <p className="font-semibold text-[#797570]">Personal Phone Number</p>
                 <input type="tel" className="p-2 border w-full text-[#797570]" value={fetchedUser?.phone_number} onChange={handleDataChange('phone_number')} />
             </div>
-<div className="flex py-4">
+<div onClick={handleProfileUpdate} className="flex py-4 cursor">
             <CTAButton title={"Update Profile"}/>
             </div>
         </>
