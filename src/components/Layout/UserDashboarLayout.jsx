@@ -20,9 +20,9 @@ const UserDashboardLayout = ({ children }) => {
     }, [])
 
     const sub_sections = [
-        { name: "Profile Details", slug: "profile" },
-        { name: "Recently Viewed", slug: "viewed" },
-        { name: "Settings", slug: "settings" }
+        { name: "Profile Details", slug: ["profile", "edit-profile"]},
+        { name: "Recently Viewed", slug: ["viewed"] },
+        { name: "Settings", slug: ["settings"] }
     ]
 
     return (
@@ -48,8 +48,8 @@ const UserDashboardLayout = ({ children }) => {
                                 <ul className="">
                                     {
                                         sub_sections.map(sec =>
-                                            <Link key={sec.slug} to={`../settings/${sec.slug}`}>
-                                                <li className={`rounded-[12px] bg-[#F2F2F2] px-[24px] py-[20px] flex gap-[10px] mt-2 text-[#808080] text-bold ${curr_section == sec.slug ? "bg-[green] text-[white]" : ""}`}>
+                                            <Link key={sec.slug[0]} to={`../settings/${sec.slug[0]}`}>
+                                                <li className={`rounded-[12px] bg-[#F2F2F2] px-[24px] py-[20px] flex gap-[10px] mt-2 text-[#808080] text-bold ${ sec.slug.includes(curr_section) ? "bg-[green] text-[white]" : ""}`}>
 
                                                     {sec.name}
 
@@ -64,7 +64,7 @@ const UserDashboardLayout = ({ children }) => {
                         </div>
 
                         {/* Chat Area */}
-                        <div className="flex-[8] p-4 md:flex flex-col border rounded-[17px] bg-[#F9F9F9] ">
+                        <div className="flex-[8] p-4 md:flex flex-col border rounded-[17px] bg-[#F9F9F9] overflow-y-scroll">
                             {children}
                         </div>
                     </main>

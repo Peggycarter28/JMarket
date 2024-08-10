@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react"
 import { fetchTransactions } from "../../../service/transactionService"
 
-const RenderTransactions = ({transactionsList, user}) => {
+const RenderTransactions = ({user}) => {
 
-    const [transactions, setTransactions] = useState(transactionsList)
+    const [transactions, setTransactions] = useState(null)
 
     const [isTxLoading, setIsTxLoading] = useState(false)
 
-   
+   useEffect(()=>{
+    const tx = JSON.parse(localStorage.getItem('userTransactions'))
+
+    if(tx) {
+        console.log("Transactions are: ",tx) 
+        setTransactions(tx)
+    }
+   }, [])
 
     return(<>
-     <h3 className="font-bold text-[36px] text-[#b4b4b4]">Transactions - {transactions.length}</h3>
+     <h3 className="font-bold text-[36px] text-[#b4b4b4]">Transactions - {transactions?.length}</h3>
 
 <div>
     <table className="w-full border text-[12px]">
@@ -22,7 +29,7 @@ const RenderTransactions = ({transactionsList, user}) => {
             <td>Service ID</td>
             <td>Status</td>
         </tr>
-        {transactions.length > 0 ? transactions.map((item,index) => {
+        {transactions?.length > 0 ? transactions?.map((item,index) => {
             return(
         <tr className="bg-[#e8e8e8]">
             <td className="p-2">{index + 1}</td>
@@ -34,7 +41,10 @@ const RenderTransactions = ({transactionsList, user}) => {
         </tr>)
         })
 
-        : <tr><p>No records</p></tr>
+        : <tr>
+           
+            <p>No records</p>
+        </tr>
         }
        
     </table>

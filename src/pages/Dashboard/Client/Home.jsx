@@ -6,6 +6,7 @@ import RenderTransactions from "./Transactions"
 import RenderOrders from "./Orders"
 import RenderServices from "./Services"
 import { fetchTransactions } from "../../../service/transactionService"
+import { getOrders } from "../../../service/orderService"
 
 const ClientHome = () => {
 
@@ -32,6 +33,17 @@ const ClientHome = () => {
            {
             setOrders(JSON.parse(storedOrders).length)
            }
+
+           const fetch = async () => {
+            const orders = await getOrders()
+
+            if(orders.status == 200 || orders.status == 201)
+            {
+                localStorage.setItem('userOrders', JSON.stringify(orders.data))
+            }
+           }
+
+           fetch()
         },[]
     )
 
@@ -39,8 +51,8 @@ const ClientHome = () => {
 
         const userr = JSON.parse(localStorage.getItem('user'))
 
-        if(user) {
-            console.log("Stored user is: ",userr)
+        if(userr) {
+            console.log("Stored user is: ",userr) 
             setUser(userr)
         }
 
@@ -116,7 +128,7 @@ const ClientHome = () => {
                 
                 currTab == 0 ? <RenderOrders/>
                 : currTab == 1 ? <RenderServices/>
-                : currTab == 2 ? <RenderTransactions transactionsList={transactionsList} user={user}/>
+                : currTab == 2 ? <RenderTransactions transactionsList={transactionsList} user={user} />
                 : ""    
             }
             </HomeDashboardLayout>

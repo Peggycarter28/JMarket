@@ -10,11 +10,11 @@ export const loginService = async (email, password) => {
     return response
 }
 
+
+
 export const registerService = async (username, email, password, repeatPassword) => {
 
     console.log("Calling service")
-
-
 
     const response = await axios.post(`${API_URL}/api/auth/users/`, {
         "username": `${username}`,
@@ -26,9 +26,24 @@ export const registerService = async (username, email, password, repeatPassword)
         "Content-Type":"application/json"
     }})
 
+    return response
+}
+
+
+
+export const updateProfile = async (data, profileId) => {
+
+    console.log("Calling update service")
+
+    const response = await axios.patch(`${API_URL}/api/update-profile/${profileId}`, data,{
+        headers:{
+        "Content-Type":"application/json"
+    }})
 
     return response
 }
+
+
 
 export const forgotPasswordService = async (email, username, password, ) => {
 
@@ -37,9 +52,13 @@ export const forgotPasswordService = async (email, username, password, ) => {
     return response
 }
 
+
+
 export const activateAccountService = async (token, email, ) => {
 
     const response = await axios.post(`${API_URL}/api-v1/auth/login`, {username: username, email:email, password: password})
 
     return response
 }
+
+

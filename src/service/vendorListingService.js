@@ -16,6 +16,12 @@ export const getAllVendorsService = async () => {
     return response
 }
 
+export const getUserVendorsService = async (userId) => {
+
+    const response = await axios.get(`${API_URL}/api/my-services?id=${userId}`)
+    return response
+}
+
 export const getAllVendorsCategoryService = async () => {
 
     const response = await axios.get(`${API_URL}/vendors/all-categories`)

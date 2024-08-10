@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CTAButton from "../../../components/Forms/Buttons/CTAButton"
 import AddServiceModal from "../../../components/Modals/AddServiceModal"
+import { UserContext } from "../../../context/AppContextt"
 
 const RenderServices = () => {
 
+    const name = "my services"
+
     const [showServiceModal, setShowServiceModal] = useState(false)
 
-    const [user, setUser] = useState(null)
+    const {user} = useContext(UserContext)
+
+    const [userr, setUser] = useState(null)
 
     const [myServices, setMyServices] = useState([])
 
@@ -22,7 +27,7 @@ const RenderServices = () => {
 
         setUser(user)
 
-        const storedServices = localStorage.getItem('vendors')
+        const storedServices = localStorage.getItem('items')
 
         if(storedServices)
         {
@@ -39,7 +44,7 @@ const RenderServices = () => {
             console.log(myOwn, "Completed")
         }
 
-    }, [])
+    }, [name])
 
 
     return(
@@ -55,113 +60,41 @@ const RenderServices = () => {
         <tr>
             <td>Sn</td>
             <td>Date</td>
-            <td>From</td>
-            <td>Service</td>
-            <td>Status</td>
+            <td>Description</td>
+            <td>Category</td>
+            <td>Price</td>
+            <td>Action</td>
         </tr>
+        {myServices.length > 0 ? myServices.map((item, index)=>{
+            return(
         <tr className="bg-[#e8e8e8]">
-            <td className="p-2">1</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
+            <td className="p-2">{index + 1}</td>
+            <td>{new Date(item.date_listed).toDateString() }</td>
+            <td>{user.lang == "ha" ? <p>{item.description_ha}</p> : <p>{item.description}</p>}</td>
+            <td>{user.lang == "ha" ? <p>{item.category.name_ha}</p> : <p>{item.category.name}</p>}</td>
             <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
+                NGN{item.service_charge}
             </td>
+            <td className="flex flex-col gap-1 p-2">
+                <p className="block">
+                    View
+                </p>
+
+                <p className="block">
+                    Edit
+                </p>
+                </td>
         </tr>
-        <tr className="bg-[]">
-            <td className="p-2">2</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[#e8e8e8]">
-            <td className="p-2">3</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">4</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">5</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">6</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-                <p>Pending</p>
-                <select name="" id="">
-                    <option value="">...option</option>
-                    <option value="">In Progress</option>
-                    <option value="">Decline</option>
-                    <option value="">Completed</option>
-                </select>
-            </td>
-        </tr>
-        <tr className="bg-[]">
-            <td className="p-2">7</td>
-            <td>12th July, 2024</td>
-            <td>Jonas Blue</td>
-            <td>Laundry</td>
-            <td>
-               
-            </td>
-        </tr>
+            )
+        }
+    )
+    : <p>No Service yet</p>
+}
+        
     </table>
 </div>
 
-{showServiceModal == true && <AddServiceModal fetchedUser={user} handleModal={toggleShowService}/>}
+{showServiceModal == true && <AddServiceModal fetchedUser={userr} handleModal={toggleShowService}/>}
 </>
     )
 }
