@@ -22,32 +22,35 @@ function Home() {
    const [location, setLocation] = useState({
     latitude: null,
     longitude: null,
-    error: null,
+    error: null
 });
 
-const getLocation = () => {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position.coords;
-                setLocation({ latitude, longitude, error: null });
-            },
-            (error) => {
-                setLocation({ latitude: null, longitude: null, error: error.message });
-            }
-        );
-    } else {
-        setLocation({ latitude: null, longitude: null, error: 'Geolocation is not supported by this browser.' });
-    }
-};
+
+
+useEffect(() => {
+    const getLocation = async () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setLocation({ latitude, longitude, error: null });
+                },
+                (error) => {
+                    setLocation({ latitude: null, longitude: null, error: error.message });
+                }
+            );
+        } else {
+            setLocation({ latitude: null, longitude: null, error: 'Geolocation is not supported by this browser.' });
+        }
+    };
+
+    getLocation();
+}, []);
 
 
     useEffect(
         () => {
             document.title = "Bauchi Connect | Homepage"
-
-            getLocation();
-            console.log(location)
         }, []
     )
 
@@ -105,7 +108,8 @@ const getLocation = () => {
 
                         <p className='text-[#F2F2F2] text-[16px] md:text-[24px] font-normal text-center w-[80vw]'>
                         {user.lang == 'ha' ? "Bauchi Connect ke kawo abubuwa mafi kyau daga Bauchi zuwa garaku. Fara tafiyanka yanzu" : `Bauchi Connect Puts Bauchi’s Best at Your Fingertips. Your Story of Connection Begins Now!`} 
-                             </p>
+                        </p>
+
 
                         {/* Search container */}
                         <div className="flex w-[90vw] md:w-auto flex-col md:flex-row gap-4">
@@ -168,6 +172,10 @@ const getLocation = () => {
                     <TopVendorsCard title={"Top Vendors"} />
 
                 </div>
+
+                <p>{location.latitude} {location.longitude}</p>
+
+
             </main>
             <LandingFooter2 />
         </>

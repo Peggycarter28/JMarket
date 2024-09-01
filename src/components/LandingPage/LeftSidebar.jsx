@@ -23,7 +23,7 @@ const LeftsideBar = () => {
     }, [name]);
 
     useEffect(() => {
-        const fetch = async () => {
+        const fetch = async () => { 
             const res = await getVendorCategoriesService();
 
             if (res.status === 200 || res.status === 201) {

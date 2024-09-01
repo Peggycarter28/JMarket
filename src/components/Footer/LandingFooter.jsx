@@ -12,6 +12,9 @@ const LandingFooter2 = () => {
 
                     <p>Phone: 08000000000</p>
 
+                    
+                   
+
                     <p>Email: barakalaushi@gmail.com</p>
                 </div>
                 <div className="flex-1 text-white p-2 text-[12px]">

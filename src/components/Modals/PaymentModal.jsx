@@ -6,6 +6,7 @@ import { createTransaction } from "../../service/transactionService"
 import { ClipLoader } from "react-spinners"
 
 const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_creator }) => {
+    
     const user = useContext(UserContext)
 
     const [inProgress, setInProgress] = useState(false)
@@ -19,48 +20,49 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
     const [stage, setStage] = useState(0)
 
     const handlePayment = async () => {
-        if(stage == 0)
-        {
-        setInProgress(true)
-        const data = {
-            "email": fetchedUser?.email,
-            "amount": (parseInt(amount) + (5 / 100 * amount)) * 100,
-            "service_id": service_id,
-            "user_id": fetchedUser?.id
+        if (stage == 0) {
+
+            setInProgress(true)
+
+            const data = {
+                "email": fetchedUser?.email,
+                "amount": (parseInt(amount) + (5 / 100 * amount)) * 100,
+                "service_id": service_id,
+                "user_id": fetchedUser?.id
+            }
+
+            const res = await initializePayment(data)
+
+            if (res.status == 200 || res.status == 201) {
+                console.log('generated')
+
+                setUrl(res.data['authorization_url'])
+
+                setPaymentRef(res.data['reference'])
+
+                setStage(1)
+
+                setInProgress(false)
+
+                // Open new window to finalize payment
+            }
+
+            else {
+                setInProgress(false)
+                alert("Failed! Something bad happened.")
+            }
         }
 
-        const res = await initializePayment(data)
+        else if (stage == 1) {
 
-        if (res.status == 200 || res.status == 201) {
-            console.log('generated')
+            setInProgress(true)
 
-            setUrl(res.data['authorization_url'])
-
-            setPaymentRef(res.data['reference'])
-
-            setStage(1)
-
-            setInProgress(false)
-
-            // Open new window to finalize payment
-
-
-        }
-
-        else {
-            setInProgress(false)
-            alert("Failed! Something bad happened.")
-        }
-    }
-
-    else if(stage == 1) {
-        setInProgress(true)
-        const win = window.open(url, '_blank', 'width=600,height=400')
+            const win = window.open(url, '_blank', 'width=600,height=400')
 
             setNewWindow(win)
 
             console.log(newWindow)
-    }
+        }
     }
 
     useEffect(() => {
@@ -80,6 +82,7 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
         // Trigger your function here 
 
         setStage(2)
+
         setInProgress(true)
 
         const verify = await verifyPayment(paymentRef)
@@ -144,7 +147,7 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
                 </div>
 
                 <div className="flex justify-between">
-                    <p>Service fee</p> <p>NGN {amount}</p>
+                    <p>Service fee</p> <p>NGN <input type="number" /></p>
                 </div>
 
                 <div className="flex justify-between">
@@ -159,14 +162,14 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
                 </div>
 
                 <div className="flex">
-                    <button onClick={handlePayment} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg flex gap-2 justify-center items-center">{ stage == 0 ? "Proceed" : stage == 1 ? "Proceed to Paystack" : stage == 2 ? "Checking Payment status": ""}
-                    <div className="size-[16px]">
-             
-             { inProgress == true && <ClipLoader color="#ccc" size={18} />}
-           
-</div>
+                    <button onClick={handlePayment} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg flex gap-2 justify-center items-center">{stage == 0 ? "Proceed" : stage == 1 ? "Proceed to Paystack" : stage == 2 ? "Checking Payment status" : ""}
+                        <div className="size-[16px]">
+
+                            {inProgress == true && <ClipLoader color="#ccc" size={18} />}
+
+                        </div>
                     </button>
-                    
+
                 </div>
 
             </div>
