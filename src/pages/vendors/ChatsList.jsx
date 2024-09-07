@@ -9,14 +9,14 @@ const ChatsList = () => {
     const {chatId} = useParams()
 
     let thisUser;
-    // const {user, setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
     const storedUser = localStorage.getItem('user')
 
     if(storedUser)
     {
         thisUser = JSON.parse(storedUser)
     } 
-    const [user, setUser] = useState(thisUser)
+    const [userr, setUserr] = useState(thisUser)
 
     const [chatsList, setChatsList] = useState([])
     
@@ -32,7 +32,7 @@ const ChatsList = () => {
 
         const fetchChats = async () =>{
 
-            const res = await getChatsListService(user?.id)
+            const res = await getChatsListService(userr?.id)
 
             if(res.status == 200 || res.status == 201)
             {
@@ -51,13 +51,30 @@ const ChatsList = () => {
 
     const handleBack = () => {
         nav(-1)
-
-
     }   
+
+
+
+
+    const handleLangUpdate = (lang) => {
+        setUser(prev => ({...prev, lang: lang}))
+       }
+
+
     return(
         <div className={` ${chatId !== undefined ? "hidden md:flex" : ""}  flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 flex-col`}>
         {/* Title */}
-        <h3 className="text-[48px] leading-[58.09px] text-bold">Chat</h3>
+        <div className="flex justify-between">
+            <h3 className="text-[48px] leading-[58.09px] text-bold">Chat</h3>
+           {/* Translate Bar Icon */}
+   
+                <select onChange={elem => {handleLangUpdate(elem.target.value)}} className="text-right" id="">
+                    <option value="">..select language</option>
+                    <option value="en">English</option>
+                    <option value="ha">Hausa</option>
+                </select>
+        </div>
+            
 
         {/* Chats Search bar */}
         <div className="border rounded-full h-[50px] bg-[white] flex overflow-hidden mb-2">
@@ -71,9 +88,9 @@ const ChatsList = () => {
             {/* Chats Collections */}
             
             {
-                chatId == undefined && chatsList.length !== 0 ? chatsList.map(data =><ChatsCard key={data.chatUniqueId} data={data} userId={user.id} />)
+                chatId == undefined && chatsList.length !== 0 ? chatsList.map(data =><ChatsCard key={data.chatUniqueId} data={data} userId={userr.id} />)
                 : chatsList.length == 0 ? <p>Inbox is empty</p>
-                    : <button className="border-b border-b-[2px] p-4" onClick={handleBack}>&lt; Back to Chats List</button>
+                    : <button className="border-b border-b-[2px] p-4" onClick={handleBack}>&lt; Back to Chats List now</button>
 }
         </div>
 

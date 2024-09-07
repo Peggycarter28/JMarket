@@ -1,7 +1,7 @@
 import { useState } from "react"
 import AuthFormLayout from "../components/Layout/AuthFormLayout"
 import { registerService } from "../service/authService"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Register = () => {
     // Variables that will store the username and password as they type.
@@ -10,13 +10,21 @@ const Register = () => {
     const [repeatPassword, setRepeatPassword] = useState("")
     const [username, setUsername] = useState("")
 
+    const navigate = useNavigate()
+
     // Function that will call the login service and pass the user data for authentication
     // It will be invoked by the login button in the form
     const handleRegister = async ()=> {
 
        const res = await registerService(username, email, password, repeatPassword)
-
-       console.log(res.status, res.statusText)
+            console.log(res)
+       if(res.status == 200 || res.status == 201){
+        alert("Account created successfully. Proceed to register")
+        navigate('../signin')
+       }
+       else {
+        alert("Unable to create your account")
+       }
         
     }
 
@@ -28,7 +36,7 @@ const Register = () => {
             <h2 className="font-bold text-[24px] text-center">Welcome User</h2>
                     <p className="font-regular text-[16px] text-center">Create your account now and get in touch with your custmers - sign in now.</p>
                     </div>
-                <form className="w-[100%] flex flex-col gap-2 bg-[#e8e8e899] p-4 justify-center items-center">
+                <div className="w-[100%] flex flex-col gap-2 bg-[#e8e8e899] p-4 justify-center items-center">
                     <input onChange={(elem) => setEmail(elem.target.value)} value={email} className="border px-4 py-2 w-full" name="email" placeholder="Enter email" type="email" />
 
                     <input onChange={(elem) => setUsername(elem.target.value)} value={username} className="border px-4 py-2 w-full" name="username" placeholder="Enter username" type="text" />
@@ -40,10 +48,10 @@ const Register = () => {
                     <fieldset><input type="checkbox" name="tc" id="tc" /> <label htmlFor="tc">I accept BConnect's terms and conditions</label></fieldset>
                    
 
-                </form>
+                </div>
 
                 
-                    <button type="submit" onClick={handleRegister} className="border bg-[orange] text-white text-center py-2 w-full" >{"Register"}</button>
+                    <button onClick={handleRegister} className="border bg-[orange] text-white text-center py-2 w-full" >{"Register"}</button>
                     <p>Or Register with</p>
                     <div className="w-full p-2 flex justify-center gap-8">
                         <div className="size-[45px] bg-black rounded-full"></div>

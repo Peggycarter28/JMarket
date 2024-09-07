@@ -1,14 +1,18 @@
 import { useParams } from "react-router-dom";
 import Chats from "../../components/Layout/Chats";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { loadChatService } from "../../service/chatService";
 import ComposeChat from "./ComposeChat";
+import { UserContext } from "../../context/AppContextt";
 
 const ChatsArea = () => {
+    const {user, setUser} = useContext(UserContext)
+
     const { chatId } = useParams();
-    const storedUser = localStorage.getItem('user');
+
+    const storedUser = localStorage.getItem('userr');
     const thisUser = storedUser ? JSON.parse(storedUser) : null;
-    const [user, setUser] = useState(thisUser);
+    const [userr, setUserr] = useState(thisUser);
     const [chats, setChats] = useState([]);
     const chatsRef = useRef(null);
 
@@ -22,6 +26,7 @@ const ChatsArea = () => {
                     if (newChats.length > 0 && JSON.stringify(newChats) !== JSON.stringify(chats)) {
                         localStorage.setItem(`chat-${chatId}`, JSON.stringify(newChats));
                         setChats(newChats);
+                        
                     }
                 } else {
                     alert("Unable to fetch chats");
@@ -45,28 +50,33 @@ const ChatsArea = () => {
 
     useEffect(() => {
         scrollToBottom(); // Scroll to bottom when chats update
-    }, [chats]); // Trigger when chats change
-
+        console.log(chats)
+    }, [chats]); // Trigger when chats chan
     const scrollToBottom = () => {
         if (chatsRef.current) {
             chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
         }
-    };
+    }; 
+
 
 
 
     return (
         <div className={`${chatId ? "" : "hidden"} flex-[8] h-screen flex flex-col border rounded-[17px] bg-[#F9F9F9] bg-auth_form_image`}>
+            
+         
             {/* Chat Area */}
             <div className="flex border gap-4 items-center justify-between h-[70px] md:h-[101px] bg-[#EDEDED] m-4 overflow-hidden rounded-[16px]">
                 <div className="flex items-start gap-4">
                     <div className="size-[50px] md:size-[81px] rounded-full overflow-hidden">
-                        <img className="h-[50px] md:h-[81px]" src="/product.png" alt="" />
+                        {/* <img className="h-[50px] md:h-[81px]" src={chats[0]?.receiver.id == userr.id ? chats[0]?.receiver.username : chats[0]?.sender.username} alt="" /> */}
                     </div>
+
                     <div>
-                        <p>{chats[0]?.sender.id == user.id ? chats[0]?.receiver.username : chats[0]?.sender.username}</p>
+                        <p>{chats[0]?.sender.id == userr.id ? chats[0]?.receiver.username : chats[0]?.sender.username}</p>
                         <p>Offline</p>
                     </div>
+
                 </div>
                 <img src="/more.svg" alt="More Options" />
             </div>
@@ -79,7 +89,9 @@ const ChatsArea = () => {
                     </div>
                     <div className="flex flex-col gap-1 w-full">
                         {chats.map(chat => (
-                            <Chats key={chat.id} type={chat.sender.id === user.id ? "reply" : "response"} time={"9:30am"} message={chat.content} />
+                            
+                            <Chats key={chat.id} type={chat.sender.id === userr.id ? "reply" : "response"} time={chat.date} message={user.lang == 'en' ? chat.content : chat.content_hausa} />
+                            
                         ))}
                     </div>
                 </div>
@@ -87,6 +99,8 @@ const ChatsArea = () => {
             
             {/* Compose Area */}
             <ComposeChat scrollToBottom={scrollToBottom} updateMessageCallBack={setChats} />
+
+            
         </div>
     );
 };

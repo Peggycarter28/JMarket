@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GrayContainer from "../../components/Layout/GrayContainer";
 import OrangeContainer from "../../components/Layout/OrangeContainer";
 import { useParams } from "react-router-dom";
 import { sendChatService } from "../../service/chatService";
 import { ClipLoader } from "react-spinners";
+import { UserContext } from "../../context/AppContextt";
 
 const ComposeChat = ({ updateMessageCallBack, scrollToBottom, }) => {
+    const {user, setUser} = useContext(UserContext)
     const [message, setMessage] = useState("");
-    const [user, setUser] = useState(null); // Local user state
+    const [userr, setUserr] = useState(null); // Local user state
     const [loading, setLoading] = useState(false); // Local user state
     const { receiverId, chatId } = useParams();
 
@@ -15,15 +17,15 @@ const ComposeChat = ({ updateMessageCallBack, scrollToBottom, }) => {
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            setUser(JSON.parse(storedUser));
+            setUserr(JSON.parse(storedUser));
         }
     }, []);
 
     const handleSendChat = async () => {
-        if (message.trim() && chatId && receiverId && user && user.id) {
+        if (message.trim() && chatId && receiverId && userr && userr.id) {
             try {
                 setLoading(true)
-                const res = await sendChatService(chatId, message, receiverId, user.id);
+                const res = await sendChatService(chatId, message, receiverId, userr.id);
 
                 if (res.status === 200 || res.status === 201) {
                     console.log("Message sent successfully");
