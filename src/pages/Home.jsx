@@ -189,7 +189,11 @@ function Home() {
                                 <div className="flex-1 md:flex-2 flex" >
                                     <select className="flex-1 md:flex-1 text-[#9caccb] outline-none appearance-none" placeholder="Location">
                                         <option value=""> {user.lang == 'ha' ? "Ina?" : `Location`}</option>
-                                        <option value="">Bogoro</option>
+                                        {localGovernmentAreas.map(
+                                            lga=>{
+                                                return <option key={lga.slug} value={lga.slug}>{lga.name}</option>
+                                            }
+                                        )}
                                     </select>
                                 </div>
 
