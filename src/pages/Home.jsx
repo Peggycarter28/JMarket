@@ -20,7 +20,7 @@ function Home() {
     const [searchLGA, setSearchLga] = useState(null)
     const [loading, setLoading] = useState(false)
     const [items, setItems] = useState(null)
-    const [localGovernmentAreas, setLocalGovernmentAreas] = useState()
+    const [localGovernmentAreas, setLocalGovernmentAreas] = useState([])
 
     const { user, setUser } = useContext(UserContext)
 
