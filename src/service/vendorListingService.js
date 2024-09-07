@@ -24,7 +24,7 @@ export const getUserVendorsService = async (userId) => {
 
 export const getAllVendorsCategoryService = async () => {
 
-    const response = await axios.get(`${API_URL}/vendors/all-categories`)
+    const response = await axios.get(`${API_URL}/api/local-government`)
     return response
 }
 
@@ -51,9 +51,11 @@ export const getVendorByLgaService = async (lgaSlug ) => {
     return response
 }
 
-export const getVendorByGpsService = async (cordinates ) => {
+export const getVendorByGpsService = async (latitude, longitude) => {
 
-    const response = await axios.post(`${API_URL}/vendors/getByCordinates`, {cordinates: cordinates})
+    const cordinates = {latitude: latitude, longitude: longitude}
+
+    const response = await axios.get(`${API_URL}/api/nearest-vendors?lat=${parseFloat(latitude)}&lon=${parseFloat(longitude)}`)
 
     return response
 }

@@ -37,6 +37,11 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
         photoThree: null,
         photoFour: null,
     });
+    const [location, setLocation] = useState({
+        latitude: null,
+        longitude: null,
+        error: null
+    });
     const [cropImageModal, setCropImageModal] = useState(false);
     const [imageToCrop, setImageToCrop] = useState(null);
     const [currentImage, setCurrentImage] = useState(null);
@@ -98,6 +103,9 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
 
     const handleAddListing = async () => {
 
+        if(location.latitude == null || location.longitude == null)
+        {return alert("Can't submit. Please ensure your have granted all required device access.")}
+
         console.log(fetchedUser)
         
         setInProgress(true);
@@ -154,6 +162,8 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                 service_charge: 0,
                 is_approved: false,
                 date_listed: new Date(Date.now()).toISOString(),
+                locationLat: parseFloat(location.latitude),
+                locationLong: parseFloat(location.longitude),
             };
 
             console.log(data);
@@ -199,6 +209,29 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
         if (storedCategories) {
             setCategories(JSON.parse(storedCategories));
         }
+    }, []);
+
+
+    useEffect(() => {
+        const getLocation = async () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        console.log(position.coords)
+                        const { latitude, longitude } = position.coords;
+                        setLocation({ latitude, longitude, error: null });
+                    },
+                    (error) => {
+                        setLocation({ latitude: null, longitude: null, error: error.message });
+                    }
+                );
+
+            } else {
+                setLocation({ latitude: null, longitude: null, error: 'Geolocation is not supported by this browser.' });
+            }
+        };
+
+        getLocation();
     }, []);
 
     return (

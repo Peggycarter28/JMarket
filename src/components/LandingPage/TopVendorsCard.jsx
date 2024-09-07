@@ -4,8 +4,7 @@ import { getAllVendorsService } from "../../service/vendorListingService"
 import { UserContext } from "../../context/AppContextt"
 import { ClipLoader } from "react-spinners"
 
-const TopVendorsCard = ({ title,}) => {
-
+const TopVendorsCard = ({ title, preData}) => {
     
    const {user, setUser} = useContext(UserContext)
 
@@ -14,7 +13,11 @@ const TopVendorsCard = ({ title,}) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(()=> {
-        
+
+        if(preData.length !== 0){
+            setItems(preData)
+        }
+        else{
         const storedItems = localStorage.getItem('items')
         
         console.log("Searching existing Data:", storedItems)
@@ -23,12 +26,14 @@ const TopVendorsCard = ({ title,}) => {
             setItems(JSON.parse(storedItems))
             setLoading(false)
         }
-    }, [])
+    }
+    }, [preData])
 
     useEffect(() => {
         console.log("Vendors Area")
 
-
+        if(preData.length == 0)
+        {
         const fetch = async () => {
             
             const res = await getAllVendorsService()
@@ -48,8 +53,9 @@ const TopVendorsCard = ({ title,}) => {
                 alert("Unable to fetch vendors. Kindly reload page again.") }
         }
 
-        fetch()
-    }, [])
+        fetch() 
+    }
+    }, [preData])
 
     return (
         <div className="flex-1"> 
