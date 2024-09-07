@@ -10,7 +10,7 @@ const ChatsArea = () => {
 
     const { chatId } = useParams();
 
-    const storedUser = localStorage.getItem('userr');
+    const storedUser = localStorage.getItem('user');
     const thisUser = storedUser ? JSON.parse(storedUser) : null;
     const [userr, setUserr] = useState(thisUser);
     const [chats, setChats] = useState([]);
@@ -90,8 +90,8 @@ const ChatsArea = () => {
                     <div className="flex flex-col gap-1 w-full">
                         {chats.map(chat => (
                             
-                            <Chats key={chat.id} type={chat.sender.id === userr.id ? "reply" : "response"} time={chat.date} message={user.lang == 'en' ? chat.content : chat.content_hausa} />
-                            
+                            <Chats key={chat?.id} type={chat?.sender.id === userr.id ? "reply" : "response"} time={Date(chat?.date)} message={user.lang == 'en' ? chat?.content : chat.content_hausa} />
+
                         ))}
                     </div>
                 </div>

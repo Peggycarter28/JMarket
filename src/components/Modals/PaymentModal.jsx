@@ -5,7 +5,7 @@ import { createOrder } from "../../service/orderService"
 import { createTransaction } from "../../service/transactionService"
 import { ClipLoader } from "react-spinners"
 
-const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_creator }) => {
+const PaymentModal = ({ handleModal, fetchedUser, service_id, service_creator }) => {
     
     const user = useContext(UserContext)
 
@@ -16,6 +16,8 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
     const [paymentRef, setPaymentRef] = useState(null)
 
     const [url, setUrl] = useState(null)
+
+    const [amount, setAmount] = useState(null)
 
     const [stage, setStage] = useState(0)
 
@@ -147,7 +149,7 @@ const PaymentModal = ({ handleModal, amount, fetchedUser, service_id, service_cr
                 </div>
 
                 <div className="flex justify-between">
-                    <p>Service fee</p> <p>NGN <input type="number" /></p>
+                    <p>Service fee</p> <p>NGN <input onChange={((elem)=>setAmount(elem.target.value))} className='border' type="number" /></p>
                 </div>
 
                 <div className="flex justify-between">
