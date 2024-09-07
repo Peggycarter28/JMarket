@@ -93,6 +93,7 @@ const ChatsArea = () => {
                             <Chats key={chat?.id} type={chat?.sender.id === userr.id ? "reply" : "response"} time={Date(chat?.date)} message={user.lang == 'en' ? chat?.content : chat.content_hausa} />
 
                         ))}
+                        
                     </div>
                 </div>
             </div>
