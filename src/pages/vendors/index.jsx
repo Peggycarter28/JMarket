@@ -183,11 +183,7 @@ const Vendors = () => {
                         </div>
 
                         <GrayContainer>
-                            <WhiteInGrayContainer>
-                                <MapComponent lat={item?.locationLat}
-                                long={item?.locationLong
-                                    }/>
-                            </WhiteInGrayContainer>
+                            
                             <WhiteInGrayContainer>
                                 <div>
                                     <h5 className="text-[#484848] leading-[19.36px]">
@@ -207,6 +203,12 @@ const Vendors = () => {
                                 </h5>
                                 <p>Mon-Fri 09:00–16:00</p>
                                 <p>Saturday (Only Appointments)</p>
+                            </WhiteInGrayContainer>
+
+                            <WhiteInGrayContainer>
+                                <MapComponent lat={item?.locationLat}
+                                long={item?.locationLong
+                                    }/>
                             </WhiteInGrayContainer>
 
                             <SubmitReview listing_id={item?.id} />
