@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/AppContextt";
-import { createVendorService } from "../../service/vendorListingService";
+import { createVendorWithdrawalService } from "../../service/vendorListingService";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../constants/config";
@@ -50,11 +50,13 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
         }
 
         const data = {
-            owner: fetchedUser.id,
+            owner_id: fetchedUser.id,
+            bank_name: bank,
             name: title,
-            description: description,
-            phone: service_phone,
-            is_approved: false,
+            account_number: description,
+            amount: service_phone,
+            reference: `BTREF-${Date.now()} ${Math.random(3,30)}`,
+            status: false,
             date: new Date(Date.now()).toISOString(),
             locationLat: parseFloat(location.latitude),
             locationLong: parseFloat(location.longitude),
@@ -62,7 +64,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
 
         console.log(data);
 
-        const res = await createVendorService(data);
+        const res = await createVendorWithdrawalService(data);
 
         if (res.status === 200 || res.status === 201) {
             const serviceID = res.data.id;
@@ -120,17 +122,17 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
 
                 <div className="">
                     <p>Account Name</p>
-                    <input onChange={(elem) => setTitle(elem.target.value)} value={title} className="border px-4 py-2 w-full" name="title" placeholder="Enter Title" type="text" />
+                    <input onChange={(elem) => setTitle(elem.target.value)} value={title} className="border px-4 py-2 w-full" name="title" placeholder="Enter Account Name" type="text" />
                 </div>
 
                 <div className="">
                     <p>Account Number</p>
-                    <input onChange={(elem) => setDescription(elem.target.value)} value={description} className="border px-4 py-2 w-full" name="description" placeholder="Enter Description" type="text" />
+                    <input onChange={(elem) => setDescription(elem.target.value)} value={description} className="border px-4 py-2 w-full" name="description" placeholder="Enter Accont Number" type="text" />
                 </div>
 
                 <div className="">
                     <p>Amount</p>
-                    <input onChange={(elem) => setPhone(elem.target.value)} value={service_phone} className="border px-4 py-2 w-full" name="phone" placeholder="Enter Phone" type="text" />
+                    <input onChange={(elem) => setPhone(elem.target.value)} value={service_phone} className="border px-4 py-2 w-full" name="phone" placeholder="Enter Amount" type="number" />
                 </div>
 
                 <div className="">

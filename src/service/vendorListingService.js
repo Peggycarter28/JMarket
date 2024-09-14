@@ -9,6 +9,13 @@ export const createVendorService = async (data) => {
     return response
 }
 
+export const createVendorWithdrawalService = async (data) => {
+
+    const response = await axios.post(`${API_URL}/api/withdrawal-request`, data)
+    
+    return response
+}
+
 
 export const getAllVendorsService = async () => {
 
