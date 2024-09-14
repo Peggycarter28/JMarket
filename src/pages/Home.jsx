@@ -142,6 +142,7 @@ function Home() {
                     )
 
                     localStorage.setItem('user', JSON.stringify(userRes.data))
+                    console.log(userRes.data)
 
                 }
             }

@@ -120,19 +120,19 @@ const ClientHome = () => {
                 </div>
 
                 <div className="flex rounded-full h-[50px] bg-[#e8e8e8] p-1 mt-10">
-                    <h4 onClick={()=>{handleTabChange(0)}} className={`p-2 text-[10px] md:text-[14px] ${currTab == 0 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} flex justify-center items-center`}>Orders</h4>
-                    <h4 onClick={()=>{handleTabChange(1)}} className={`p-2 text-[10px] md:text-[14px] ${currTab == 1 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>My Services</h4>
+                    <h4 onClick={()=>{handleTabChange(0)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 0 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} flex justify-center items-center`}>Orders</h4>
+                    <h4 onClick={()=>{handleTabChange(1)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 1 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>My Services</h4>
 
-                    <h4 onClick={()=>{handleTabChange(2)}} className={`p-2 text-[10px] md:text-[14px] ${currTab == 2 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Withdrawal Requests</h4>
+                    <h4 onClick={()=>{handleTabChange(2)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 2 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Withdrawal Requests</h4>
 
-                    <h4 onClick={()=>{handleTabChange(3)}} className={`p-2 text-[10px] md:text-[14px] ${currTab == 3 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Transaction History</h4>
+                    <h4 onClick={()=>{handleTabChange(3)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 3 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Transaction History</h4>
                 </div>
                 
                 {
                 
                 currTab == 0 ? <RenderOrders/>          
                 : currTab == 1 ? <RenderServices/>      
-                : currTab == 2 ? <Withdrawals/>         
+                : currTab == 2 ? <Withdrawals activePage={currTab}/>         
                 : currTab == 3 ? <RenderTransactions transactionsList={transactionsList} user={user} />
                 : ""                                          
             }

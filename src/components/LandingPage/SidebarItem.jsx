@@ -4,8 +4,6 @@ import { Link } from "react-router-dom"
 
 const SidebarItem = ({ itemObject }) => {
 
-    console.log(itemObject)
-
     const { user, setUser } = useContext(UserContext)
 
     return (

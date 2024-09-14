@@ -56,10 +56,10 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
             account_number: description,
             amount: service_phone,
             reference: `BTREF-${Date.now()} ${Math.random(3,30)}`,
-            status: false,
+            status: "Pending",
             date: new Date(Date.now()).toISOString(),
-            locationLat: parseFloat(location.latitude),
-            locationLong: parseFloat(location.longitude),
+            locationLat: parseFloat(location.latitude.toFixed(6)),
+            locationLong: parseFloat(location.longitude.toFixed(6)),
         };
 
         console.log(data);
@@ -142,9 +142,9 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
 
                 <div className="flex-1 flex items-center gap-2">
                     <input onChange={(elem) => setTerms(elem.target.checked)} className="border" type="checkbox" />
-                    <label>
+                    <p>
                         By proceeding, you agree to <Link to="/tc">BConnect's withdrawal's terms and conditions</Link>
-                    </label>
+                    </p>
                 </div>
 
                 <div className="flex">
