@@ -125,7 +125,7 @@ const ClientHome = () => {
 
                     <h4 onClick={()=>{handleTabChange(2)}} className={`p-2 text-[10px] md:text-[14px] ${currTab == 2 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Withdrawal Requests</h4>
 
-                    <h4 onClick={()=>{handleTabChange(3)}} className={`p-2 text-[10px] md:text-[14px] ${currTab == 2 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Transaction History</h4>
+                    <h4 onClick={()=>{handleTabChange(3)}} className={`p-2 text-[10px] md:text-[14px] ${currTab == 3 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Transaction History</h4>
                 </div>
                 
                 {
