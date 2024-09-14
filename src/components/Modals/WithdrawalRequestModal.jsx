@@ -25,30 +25,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
         error: null
     });
 
-    // Function to upload the files to Cloudinary
-    const uploadToCloudinary = async (photos) => {
-        const uploadedUrlsTemp = []; // Temporary array to hold uploaded URLs
-
-        for (const photo of photos) {
-            if (photo) {
-                const formData = new FormData();
-                formData.append('file', photo);
-                formData.append('upload_preset', 'YolsFarms'); // Replace with your Cloudinary upload preset
-
-                try {
-                    const response = await axios.post(
-                        'https://api.cloudinary.com/v1_1/deqi6mvv6/image/upload', // Replace with your Cloudinary URL
-                        formData,
-                        { headers: { "Content-Type": "multipart/form-data" } }
-                    );
-                    uploadedUrlsTemp.push(response.data.secure_url); // Store the URL in the temporary array
-                } catch (error) {
-                    console.error('Error uploading to Cloudinary:', error);
-                }
-            }
-        }
-        return uploadedUrlsTemp; // Return the array of uploaded URLs
-    };
+    
 
     const handleAddListing = async () => {
 
@@ -65,7 +42,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
             }
 
         else if (localGovernment == '' || category == '' || title == '' || description == '' || service_phone == '' )
-        {console.log("One or more required parameters is missing")
+        { console.log("One or more required parameters is missing")
             alert("One or more required parameters is missing")
             return true}
 
@@ -76,28 +53,6 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
             setInProgress(false);
             return;
         }
-
-        // Upload images and store their URLs
-        console.log("Adding Images to CLoudinary")
-
-        // Upload images including cropped ones
-        const imagesToUpload = [
-            croppedImages.coverPhoto, // Use the cropped cover photo
-            croppedImages.photoOne,
-            croppedImages.photoTwo,
-            croppedImages.photoThree,
-            croppedImages.photoFour,
-        ];
-
-    console.log("Images are are: ", imagesToUpload) 
-
-        const urls = await uploadToCloudinary(imagesToUpload);
-        setUploadedUrls(urls);
-
-        console.log("Links are: ", urls)
-
-        if (urls.length > 0) {
-            console.log("Adding Service with uploaded urls");
 
             const data = {
                 owner: fetchedUser.id,
@@ -121,29 +76,12 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
 
             if (res.status === 200 || res.status === 201) {
                 const serviceID = res.data.id;
-
-                console.log("Adding Service Photos");
-
-                // Upload additional listing images
-                const listingPhotos = urls.slice(1); // Exclude the first URL
-
-                for (const [index, item] of listingPhotos.entries()) {
-                    await axios.post(`${API_URL}/api/listing-images`, {
-                        name: `Photo ${index + 1}`,
-                        serviceID: serviceID,
-                        image_url: item,
-                    }).then(res => {
-                        console.log("Upload complete", res);
-                    });
-                }
-
                 console.log('Service created');
                 alert("Service submitted successfully! Please allow up to 24 hours for your service to be approved.");
                 handleModal();
             } else {
                 alert("Failed! Something bad happened.");
             }
-        }
         setInProgress(false);
     };
 
@@ -205,7 +143,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
                     <h4 className="font-bold text-[23px]">New Withdrawal request</h4>
                     <div onClick={handleModal} className="size-[50px] bg-[red] flex justify-center items-center rounded text-white font-bold">X</div>
                 </div>
-                
+
                 <div className="">
                     <p>Account Name</p> <p>{}</p>
                     <input onChange={(elem) => setTitle(elem.target.value)} value={title} className="border px-4 py-2 w-full" name="title" placeholder="Enter Title" type="text" />
@@ -281,5 +219,6 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
             </div>
         </div>)
 }
+
 
 export default WithdrawalRequestModal

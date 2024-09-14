@@ -50,10 +50,10 @@ const Withdrawals = () => {
 
     return(
         <>
-     <h3 className="font-bold text-[36px] text-[#b4b4b4]">Services</h3>
+     <h3 className="font-bold text-[36px] text-[#b4b4b4]">Withdrawal Requests</h3>
 
      <div onClick={toggleShowService} className="flex p-4">
-        <CTAButton title={"Add Service"}/>
+        <CTAButton title={"New Request"}/>
      </div>
 
 <div>
