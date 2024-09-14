@@ -8,14 +8,15 @@ import { ClipLoader } from "react-spinners";
 
 const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
     const user = useContext(UserContext);
-    const [categories, setCategories] = useState(null);
+   
     const [inProgress, setInProgress] = useState(false);
     const [title, setTitle] = useState(null);
     const [bank, setBank] = useState(null);
-    const [category, setCategory] = useState(null);
+    
     const [description, setDescription] = useState(null);
     const [service_phone, setPhone] = useState(null);
-
+    const [terms, setTerms] = useState(null)
+ 
     const [location, setLocation] = useState({
         latitude: null,
         longitude: null,
@@ -34,13 +35,13 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
             console.log("You are probably not logged in");
             alert("We could not identify you. Kindly reload the page or login and try again");
             return true;
-        } else if (!title || !category || !description || !service_phone) {
+        } else if (!title || !bank || !category || !description || service_phone) {
             console.log("One or more required parameters are missing");
             alert("One or more required parameters are missing");
             return true;
         }
 
-        console.log("Adding Listing Started");
+        console.log("Adding Request Started");
 
         if (!description || !title) {
             alert("Title or description cannot be blank");
@@ -50,14 +51,11 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
 
         const data = {
             owner: fetchedUser.id,
-            category: category,
             name: title,
             description: description,
             phone: service_phone,
-            image_url: urls[0], // Use the first URL as the cover photo
-            service_charge: 0,
             is_approved: false,
-            date_listed: new Date(Date.now()).toISOString(),
+            date: new Date(Date.now()).toISOString(),
             locationLat: parseFloat(location.latitude),
             locationLong: parseFloat(location.longitude),
         };
@@ -68,7 +66,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
 
         if (res.status === 200 || res.status === 201) {
             const serviceID = res.data.id;
-            console.log("Service created");
+            console.log("Request created");
             alert("Service submitted successfully! Please allow up to 24 hours for your service to be approved.");
             handleModal();
         } else {
@@ -149,7 +147,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
 
                 <div className="flex">
                     <button disabled={inProgress} onClick={handleAddListing} className="bg-[#ef6c00] w-full text-white p-4 rounded-lg flex justify-center items-center">
-                        <span>{inProgress ? "Proceeding..." : "Add Service"}</span>
+                        <span>{inProgress ? "Proceeding..." : "Submit Request"}</span>
                         {inProgress && (
                             <span>
                                 <ClipLoader color="#ccc" size={18} />
