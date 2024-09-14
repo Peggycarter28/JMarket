@@ -134,7 +134,7 @@ const ClientHome = () => {
                 : currTab == 1 ? <RenderServices/>      
                 : currTab == 2 ? <Withdrawals/>         
                 : currTab == 3 ? <RenderTransactions transactionsList={transactionsList} user={user} />
-                : ""                                            
+                : ""                                          
             }
             </HomeDashboardLayout>
         </>)

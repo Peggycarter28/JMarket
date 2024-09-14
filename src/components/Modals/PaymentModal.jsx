@@ -146,7 +146,7 @@ const PaymentModal = ({ handleModal, fetchedUser, service_id, service_creator })
     };
 
     return (
-        <div className="fixed h-screen w-full bg-[#808080a3] left-0 right-0 bottom-0 flex flex-col items-center justify-center">
+        <div className="fixed z-100 h-screen w-full bg-[#808080a3] left-0 right-0 bottom-0 flex flex-col items-center justify-center">
             <div className="bg-white p-4 rounded-lg shadow-2xl min-h-[400px] min-w-[300px] md:min-w-[400px] flex flex-col gap-2">
                 <div className="flex justify-between">
                     <h4 className="font-bold text-[23px]">BConnect Pay</h4>

@@ -8,82 +8,83 @@ import { ClipLoader } from "react-spinners";
 
 const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
     const user = useContext(UserContext);
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState(null);
     const [inProgress, setInProgress] = useState(false);
-    const [title, setTitle] = useState("");
-    const [localGovernment, setLocalGovernment] = useState("");
-    const [category, setCategory] = useState("");
-    const [description, setDescription] = useState("");
-    const [cac, setCAC] = useState("");
-    const [terms, setTerms] = useState(false); // Change to boolean
-    const [service_phone, setPhone] = useState("");
+    const [title, setTitle] = useState(null);
+    const [bank, setBank] = useState(null);
+    const [category, setCategory] = useState(null);
+    const [description, setDescription] = useState(null);
+    const [service_phone, setPhone] = useState(null);
 
     const [location, setLocation] = useState({
         latitude: null,
         longitude: null,
-        error: null
+        error: null,
     });
 
     const handleAddListing = async () => {
         if (location.latitude == null || location.longitude == null) {
-            alert("Can't submit. Please ensure you have granted all required device access.");
-            return;
+            return alert("Can't submit. Please ensure you have granted all required device access.");
         }
+
+        console.log(fetchedUser);
 
         setInProgress(true);
+        if (!fetchedUser.id) {
+            console.log("You are probably not logged in");
+            alert("We could not identify you. Kindly reload the page or login and try again");
+            return true;
+        } else if (!title || !category || !description || !service_phone) {
+            console.log("One or more required parameters are missing");
+            alert("One or more required parameters are missing");
+            return true;
+        }
 
-        if (!fetchedUser?.id) {
-            alert("We could not identify you. Kindly reload the page or log in and try again.");
+        console.log("Adding Listing Started");
+
+        if (!description || !title) {
+            alert("Title or description cannot be blank");
             setInProgress(false);
             return;
         }
 
-        if (!localGovernment || !category || !title || !description || !service_phone) {
-            alert("One or more required fields are missing.");
-            setInProgress(false);
-            return;
+        const data = {
+            owner: fetchedUser.id,
+            category: category,
+            name: title,
+            description: description,
+            phone: service_phone,
+            image_url: urls[0], // Use the first URL as the cover photo
+            service_charge: 0,
+            is_approved: false,
+            date_listed: new Date(Date.now()).toISOString(),
+            locationLat: parseFloat(location.latitude),
+            locationLong: parseFloat(location.longitude),
+        };
+
+        console.log(data);
+
+        const res = await createVendorService(data);
+
+        if (res.status === 200 || res.status === 201) {
+            const serviceID = res.data.id;
+            console.log("Service created");
+            alert("Service submitted successfully! Please allow up to 24 hours for your service to be approved.");
+            handleModal();
+        } else {
+            alert("Failed! Something bad happened.");
         }
-
-        try {
-            const data = {
-                owner: fetchedUser.id,
-                local_government: localGovernment,
-                category: category,
-                name: title,
-                description: description,
-                phone: service_phone,
-                image_url: "", // Placeholder, handle image uploads separately
-                cac_number: cac,
-                service_charge: 0,
-                is_approved: false,
-                date_listed: new Date().toISOString(),
-                locationLat: parseFloat(location.latitude),
-                locationLong: parseFloat(location.longitude),
-            };
-
-            const res = await createVendorService(data);
-
-            if (res.status === 200 || res.status === 201) {
-                alert("Service submitted successfully! Please allow up to 24 hours for approval.");
-                handleModal();
-            } else {
-                alert("Failed! Something bad happened.");
-            }
-        } catch (error) {
-            console.error("Error adding listing:", error);
-            alert("An error occurred while submitting the service.");
-        } finally {
-            setInProgress(false);
-        }
+        setInProgress(false);
     };
 
     useEffect(() => {
         let watchId;
 
-        const getLocation = () => {
+        const getLocation = async () => {
             if (navigator.geolocation) {
                 watchId = navigator.geolocation.watchPosition(
                     (position) => {
+                        console.log(position.coords);
                         const { latitude, longitude } = position.coords;
                         setLocation({ latitude, longitude, error: null });
                     },
@@ -97,8 +98,8 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
                     }
                 );
             } else {
-                setLocation({ latitude: null, longitude: null, error: 'Geolocation is not supported by this browser.' });
-                alert('Geolocation is not supported by this browser.');
+                setLocation({ latitude: null, longitude: null, error: "Geolocation is not supported by this browser." });
+                alert("Geolocation is not supported by this browser.");
             }
         };
 
@@ -119,53 +120,30 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
                     <div onClick={handleModal} className="size-[50px] bg-[red] flex justify-center items-center rounded text-white font-bold">X</div>
                 </div>
 
-                <div>
+                <div className="">
                     <p>Account Name</p>
-                    <input onChange={(e) => setTitle(e.target.value)} value={title} className="border px-4 py-2 w-full" name="title" placeholder="Enter Title" type="text" />
+                    <input onChange={(elem) => setTitle(elem.target.value)} value={title} className="border px-4 py-2 w-full" name="title" placeholder="Enter Title" type="text" />
                 </div>
 
-                <div>
+                <div className="">
                     <p>Account Number</p>
-                    <input onChange={(e) => setDescription(e.target.value)} value={description} className="border px-4 py-2 w-full" name="description" placeholder="Enter Description" type="text" />
+                    <input onChange={(elem) => setDescription(elem.target.value)} value={description} className="border px-4 py-2 w-full" name="description" placeholder="Enter Description" type="text" />
                 </div>
 
-                <div>
+                <div className="">
                     <p>Amount</p>
-                    <input onChange={(e) => setPhone(e.target.value)} value={service_phone} className="border px-4 py-2 w-full" name="phone" placeholder="Enter Phone" type="text" />
+                    <input onChange={(elem) => setPhone(elem.target.value)} value={service_phone} className="border px-4 py-2 w-full" name="phone" placeholder="Enter Phone" type="text" />
                 </div>
 
-                <div className="flex justify-between gap-4">
-                    <div className="flex-1">
-                        <p>Bank</p>
-                        <select className="border px-4 py-2 w-full" value={category} onChange={(e) => setCategory(e.target.value)}>
-                            <option value="">...select bank account</option>
-                            {categories?.map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    {user.lang === "ha" ? category.name_ha : category.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div className="flex-1">
-                        <p>LGA</p>
-                        <select className="border px-4 py-2 w-full" value={localGovernment} onChange={(e) => setLocalGovernment(e.target.value)}>
-                            <option value="">...select LGA</option>
-                            <option value="1">Bauchi</option>
-                            <option value="2">Toro</option>
-                        </select>
-                    </div>
-
-                    <div className="flex-1">
-                        <p>C.A.C (Optional)</p>
-                        <input onChange={(e) => setCAC(e.target.value)} value={cac} className="border px-4 py-2 w-full" placeholder="Enter CAC" type="text" />
-                    </div>
+                <div className="">
+                    <p>Bank</p>
+                    <input onChange={(elem) => setBank(elem.target.value)} value={bank} className="border px-4 py-2 w-full" placeholder="Enter Bank" type="text" />
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <input type="checkbox" onChange={(e) => setTerms(e.target.checked)} checked={terms} />
+                <div className="flex-1 flex items-center gap-2">
+                    <input onChange={(elem) => setTerms(elem.target.checked)} className="border" type="checkbox" />
                     <label>
-                        By proceeding, you agree to <Link to={"/tc"}>BConnect's vendors terms and conditions</Link>
+                        By proceeding, you agree to <Link to="/tc">BConnect's withdrawal's terms and conditions</Link>
                     </label>
                 </div>
 
@@ -177,7 +155,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
                                 <ClipLoader color="#ccc" size={18} />
                             </span>
                         )}
-                    </button>
+                    </button> 
                 </div>
             </div>
         </div>
