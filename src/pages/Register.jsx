@@ -18,7 +18,7 @@ const Register = () => {
             if (res.status === 200 || res.status === 201) {
                 // Show the alert first before navigating
                 alert("Account created successfully. Proceed to sign in.");
-                navigate("../signin");
+                navigate("../auth/signin");
             } else {
                 // Handle different statuses
                 alert("Unable to create your account. Please try again.");
