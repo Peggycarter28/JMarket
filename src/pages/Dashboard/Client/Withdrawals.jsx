@@ -3,6 +3,7 @@ import CTAButton from "../../../components/Forms/Buttons/CTAButton"
 import AddServiceModal from "../../../components/Modals/AddServiceModal"
 import { UserContext } from "../../../context/AppContextt"
 import WithdrawalRequestModal from "../../../components/Modals/WithdrawalRequestModal"
+import { getVendorWithdrawalService } from "../../../service/vendorListingService"
 
 const Withdrawals = () => {
 
@@ -20,30 +21,37 @@ const Withdrawals = () => {
         setShowServiceModal(!showServiceModal)
     }
 
+    const fetchWithdrawalRecords = async () => {
+       const res = await getVendorWithdrawalService()
+       if(res.status == 200 || res.status == 201)
+       {
+        const found = res.data
+
+            if(found.length > 0)
+            {
+                const myOwn = found.filter(record=> {return record.owner_id == user.id})
+
+                setMyServices(myOwn)
+                console.log(myOwn, "Completed")
+            }
+
+       }
+       else{
+
+            console.log("Something bad happened!")
+
+       }
+    }
+
     useEffect(()=>{
 
         const storedUser = localStorage.getItem('user')
 
-        const user = JSON.parse(storedUser)
+        const user = JSON.parse(storedUser) 
 
         setUser(user)
 
-        const storedServices = localStorage.getItem('items')
-
-        if(storedServices)
-        {
-            let services = JSON.parse(storedServices)
-
-            console.log(services)
-
-            // FInd my own services and return
-            const myOwn = services.filter(service=> {return service.owner.id == user.id})
-
-            if(myOwn.length > 0)
-            {setMyServices(myOwn)}
-
-            console.log(myOwn, "Completed")
-        }
+        fetchWithdrawalRecords()
 
     }, [name])
 
@@ -61,35 +69,31 @@ const Withdrawals = () => {
         <tr>
             <td>Sn</td>
             <td>Date</td>
-            <td>Description</td>
-            <td>Category</td>
-            <td>Price</td>
-            <td>Action</td>
+            <td>Reference</td>
+            <td>Account Name</td>
+            <td>Account Number</td>
+            <td>Amount</td>
+            <td>Status</td>
         </tr>
         {myServices.length > 0 ? myServices.map((item, index)=>{
             return(
         <tr className="bg-[#e8e8e8]">
             <td className="p-2">{index + 1}</td>
-            <td>{new Date(item.date_listed).toDateString() }</td>
-            <td>{user.lang == "ha" ? <p>{item.description_ha}</p> : <p>{item.description}</p>}</td>
-            <td>{user.lang == "ha" ? <p>{item.category.name_ha}</p> : <p>{item.category.name}</p>}</td>
+            <td>{new Date(item.date).toDateString() }</td>
+            <td>{user.lang == "ha" ? <p>{item.reference}</p> : <p>{item.reference}</p>}</td>
+            <td>{user.lang == "ha" ? <p>{item.name}</p> : <p>{item.name}</p>}</td>
+            <td>{user.lang == "ha" ? <p>{item.account_number}</p> : <p>{item.account_number}</p>}</td>
             <td>
-                NGN{item.service_charge}
+                NGN{item.amount}
             </td>
             <td className="flex flex-col gap-1 p-2">
-                <p className="block">
-                    View
-                </p>
-
-                <p className="block">
-                    Edit
-                </p>
+                {item.status}
                 </td>
         </tr>
             )
         }
     )
-    : <p>No Service yet</p>
+    : <p>No Withdrawal Request yet</p>
 }
         
     </table>

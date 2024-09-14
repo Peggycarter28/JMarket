@@ -35,7 +35,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
             console.log("You are probably not logged in");
             alert("We could not identify you. Kindly reload the page or login and try again");
             return true;
-        } else if (!title || !bank || !category || !description || service_phone) {
+        } else if (!title || !bank || !description || service_phone) {
             console.log("One or more required parameters are missing");
             alert("One or more required parameters are missing");
             return true;
@@ -44,7 +44,7 @@ const WithdrawalRequestModal = ({ handleModal, fetchedUser }) => {
         console.log("Adding Request Started");
 
         if (!description || !title) {
-            alert("Title or description cannot be blank");
+            alert("Name or account number cannot be blank");
             setInProgress(false);
             return;
         }

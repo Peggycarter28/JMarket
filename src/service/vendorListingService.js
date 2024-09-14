@@ -16,6 +16,13 @@ export const createVendorWithdrawalService = async (data) => {
     return response
 }
 
+export const getVendorWithdrawalService = async () => {
+
+    const response = await axios.get(`${API_URL}/api/withdrawal-request`)
+    
+    return response
+}
+
 
 export const getAllVendorsService = async () => {
 
