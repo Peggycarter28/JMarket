@@ -86,22 +86,27 @@ function Home() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        console.log(position.coords)
+                        console.log(position.coords);
                         const { latitude, longitude } = position.coords;
                         setLocation({ latitude, longitude, error: null });
                     },
                     (error) => {
                         setLocation({ latitude: null, longitude: null, error: error.message });
+                    },
+                    {
+                        enableHighAccuracy: true, // Enables high-accuracy GPS (uses more power)
+                        timeout: 10000, // Wait up to 10 seconds for location
+                        maximumAge: 0 // Do not use a cached position
                     }
                 );
-
             } else {
                 setLocation({ latitude: null, longitude: null, error: 'Geolocation is not supported by this browser.' });
             }
         };
-
+    
         getLocation();
     }, []);
+    
 
 
     useEffect(() => {
@@ -146,7 +151,6 @@ function Home() {
         }
 
         const fetchCategories = async () => {
-
             const res = await getAllVendorsCategoryService() //Fix this and change to local government
             if (res.status == 200 || res.status == 201) {
                 console.log(res.data)

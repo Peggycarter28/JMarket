@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/AppContextt"
 import { initializePayment, verifyPayment } from "../../service/paymentService"
 import { createOrder } from "../../service/orderService"
-import { createTransaction } from "../../service/transactionService"
+import { createTransaction, sendEmailToVendor } from "../../service/transactionService"
 import { ClipLoader } from "react-spinners"
 
 const PaymentModal = ({ handleModal, fetchedUser, service_id, service_creator }) => {
@@ -119,6 +119,15 @@ const PaymentModal = ({ handleModal, fetchedUser, service_id, service_creator })
             const transactionCreate = await createTransaction(transaction_data)
 
             console.log(transactionCreate)
+
+            // Send Email
+            const emailStat = await sendEmailToVendor({
+                subject:"New Order Received!",
+                text:`You have received an order on Service ID ${service_id} from ${verify.data.customer.email}. An amount of NGN${verify.data.amount}`,
+                to: verify.data.customer.email
+            })
+
+            console.log(emailStat)
 
             setInProgress(false)
 

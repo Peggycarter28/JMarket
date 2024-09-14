@@ -213,26 +213,41 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
 
 
     useEffect(() => {
+        let watchId;
+    
         const getLocation = async () => {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
+                watchId = navigator.geolocation.watchPosition(
                     (position) => {
-                        console.log(position.coords)
+                        console.log(position.coords);
                         const { latitude, longitude } = position.coords;
                         setLocation({ latitude, longitude, error: null });
                     },
                     (error) => {
                         setLocation({ latitude: null, longitude: null, error: error.message });
+                    },
+                    {
+                        enableHighAccuracy: true, // Enables high-accuracy GPS
+                        timeout: 10000, // Max wait time to get location
+                        maximumAge: 0 // Always fetch fresh location data
                     }
                 );
-
             } else {
                 setLocation({ latitude: null, longitude: null, error: 'Geolocation is not supported by this browser.' });
+                alert('Geolocation is not supported by this browser.')
             }
         };
-
+    
         getLocation();
+    
+        // Clean up the watchPosition listener when the component unmounts
+        return () => {
+            if (watchId) {
+                navigator.geolocation.clearWatch(watchId);
+            }
+        };
     }, []);
+    
 
     return (
         <div className="fixed h-screen w-full bg-[#808080a3] left-0 right-0 bottom-0 flex flex-col items-center justify-center p-4 overflow-hidden">

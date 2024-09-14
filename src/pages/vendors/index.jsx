@@ -19,6 +19,7 @@ import SubmitReview from "./SubmitReview"
 import MessageVendorButton from "./MessageVendorButton"
 import ReviewPhotoGallery from "./ReviewPhotoGallery.jsx"
 import { RecetlyViwedItems } from "../../helpers/RecentlyViewed.js"
+import MapComponent from "./Map.jsx"
 
 const Vendors = () => {
 
@@ -47,7 +48,6 @@ const Vendors = () => {
             if (res.status == 200 || res.status == 201) {
 
                 console.log(res.data)
-
 
                 setItem(res.data)
                 // Adding items
@@ -183,6 +183,11 @@ const Vendors = () => {
                         </div>
 
                         <GrayContainer>
+                            <WhiteInGrayContainer>
+                                <MapComponent lat={item?.locationLat}
+                                long={item?.locationLong
+                                    }/>
+                            </WhiteInGrayContainer>
                             <WhiteInGrayContainer>
                                 <div>
                                     <h5 className="text-[#484848] leading-[19.36px]">
