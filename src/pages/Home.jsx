@@ -252,8 +252,6 @@ function Home() {
                 </div>
 
                 <p>{location.latitude} {location.longitude}</p>
-
-
             </main>
             <LandingFooter2 />
         </>

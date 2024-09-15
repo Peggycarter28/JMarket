@@ -12,6 +12,7 @@ import ProfileDetailsSettings from './pages/Dashboard/Client/Settings'
 import UserProfile from './pages/client/UserProfile'
 import ClientHome from './pages/Dashboard/Client/Home'
 import SearchByCategory from './pages/SearchByCategory'
+import EcommercePage from './pages/Landing'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <div className="font-custom">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/landing" element={<EcommercePage />} />
         <Route path="search/category/:categoryId" element={<SearchByCategory />} />
         <Route path="about" element={<Home />} />
         <Route path="contact" element={<Home />} />

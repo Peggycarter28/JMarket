@@ -11,7 +11,7 @@ const RenderTransactions = ({user}) => {
     const tx = JSON.parse(localStorage.getItem('userTransactions'))
 
     if(tx) {
-        console.log("Transactions are: ",tx) 
+        console.log("Transactions are: ",tx)
         setTransactions(tx)
     }
    }, [])
