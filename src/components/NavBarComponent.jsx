@@ -14,7 +14,7 @@ const NavBarComponent = () => {
      }
 
     return (
-        <div className="flex w-full">
+        <div className="flex w-full h-[48px]">
             <div className="flex w-full justify-end absolute top-0 right-0 mt-3 mr-3 index-[45]">
                 <select onChange={elem=> handleLangUpdate(elem.target.value)} className="text-right" id="">
                     <option value="">..select language</option>
