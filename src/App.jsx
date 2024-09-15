@@ -19,8 +19,7 @@ function App() {
   return (
     <div className="font-custom">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/landing" element={<EcommercePage />} />
+        <Route path="/" element={<EcommercePage />} />
         <Route path="search/category/:categoryId" element={<SearchByCategory />} />
         <Route path="about" element={<Home />} />
         <Route path="contact" element={<Home />} />
