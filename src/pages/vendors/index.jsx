@@ -205,11 +205,7 @@ const Vendors = () => {
                                 <p>Saturday (Only Appointments)</p>
                             </WhiteInGrayContainer>
 
-                            <WhiteInGrayContainer>
-                                <MapComponent lat={item?.locationLat}
-                                long={item?.locationLong
-                                    }/>
-                            </WhiteInGrayContainer>
+                            
 
                             <SubmitReview listing_id={item?.id} />
 
