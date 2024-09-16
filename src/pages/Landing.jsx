@@ -87,8 +87,8 @@ const EcommercePage = () => {
                         />
                         {/* Image Overlay */}
                         <div className="absolute top-4 left-4">
-                            <h2 className="text-4xl text-white font-bold">Explore great services in bauchi</h2>
-                            <button className="mt-2 px-4 py-2 bg-white text-black rounded-lg">Sign Up</button>
+                            <h2 className="text-4xl text-white font-bold">{user.lang == "en" ? "Explore great services in bauchi" : "Ku zo ku ga abubuwa dabam dabam daga jihar Bauchi"}</h2>
+                            <button className="mt-2 px-4 py-2 bg-white text-black rounded-lg">{user.lang == "ha" ? "Bude sabon Akaunt" : "Sign Up"}</button>
                         </div>
                         {/* Dots Indicator */}
                         <div className="absolute bottom-4 w-full flex justify-center space-x-2">
@@ -124,7 +124,7 @@ const EcommercePage = () => {
 
                 {/* Image Containers */}
                 <div className="grid grid-cols-6 gap-4 mt-4 mx-[100px]">
-                    {[{ name: 'Clearance Sales', src: "/landing-page/masa2.jpg" }, { name: 'New Arrivals', src: "/landing-page/new-arrival.png" }, { name: 'Appliance', src: "/landing-page/market.jpg" }, { name: 'Electronics', src: "/landing-page/ds.jpg" }, { name: 'Gadgets', src: "/landing-page/unnamed (1).jpg" }, { name: 'Special Offers', src: "/landing-page/lcmrk.jpg" }].map((item, index) => (
+                    {[{ name: 'Buy Now', src: "/landing-page/masa2.jpg" }, { name: 'New Vendors', src: "/landing-page/new-arrival.png" }, { name: 'Shop Local', src: "/landing-page/market.jpg" }, { name: 'Electronics', src: "/landing-page/ds.jpg" }, { name: 'Top Vendors', src: "/landing-page/unnamed (1).jpg" }, { name: 'Special Offers', src: "/landing-page/lcmrk.jpg" }].map((item, index) => (
                         <div key={index} className="relative h-56">
                             <img
                                 src={item.src}
