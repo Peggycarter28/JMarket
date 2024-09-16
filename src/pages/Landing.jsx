@@ -66,8 +66,8 @@ const EcommercePage = () => {
                                 {categories.map((item) => {
                                     return (
                                         <li className='p-[6px]'>
-                                            <Link className='flex items-center' to={`/search/category/${item.id}`}>
-                                                <img src={item.image_url} className='size-[30px]'/>
+                                            <Link className='flex items-center gap-2' to={`/search/category/${item.id}`}>
+                                                <img src={item.image_url} className='size-[25px]' />
                                                 <span>
                                                 {user.lang == "ha" ? item?.name_ha
                                                     : item?.name
@@ -142,12 +142,12 @@ const EcommercePage = () => {
             </div>
 
             <div className='mx-[100px]'>
-                <TopVendorsCard preData={[]} title={"Food Vendors"} />
+                <TopVendorsCard preData={[]} title={"All Vendors"} />
             </div>
 
-            <div className='mx-[100px]'>
+            {/* <div className='mx-[100px]'>
                 <TopVendorsCard preData={[]} title={"Vehicle Vendors"} />
-            </div>
+            </div> */}
 
             <LandingFooter2 />
         </GrayContainer>
