@@ -66,10 +66,13 @@ const EcommercePage = () => {
                                 {categories.map((item) => {
                                     return (
                                         <li className='p-[6px]'>
-                                            <Link to={`/search/category/${item.id}`}>
+                                            <Link className='flex items-center' to={`/search/category/${item.id}`}>
+                                                <img src={item.image_url} className='size-[30px]'/>
+                                                <span>
                                                 {user.lang == "ha" ? item?.name_ha
                                                     : item?.name
                                                 }
+                                                </span>
                                             </Link>
                                         </li>)
                                 })}
