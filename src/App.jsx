@@ -20,7 +20,7 @@ function App() {
     <div className="font-custom">
       <Routes>
         <Route path="/" element={<EcommercePage />} />
-        <Route path="/logged-in" element={<Home />} />
+        <Route path="/search" element={<Home />} />
         <Route path="search/category/:categoryId" element={<SearchByCategory />} />
         <Route path="about" element={<Home />} />
         <Route path="contact" element={<Home />} />
