@@ -123,7 +123,7 @@ const EcommercePage = () => {
 
                 {/* Image Containers */}
                 <div className="grid grid-cols-6 gap-4 mt-4 mx-[100px]">
-                    {[{ name: 'Clearance Sales', src: "/landing-page/masa2.jpg" }, { name: 'New Arrivals', src: "/landing-page/new-arrival.png" }, { name: 'Appliance', src: "/landing-page/market.jpg" }, { name: 'Electronics', src: "/landing-page/makeup.jpg" }, { name: 'Gadgets', src: "/landing-page/new-arrival.png" }, { name: 'Special Offers', src: "/landing-page/new-arrival.png" }].map((item, index) => (
+                    {[{ name: 'Clearance Sales', src: "/landing-page/masa2.jpg" }, { name: 'New Arrivals', src: "/landing-page/new-arrival.png" }, { name: 'Appliance', src: "/landing-page/market.jpg" }, { name: 'Electronics', src: "/landing-page/makeup.jpg" }, { name: 'Gadgets', src: "/landing-page/unnamed (1).jpg" }, { name: 'Special Offers', src: "/landing-page/lcmrk.jpg" }].map((item, index) => (
                         <div key={index} className="relative h-56">
                             <img
                                 src={item.src}
