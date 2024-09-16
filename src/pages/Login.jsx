@@ -32,7 +32,7 @@ const Login = () => {
                 alert("Logged In Successfully! You can make your orders now")
 
                 setIsLoading(false)
-                window.location.pathname = "/"
+                window.location.pathname = "/logged-in"
                  
             }
             else{
