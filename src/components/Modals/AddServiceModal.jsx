@@ -162,8 +162,8 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                 service_charge: 0,
                 is_approved: false,
                 date_listed: new Date(Date.now()).toISOString(),
-                locationLat: parseFloat(location.latitude),
-                locationLong: parseFloat(location.longitude),
+                locationLat: parseFloat(location.latitude.toFixed(6)),
+                locationLong: parseFloat(location.longitude.toFixed(6)),
             };
 
             console.log(data);
