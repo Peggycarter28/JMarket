@@ -105,10 +105,7 @@ const EcommercePage = () => {
                         <div className="flex flex-col justify-center items-center h-48">
                             <WhiteInGrayContainer rounded={true}>
                                 <div className="flex items-center space-x-2">
-                                    <span>📞</span> <span>All to order, 07006000000</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <span>🏭</span> <span>BConnect</span>
+                                   <img src="/landing-page/market.jpg" alt="Ads 2" />
                                 </div>
                             </WhiteInGrayContainer>
                         </div>
