@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import TopVendorsCard from '../components/LandingPage/TopVendorsCard';
 import GrayContainer from '../components/Layout/GrayContainer';
 import WhiteInGrayContainer from '../components/Layout/WhiteInGrayContainer';
-import NavBarLandingComponent from '../components/NavBarLandingComponent';
 import NavBarComponent from '../components/NavBarComponent';
-import LeftsideBar from '../components/LandingPage/LeftSidebar';
 import { getVendorCategoriesService } from '../service/vendorListingService';
 import { UserContext } from '../context/AppContextt';
 import { Link } from 'react-router-dom';
@@ -13,7 +11,7 @@ import LandingFooter2 from '../components/Footer/LandingFooter';
 const EcommercePage = () => {
     const name = "leftsidebar";
 
-    const { user, setUser } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext) 
     const [categories, setCategories] = useState([]);
     const [loaded, setLoaded] = useState(false); // Start as false until loading is done
     const [offlineFound, setOfflineFound] = useState(false);

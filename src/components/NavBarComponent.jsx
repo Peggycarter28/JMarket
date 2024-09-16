@@ -29,13 +29,13 @@ const NavBarComponent = () => {
 
                 <div className='hidden md:flex'>
                     <NavBar links={[
-                        { name: "Find Vendors", url: "/search" },
-                        { name: "Vendors", url: "/search" }
+                        { name: user.lang == 'en'? "Find Vendors": "Nemi masu siyar wa", url: "/search" },
+                        { name: user.lang == 'en' ? 'Vendors' : "Masu siyar wa", url: "/search" }
                     ]} />
 
                     <SignInNav links={[
-                        { name: "Sign In", url: "auth/signin" },
-                        { name: "Sign Up", url: "auth/signup", isPrimary: true },
+                        { name: user.lang == 'en' ? "Sign In" : "Shiga akaunt", url: "auth/signin" },
+                        { name: user.lang == 'en' ? "Sign Up" : "Bude sabon akaunt", url: "auth/signup", isPrimary: true },
                     ]
                     } />
 
