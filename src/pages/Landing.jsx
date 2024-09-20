@@ -61,9 +61,9 @@ const EcommercePage = () => {
                     <div className="w-full md:w-2/12 space-y-4 md:h-[390px] overflow-y-auto">
                         <WhiteInGrayContainer rounded={true}>
                             <ul className='flex flex-row gap-8 md:gap-2 items-center md:items-start md:flex-col'>
-                                {categories.map((item) => {
+                                {categories.map((item, i) => {
                                     return (
-                                        <li className='p-[6px]'>
+                                        <li key={i} className='p-[6px]'>
                                             <Link className='flex items-center gap-2' to={`/search/category/${item.id}`}>
                                                 <img src={item.image_url} className='size-[25px]' />
                                                 <span>
@@ -123,9 +123,9 @@ const EcommercePage = () => {
                 </div>
 
                 {/* Image Containers */}
-                <div className="grid md:grid-cols-6 gap-4 mt-4 md:mx-[100px]">
-                    {[{ name: 'Buy Now', src: "/landing-page/masa2.jpg" }, { name: 'New Vendors', src: "/landing-page/new-arrival.png" }, { name: 'Shop Local', src: "/landing-page/market.jpg" }, { name: 'Electronics', src: "/landing-page/ds.jpg" }, { name: 'Top Vendors', src: "/landing-page/unnamed (1).jpg" }, { name: 'Special Offers', src: "/landing-page/lcmrk.jpg" }].map((item, index) => (
-                        <div key={index} className="relative h-56">
+                <div className="grid md:grid-cols-6 gap-4 mt-4 md:mx-[100px] cursor-pointer">
+                    {[{ name: 'Buy Now', src: "/landing-page/masa2.jpg", link: '/search/category/5' }, { name: 'New Vendors', src: "/landing-page/new-arrival.png", link: '/search/category/2' }, { name: 'Shop Local', src: "/landing-page/market.jpg", link: '/search/category/1' }, { name: 'Electronics', src: "/landing-page/ds.jpg", link: '/search/category/3'  }, { name: 'Top Vendors', src: "/landing-page/unnamed (1).jpg", link: '/search/category/6' }, { name: 'Special Offers', src: "/landing-page/lcmrk.jpg", link: '/search/category/7' }].map((item, index) => (
+                        <Link key={index} to={item.link} className="relative h-56">
                             <img
                                 src={item.src}
                                 alt={item.name}
@@ -134,7 +134,7 @@ const EcommercePage = () => {
                             <div className=" bottom-2 left-2 text-black text-center px-2 py-1 rounded-lg">
                                 {item.name}
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
