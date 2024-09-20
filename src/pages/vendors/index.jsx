@@ -141,11 +141,13 @@ const Vendors = () => {
         <>
             <div className="absolute w-full min-h-screen">
                 <header>
-                    <NavBarComponent />
+                  <div className="flex flex-col gap-8 p-3">
+                  <NavBarComponent />
                     {/* Vendor cover image */}
-                    <div className="h-auto md:h-[480px] w-full overflow-hidden bg-[gray] flex justify-center">
+                    <div className="h-auto md:h-[480px] w-full  overflow-hidden bg-[gray] flex justify-center">
                         <img src={item?.image_url} className="" />
                     </div>
+                  </div>
                 </header>
 
                 <div className="relative p-8 px-2 md:px-[136px] flex flex-col md:flex-row gap-4">

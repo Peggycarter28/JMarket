@@ -62,3 +62,23 @@ export const activateAccountService = async (token, email, ) => {
 }
 
 
+
+// New logout service
+export const logoutService = async (authToken) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/api/auth/token/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Token ${authToken}`, // Pass the token for authentication
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      console.error("Error logging out:", error);
+      throw error;
+    }
+  }
