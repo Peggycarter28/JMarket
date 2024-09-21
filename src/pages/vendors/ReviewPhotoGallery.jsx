@@ -44,7 +44,7 @@ const ReviewPhotoGallery = () => {
                 {photos.map((photo, index) => {
                     return(<li key={photo+index} className="w-1/2">
                         <div className="p-2 ">
-                        <img className="p-2 border shadow-lg " height={120} width={120} src={photo.image_url} alt={photo.name} />
+                        <img className="rounded-lg shadow-lg" height={120} width={120} src={photo.image_url} alt={photo.name} />
                         </div>
                     </li>)
                 })}

@@ -176,10 +176,10 @@ const Vendors = () => {
                         </div>
 
                         {/*  */}
-                        <div className="flex gap-4 justify-start mb-[30px]">
-                            {item.id && <MessageVendorButton listing_id={item?.id} receiver_id={item?.owner.id} />}
+                        <div  className="flex gap-4 justify-start mb-[30px]">
+                            {item.id && <MessageVendorButton  listing_id={item?.id} receiver_id={item?.owner.id} />}
 
-                            <div onClick={handleProcessOrder}>
+                            <div className="cursor-pointer" onClick={handleProcessOrder}>
                                 <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={false} title={user.lang == 'ha' ? `Order Yanzu` : `Order Now`} />
                             </div>
                         </div>
@@ -203,8 +203,8 @@ const Vendors = () => {
                                 <h5>
                                     {user.lang == 'ha' ? `Lokacin bude` : `Opening time`}
                                 </h5>
-                                <p>Mon-Fri 09:00–16:00</p>
-                                <p>Saturday (Only Appointments)</p>
+                                <p className="text-sm font-semibold">Mon-Fri 09:00–16:00</p>
+                                <p className="text-sm font-semibold">Saturday (Only Appointments)</p>
                             </WhiteInGrayContainer>
 
                             
