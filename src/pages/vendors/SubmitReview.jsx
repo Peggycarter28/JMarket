@@ -97,7 +97,7 @@ const SubmitReview = ({listing_id}) => {
 
 
         {/* Submit call to action button */}
-        <div onClick={handleReviewSubmit} className="flex justify-start mt-2 mb-2">
+        <div onClick={handleReviewSubmit} className="flex justify-start mt-2 mb-2 cursor-pointer">
             <CTAButton loadingState={loading} title={user.lang == 'ha' ? "Aika bita naka": "Submit your review"} />
         </div>
 
