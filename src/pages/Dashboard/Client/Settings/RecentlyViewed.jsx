@@ -7,7 +7,6 @@ const RecentlyViewedSettings = () => {
     return (
         <>
             <UserDashboardLayout>
-            12345
                 <RecentlyViewed items={recentlyViewed.getItems()}/>
 
             </UserDashboardLayout>

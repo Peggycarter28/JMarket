@@ -87,17 +87,17 @@ const EcommercePage = () => {
                         />
                         {/* Image Overlay */}
                         <div className="absolute top-4 left-4">
-                            <h2 className="text-4xl text-white font-bold">{user.lang == "en" ? "Explore great services in bauchi" : "Ku zo ku ga abubuwa dabam dabam daga jihar Bauchi"}</h2>
-                            <button className="mt-2 px-4 py-2 bg-white text-black rounded-lg">{user.lang == "ha" ? "Bude sabon Akaunt" : "Sign Up"}</button>
+                            <h2 className="text-4xl text-slate-100 font-bold">{user.lang == "en" ? "Explore great services in bauchi" : "Ku zo ku ga abubuwa dabam dabam daga jihar Bauchi"}</h2>
+                            <button className="mt-2 px-4 py-2 bg-slate-100 text-slate-950 rounded-lg">{user.lang == "ha" ? "Bude sabon Akaunt" : "Sign Up"}</button>
                         </div>
                         {/* Dots Indicator */}
                         <div className="absolute bottom-4 w-full flex justify-center space-x-2">
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-100 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-200 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-300 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-400 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-500 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-600 rounded-full"></span>
                         </div>
                     </div>
 
@@ -125,7 +125,7 @@ const EcommercePage = () => {
                 {/* Image Containers */}
                 <div className="grid md:grid-cols-6 gap-4 mt-4 md:mx-[100px] cursor-pointer">
                     {[{ name: 'Buy Now', src: "/landing-page/masa2.jpg", link: '/search/category/5' }, { name: 'New Vendors', src: "/landing-page/new-arrival.png", link: '/search/category/2' }, { name: 'Shop Local', src: "/landing-page/market.jpg", link: '/search/category/1' }, { name: 'Electronics', src: "/landing-page/ds.jpg", link: '/search/category/3'  }, { name: 'Top Vendors', src: "/landing-page/unnamed (1).jpg", link: '/search/category/6' }, { name: 'Special Offers', src: "/landing-page/lcmrk.jpg", link: '/search/category/7' }].map((item, index) => (
-                        <Link key={index} to={item.link} className="relative h-56">
+                        <Link key={index} to={item.link} className="relative h-56 hover:bg-slate-300 duration-300">
                             <img
                                 src={item.src}
                                 alt={item.name}

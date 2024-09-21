@@ -54,7 +54,7 @@ export const forgotPasswordService = async (email, username, password, ) => {
 
 
 
-export const activateAccountService = async (token, email, ) => {
+export const activateAccountService = async (token, email, username, password ) => {
 
     const response = await axios.post(`${API_URL}/api-v1/auth/login`, {username: username, email:email, password: password})
 
