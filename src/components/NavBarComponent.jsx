@@ -102,7 +102,7 @@ const calculateTotal = (items) => {
 
 {
                     user.isLoggedIn == true && user.username !== null 
-                    ? ""
+                    ? <button className="p-2 border rounded">Logout</button>
                     :
                     <SignInNav links={[
                         { name: user.lang === 'en' ? "Sign In" : "Shiga akaunt", url: "auth/signin" },
@@ -111,7 +111,8 @@ const calculateTotal = (items) => {
 }
 
                 </div>
-
+                {
+                    user.isLoggedIn == true &&
                 <div className="relative cart-icon" ref={cartRef}>
                     {/* Cart Icon */}
                     <div className="cursor-pointer" onClick={toggleCartDropdown}>
@@ -129,6 +130,7 @@ const calculateTotal = (items) => {
                         )}
                     </div>
                 </div>
+                }
     
                 {/* Cart Dropdown */}
                 {isCartOpen && (
