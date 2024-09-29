@@ -107,7 +107,7 @@ const EcommercePage = () => {
         }
 
         fetchUser()
-    }
+    }, []
     )
     return (
         <GrayContainer>

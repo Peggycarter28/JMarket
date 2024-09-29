@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react"
 import CTAButton from "../../../components/Forms/Buttons/CTAButton"
 import AddServiceModal from "../../../components/Modals/AddServiceModal"
 import { UserContext } from "../../../context/AppContextt"
+import axios from "axios"
+import { API_URL } from "../../../constants/config"
 
 const RenderServices = () => {
 
@@ -21,28 +23,25 @@ const RenderServices = () => {
 
     useEffect(()=>{
 
+        const getMyServices = async () => {
         const storedUser = localStorage.getItem('user')
 
         const user = JSON.parse(storedUser)
 
         setUser(user)
 
-        const storedServices = localStorage.getItem('items')
+        const storedServices = await axios.get(`${API_URL}/api/vendors?owner=${user.id}`)
 
-        if(storedServices)
+        if(storedServices.status == 200 || storedServices.status == 201)
         {
-            let services = JSON.parse(storedServices)
-
-            console.log(services)
+            console.log(storedServices.data)
 
             // FInd my own services and return
-            const myOwn = services.filter(service=> {return service.owner.id == user.id})
-
-            if(myOwn.length > 0)
-            {setMyServices(myOwn)}
-
-            console.log(myOwn, "Completed")
+            setMyServices(storedServices.data)
         }
+    }
+
+    getMyServices()
 
     }, [name])
 
