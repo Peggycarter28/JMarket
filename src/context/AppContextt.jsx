@@ -1,36 +1,54 @@
 import { createContext, useState } from "react";
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
-export const UserProvider = ({children}) => {
+export const UserProvider = ({ children }) => {
+    // Initial user data
+    const initialUserData = {
+        lang: 'en',
+        username: null,
+        email: null,
+        isLoggedIn: true,
+        token: null,
+        isChatScreen: false,
+        id: 0,
+    };
 
+    // Set user ID based on username
+    switch (initialUserData.username) {
+        case 'barakat':
+            initialUserData.id = 2;
+            break;
 
-let data =  {
-    lang: 'en',
-    username: null,
-    email: null,
-    isLoggedIn: true,
-    token: null,
-    isChatScreen: false,
-    id: 0
-}
+        case 'aren':
+            initialUserData.id = 1;
+            break;
 
-switch (data.username) {
-    case 'barakat':
-        data.id = 2
-        break;
+        default:
+            break;
+    }
 
-    case 'aren':
-        data.id = 1
-        break
+    const [user, setUser] = useState(initialUserData);
+    const [cart, setCart] = useState([]); // Cart state to hold items
 
-    default:
-        break;
-}
+    // Function to add an item to the cart
+    const addToCart = (item) => {
+        setCart((prevCart) => [...prevCart, item]);
+    };
 
-const [user, setUser] = useState(data)
+    // Function to remove an item from the cart by id
+    const removeFromCart = (itemId) => {
+        setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
+    };
 
-return (<UserContext.Provider value={{user, setUser}}>
-    {children}
-</UserContext.Provider>);
+    // Function to get cart items
+    const getCartItems = () => {
+        return cart;
+    };
+
+    return (
+        <UserContext.Provider value={{ user, setUser, cart, addToCart, removeFromCart, getCartItems }}>
+            {children}
+        </UserContext.Provider>
+    );
 };

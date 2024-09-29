@@ -13,6 +13,7 @@ const EcommercePage = () => {
 
     const { user, setUser } = useContext(UserContext) 
     const [categories, setCategories] = useState([]);
+    const [cart, setCart] = useState([]);
     const [loaded, setLoaded] = useState(false); // Start as false until loading is done
     const [offlineFound, setOfflineFound] = useState(false);
 
@@ -28,8 +29,32 @@ const EcommercePage = () => {
         }
     }, [name]);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     useEffect(() => {
         const fetch = async () => {
+            
             const res = await getVendorCategoriesService();
 
             if (res.status === 200 || res.status === 201) {
@@ -39,6 +64,18 @@ const EcommercePage = () => {
                 setOfflineFound(true);
             } else {
                 alert("Unable to fetch categories");
+                setLoaded(true);
+            }
+
+            const cartRes = await getVendorCategoriesService();
+
+            if (res.status === 200 || res.status === 201) {
+                setCart(res.data);
+                localStorage.setItem("cart", JSON.stringify(res.data));
+                setLoaded(true);
+                setOfflineFound(true);
+            } else {
+                alert("Unable to fetch Cart Items");
                 setLoaded(true);
             }
         };
@@ -140,7 +177,7 @@ const EcommercePage = () => {
             </div>
 
             <div className='md:mx-[100px]'>
-                <TopVendorsCard preData={[]} title={"All Vendors"} />
+                <TopVendorsCard cart={cart} preData={[]} title={"All Vendors"} />
             </div>
 
             {/* <div className='mx-[100px]'>
