@@ -7,6 +7,8 @@ import { getVendorCategoriesService } from '../service/vendorListingService';
 import { UserContext } from '../context/AppContextt';
 import { Link } from 'react-router-dom';
 import LandingFooter2 from '../components/Footer/LandingFooter';
+import Cookies from 'js-cookie'
+import axios from 'axios';
 
 const EcommercePage = () => {
     const name = "leftsidebar";
@@ -28,28 +30,6 @@ const EcommercePage = () => {
             setLoaded(true)
         }
     }, [name]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     useEffect(() => {
@@ -82,6 +62,49 @@ const EcommercePage = () => {
 
         fetch();
     }, []);
+
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            if (Cookies.get('token') !== null && (user.email == null || user.username == null)) {
+                const userRes = await axios.get(`${API_URL}/api/auth/users/me/`, { headers: { "Authorization": `Token ${Cookies.get('token')}` } })
+                if (userRes.status == 200 || userRes.status == 201) {
+                    setUser(
+                        prev => ({
+                            ...prev,
+                            token: Cookies.get('token'),
+                            isLoggedIn: true,
+                            username: userRes.data.username,
+                            email: userRes.data.email,
+                            id: userRes.data.id
+                        })
+                    )
+
+                    localStorage.setItem('user', JSON.stringify(userRes.data))
+                    console.log(userRes.data)
+
+                }
+            }
+            else {
+                setUser(
+                    prev => ({
+                        ...prev,
+                        token: Cookies.get('token'),
+                        isLoggedIn: false,
+                        username: null,
+                        email: null,
+                        id: null
+                    })
+                )
+
+                localStorage.removeItem('user')
+                console.log("no token")
+            }
+        }
+
+        fetchUser()
+    }
+    )
     return (
         <GrayContainer>
             <div className="w-full">
