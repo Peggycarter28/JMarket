@@ -65,6 +65,7 @@ const EcommercePage = () => {
 
 
     useEffect(() => {
+        console.log("Authenticating User")
         const fetchUser = async () => {
             if (Cookies.get('token') !== null && (user.email == null || user.username == null)) {
                 const userRes = await axios.get(`${API_URL}/api/auth/users/me/`, { headers: { "Authorization": `Token ${Cookies.get('token')}` } })
