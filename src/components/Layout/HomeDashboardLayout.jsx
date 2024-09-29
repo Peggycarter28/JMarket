@@ -42,9 +42,11 @@ const HomeDashboardLayout = ({ children }) => {
           <main className="flex-1 flex border gap-2 md:gap-4 p-2 md:p-4">
             <div className="hidden flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 md:flex flex-col justify-center items-center">
               {/* Title */}
+              <Link to={'/'}>
               <h3 className="py-8">
                 <img className="" src="/logo.svg" alt="BauchiConnect Logo" />
               </h3>
+              </Link>
 
               {/* User Details */}
               <h4 className="text-[#464B4F] text-[24px] fw-600">{user?.username}</h4>

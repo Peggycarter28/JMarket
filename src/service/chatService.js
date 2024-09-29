@@ -39,15 +39,15 @@ export const loadChatService = async (chatId ) => {
     return response
 }
 
-export const sendChatService = async (chatId, content, receiverId, senderId ) => {
-console.log(receiverId)
-console.log(typeof receiverId)
+export const sendChatService = async (chatId, content, receiverId, senderId, base_lang ) => {
+
     const response = await axios.post(`${API_URL}/api/chat`, 
         {
             chatId: parseInt(chatId),
             receiver: parseInt(receiverId),
             sender: parseInt(senderId),
-            content:content
+            content:content,
+            base_lang: base_lang
         }
     )
 

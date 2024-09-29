@@ -75,13 +75,17 @@ const RenderServices = () => {
             <td>
                 NGN{item.service_charge}
             </td>
-            <td className="flex flex-col gap-1 p-2">
+            <td className="flex items-center gap-1 p-2">
                 <p className="block">
                     View
                 </p>
 
                 <p className="block">
                     Edit
+                </p>
+
+                <p className="block bg-[red] rounded p-2 text-white">
+                    Delete
                 </p>
                 </td>
         </tr>

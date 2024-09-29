@@ -92,7 +92,7 @@ const EcommercePage = () => {
 
                 {/* Main Section */}
 
-                <div className="flex flex-col md:flex-row mt-4 gap-2 md:mx-[100px]">
+                <div className="flex flex-col md:flex-row mt-4 gap-2 md:mx-[100px] mt-[80px]">
                     {/* Categories Column */}
 
                     <div className="w-full md:w-2/12 space-y-4 md:h-[390px] overflow-y-auto">

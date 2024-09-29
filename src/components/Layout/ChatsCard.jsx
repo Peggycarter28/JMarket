@@ -1,12 +1,12 @@
 import { Link, useParams } from "react-router-dom"
 
 const ChatsCard = ({ data, userId }) => {
-console.log(userId)
+console.log(data)
     return (
         <div className={`flex gap-2 m-2 mt-4 mb-4`}>
             {/* Image */}
             <div className="size-[81px] flex-2 rounded-full overflow-hidden">
-                <img className="h-[81px]" src="/product.png" alt="" />
+                <img className="h-[81px]" src={data.sender.image_url !== null ? data.sender.image_url : "/product.png"} alt="" />
             </div>
 
             {/* Chat details */}

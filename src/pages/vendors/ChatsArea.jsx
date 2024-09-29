@@ -67,9 +67,10 @@ const ChatsArea = () => {
          
             {/* Chat Area */}
             <div className="flex border gap-4 items-center justify-between h-[70px] md:h-[101px] bg-[#EDEDED] m-4 overflow-hidden rounded-[16px]">
-                <div className="flex items-start gap-4">
+                <div className="flex items-center gap-4 ">
                     <div className="size-[50px] md:size-[81px] rounded-full overflow-hidden">
-                        {/* <img className="h-[50px] md:h-[81px]" src={chats[0]?.receiver.id == userr.id ? chats[0]?.receiver.username : chats[0]?.sender.username} alt="" /> */}
+                        <img className="h-[50px] md:h-[81px]" src={
+                            chats[0]?.sender.id == userr.id && chats[0]?.receiver.image_url !== null ? chats[0]?.receiver.image_url : chats[0]?.sender.image_url !== null ? chats[0]?.sender.image_url : "/product.png"} alt="Receiver" />
                     </div>
 
                     <div>

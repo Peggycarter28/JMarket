@@ -25,7 +25,7 @@ const ComposeChat = ({ updateMessageCallBack, scrollToBottom, }) => {
         if (message.trim() && chatId && receiverId && userr && userr.id) {
             try {
                 setLoading(true)
-                const res = await sendChatService(chatId, message, receiverId, userr.id);
+                const res = await sendChatService(chatId, message, receiverId, userr.id, user.lang);
 
                 if (res.status === 200 || res.status === 201) {
                     console.log("Message sent successfully");

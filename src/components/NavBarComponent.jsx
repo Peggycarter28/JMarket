@@ -4,6 +4,7 @@ import siteLogo from '../assets/bauchi-connect-logo.svg';
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../context/AppContextt";
+import CartPaymentModal from "./Modals/CartPaymentModal";
 
 const NavBarComponent = () => {
     const { user, setUser, getCartItems } = useContext(UserContext);
@@ -12,31 +13,43 @@ const NavBarComponent = () => {
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0); // State for total amount
     const cartRef = useRef(null); // Reference to the cart icon
+    const [showModal, setShowModal] = useState(false)
 
     // Fetch cart items on component mount
     useEffect(() => {
         const items = getCartItems();
+        console.log(items)
         setCartItems(items);
         calculateTotal(items); // Calculate total when items are fetched
     }, [getCartItems]);
 
-    // Calculate total amount
-    const calculateTotal = (items) => {
-        const totalPrice = items.reduce((acc, item) => {
-            return item.amount ? acc + item.amount * item.quantity : acc; // Only add if amount exists
-        }, 0);
-        setTotal(totalPrice);
-    };
+// Calculate total amount
+const calculateTotal = (items) => {
+    const totalPrice = items.reduce((acc, item) => {
+        // Convert amount to a number if it's a string
+        const itemAmount = Number(item.amount);
+        return itemAmount ? acc + itemAmount * (item.quantity || 1) : acc; // Default quantity to 1 if not present
+    }, 0);
+    setTotal(totalPrice);
+};
+
+
 
     // Toggle the cart dropdown visibility
     const toggleCartDropdown = () => {
         setIsCartOpen(prev => !prev);
     };
 
-    // Close the cart dropdown when clicking outside
+    const handleProcessOrder = () => {
+        //    Show modal
+        setShowModal(!showModal)
+        console.log("Modal Showing")
+    }
+
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (isCartOpen && !cartRef.current.contains(event.target)) {
+            // Check if the click is outside the cart and modal
+            if (isCartOpen && !cartRef.current.contains(event.target) && !modalRef.current.contains(event.target)) {
                 setIsCartOpen(false);
             }
         };
@@ -65,11 +78,6 @@ const NavBarComponent = () => {
         return dropdownStyles;
     };
 
-    // Handle payment process
-    const handlePayment = () => {
-        // Logic for handling payment goes here
-        console.log("Proceeding to payment...");
-    };
 
     return (
         <div className="flex w-full h-[78px] fixed bg-white left-0 top-0 z-[1000]">
@@ -85,16 +93,23 @@ const NavBarComponent = () => {
                     <img src={siteLogo} className="h-15 w-15" alt="BConnect Logo" />
                 </Link>
 
-                <div className='hidden md:flex'>
+               
+                    : <div className='hidden md:flex'>
                     <NavBar links={[
                         { name: user.lang === 'en' ? "Find Vendors" : "Nemi masu siyar wa", url: "/search" },
                         { name: user.lang === 'en' ? 'Vendors' : "Masu siyar wa", url: "/search" }
                     ]} />
 
+{
+                    user.isLoggedIn == true && user.username !== null 
+                    ? ""
+                    :
                     <SignInNav links={[
                         { name: user.lang === 'en' ? "Sign In" : "Shiga akaunt", url: "auth/signin" },
                         { name: user.lang === 'en' ? "Sign Up" : "Bude sabon akaunt", url: "auth/signup", isPrimary: true },
                     ]} />
+}
+
                 </div>
 
                 <div className="relative cart-icon" ref={cartRef}>
@@ -133,7 +148,7 @@ const NavBarComponent = () => {
                                         <li key={index} className="flex justify-between items-center">
                                             <span className="text-sm">
                                                 {item.name} 
-                                                {item.amount !== null ? ` ($${item.amount.toFixed(2)})` : " (Price Not Available)"}
+                                                {item.amount !== null ? ` (NGN${item.amount.toLocaleString()})` : " (Price Not Available)"}
                                             </span>
                                             <span className="text-sm font-bold">{item.quantity}x</span>
                                         </li>
@@ -141,11 +156,11 @@ const NavBarComponent = () => {
                                 </ul>
                             )}
                             <div className="mt-4">
-                                <h4 className="text-sm font-bold">Total: ${total.toFixed(2)}</h4>
+                                <h4 className="text-sm font-bold">Total: NGN{total.toLocaleString()}</h4>
                             </div>
                             <button 
                                 className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md"
-                                onClick={handlePayment}
+                                onClick={()=>setShowModal(!showModal)}
                             >
                                 Pay Now
                             </button>
@@ -153,6 +168,10 @@ const NavBarComponent = () => {
                     </div>
                 )}
             </nav>
+
+            {showModal &&
+                <CartPaymentModal fetchedUser={user} total_amount={total} cartItems={cartItems} handleModal={handleProcessOrder} />
+            }
         </div>
     );
 };

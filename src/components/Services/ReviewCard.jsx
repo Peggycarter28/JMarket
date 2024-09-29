@@ -20,8 +20,8 @@ console.log(Math.ceil(item.client_rating))
         <div className="p-2">
             <WhiteInGrayContainer rounded={true}>
                 <div className="flex items-center gap-2">
-                    <div className="bg-[red] size-[50px] rounded-[25px] flex items-center justify-center">
-                        <img src="/user_thumbs/thumb.png" alt="Pic" />
+                    <div className="bg-[red] size-[50px] rounded-[25px] flex items-center justify-center overflow-hidden">
+                        <img src={item.reviewBy.image_url !== null ? item.reviewBy.image_url : "/user_thumbs/thumb.png"} alt="Reviewer" />
                     </div>
                     <Link to={"../user/petergambo"}><p>{item.reviewBy.first_name !== "" || item.reviewBy.last_name !== "" ? `${item.reviewBy.first_name} ${item.reviewBy.last_name}` : item.reviewBy.username}</p></Link>
                 </div>
@@ -31,7 +31,7 @@ console.log(Math.ceil(item.client_rating))
                     <div className="flex items-center justify-center">
                         {
                             getRating()                
-}
+} {item.client_rating}
                     </div>
                     <p>{new Date(item.date).toDateString()}</p>
                 </div>
