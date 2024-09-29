@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import LandingFooter2 from '../components/Footer/LandingFooter';
 import Cookies from 'js-cookie'
 import axios from 'axios';
+import { API_URL } from '../constants/config';
 
 const EcommercePage = () => {
     const name = "leftsidebar";
