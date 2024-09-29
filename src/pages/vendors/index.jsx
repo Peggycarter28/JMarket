@@ -153,7 +153,7 @@ const Vendors = () => {
                 <div className="relative p-8 px-2 md:px-[136px] flex flex-col md:flex-row gap-4">
 
                     {/* First Column */}
-                    <div className="flex-[8] ">
+                    <div className="flex-[4] ">
 
                         <div className="text[12px] font-regular leading-[14.52px] text-[#808080]">
                             {
@@ -179,9 +179,9 @@ const Vendors = () => {
                         <div  className="flex gap-4 justify-start mb-[30px]">
                             {item.id && <MessageVendorButton  listing_id={item?.id} receiver_id={item?.owner.id} />}
 
-                            <div className="cursor-pointer" onClick={handleProcessOrder}>
+                            {/* <div className="cursor-pointer" onClick={handleProcessOrder}>
                                 <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={false} title={user.lang == 'ha' ? `Order Yanzu` : `Order Now`} />
-                            </div>
+                            </div> */}
                         </div>
 
                         <GrayContainer>
@@ -223,7 +223,7 @@ const Vendors = () => {
                     </div>
 
                     {/* Right Column */}
-                    <div className="flex-[4]">
+                    <div className="flex-[8]">
                         <GrayContainer rounded={true}>
                             <div className="p-4">
                                 <ReviewPhotoGallery />
