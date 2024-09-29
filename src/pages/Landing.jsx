@@ -88,6 +88,8 @@ const EcommercePage = () => {
                 }
             }
             else {
+                console.log("Not Successful")
+                
                 setUser(
                     prev => ({
                         ...prev,
