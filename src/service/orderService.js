@@ -9,11 +9,11 @@ export const createOrder = async (data ) => {
 }
 
 
-export const getOrders = async (serviceId ) => {
+export const getOrders = async (id ) => {
 
     // const response = await axios.get(`${API_URL}/api/orders?service_id=${serviceId}`)
 
-    const response = await axios.get(`${API_URL}/api/orders`)
+    const response = await axios.get(`${API_URL}/api/orders?owner=${id}`)
 
     return response
 }

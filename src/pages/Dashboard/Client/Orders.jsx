@@ -72,22 +72,7 @@ const RenderOrders = () => {
 
         if(tx.status == 200 || tx.status == 201)
         {
-            if (orders && orders.length < tx.data.length)
-            {
-                console.log("Length",orders.length, tx.data.length) 
-
-               const newItems = tx.data.slice(orders.length)
-
-               const updatedItems =  [...orders, ...newItems]
-
-               console.log(updatedItems)
-
-               localStorage.setItem('userOrders', JSON.stringify(updatedItems))
-
-               storedOrders()
-               
-            }
-            // console.log(tx.statusText, tx.status, tx.data)
+            setOrders(tx.data)
             
         }
         }
