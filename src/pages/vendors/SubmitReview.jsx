@@ -102,11 +102,15 @@ const SubmitReview = ({ listing_id }) => {
             <h6>Title of your review</h6>
             <input onChange={elem => setTitle(elem.target.value)} value={title} className="border w-full p-2" placeholder="Summarize your opinion or highlight an interesting detail" />
 
-            <div onClick={handleReviewSubmit} className="flex justify-start mt-2 mb-2">
-                <CTAButton loadingState={loading} title={user.lang === 'ha' ? "Aika bita naka" : "Submit your review"} />
-            </div>
-        </WhiteInGrayContainer>
-    )
+        {/* Name and Email Row displayed using flex */}
+
+
+        {/* Submit call to action button */}
+        <div onClick={handleReviewSubmit} className="flex justify-start mt-2 mb-2 cursor-pointer">
+            <CTAButton loadingState={loading} title={user.lang == 'ha' ? "Aika bita naka": "Submit your review"} />
+        </div>
+
+    </WhiteInGrayContainer>)
 }
 
 export default SubmitReview

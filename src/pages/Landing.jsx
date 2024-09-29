@@ -98,9 +98,9 @@ const EcommercePage = () => {
                     <div className="w-full md:w-2/12 space-y-4 md:h-[390px] overflow-y-auto">
                         <WhiteInGrayContainer rounded={true}>
                             <ul className='flex flex-row gap-8 md:gap-2 items-center md:items-start md:flex-col'>
-                                {categories.map((item) => {
+                                {categories.map((item, i) => {
                                     return (
-                                        <li className='p-[6px]'>
+                                        <li key={i} className='p-[6px]'>
                                             <Link className='flex items-center gap-2' to={`/search/category/${item.id}`}>
                                                 <img src={item.image_url} className='size-[25px]' />
                                                 <span>
@@ -124,17 +124,17 @@ const EcommercePage = () => {
                         />
                         {/* Image Overlay */}
                         <div className="absolute top-4 left-4">
-                            <h2 className="text-4xl text-white font-bold">{user.lang == "en" ? "Explore great services in bauchi" : "Ku zo ku ga abubuwa dabam dabam daga jihar Bauchi"}</h2>
-                            <button className="mt-2 px-4 py-2 bg-white text-black rounded-lg">{user.lang == "ha" ? "Bude sabon Akaunt" : "Sign Up"}</button>
+                            <h2 className="text-4xl text-slate-100 font-bold">{user.lang == "en" ? "Explore great services in bauchi" : "Ku zo ku ga abubuwa dabam dabam daga jihar Bauchi"}</h2>
+                            <button className="mt-2 px-4 py-2 bg-slate-100 text-slate-950 rounded-lg">{user.lang == "ha" ? "Bude sabon Akaunt" : "Sign Up"}</button>
                         </div>
                         {/* Dots Indicator */}
                         <div className="absolute bottom-4 w-full flex justify-center space-x-2">
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
-                            <span className="h-3 w-3 bg-white rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-100 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-200 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-300 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-400 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-500 rounded-full"></span>
+                            <span className="h-3 w-3 bg-slate-600 rounded-full"></span>
                         </div>
                     </div>
 
@@ -160,9 +160,9 @@ const EcommercePage = () => {
                 </div>
 
                 {/* Image Containers */}
-                <div className="grid md:grid-cols-6 gap-4 mt-4 md:mx-[100px]">
-                    {[{ name: 'Buy Now', src: "/landing-page/masa2.jpg" }, { name: 'New Vendors', src: "/landing-page/new-arrival.png" }, { name: 'Shop Local', src: "/landing-page/market.jpg" }, { name: 'Electronics', src: "/landing-page/ds.jpg" }, { name: 'Top Vendors', src: "/landing-page/unnamed (1).jpg" }, { name: 'Special Offers', src: "/landing-page/lcmrk.jpg" }].map((item, index) => (
-                        <div key={index} className="relative h-56">
+                <div className="grid md:grid-cols-6 gap-4 mt-4 md:mx-[100px] cursor-pointer">
+                    {[{ name: 'Buy Now', src: "/landing-page/masa2.jpg", link: '/search/category/5' }, { name: 'New Vendors', src: "/landing-page/new-arrival.png", link: '/search/category/2' }, { name: 'Shop Local', src: "/landing-page/market.jpg", link: '/search/category/1' }, { name: 'Electronics', src: "/landing-page/ds.jpg", link: '/search/category/3'  }, { name: 'Top Vendors', src: "/landing-page/unnamed (1).jpg", link: '/search/category/6' }, { name: 'Special Offers', src: "/landing-page/lcmrk.jpg", link: '/search/category/7' }].map((item, index) => (
+                        <Link key={index} to={item.link} className="relative h-56 hover:bg-slate-300 duration-300">
                             <img
                                 src={item.src}
                                 alt={item.name}
@@ -171,7 +171,7 @@ const EcommercePage = () => {
                             <div className=" bottom-2 left-2 text-black text-center px-2 py-1 rounded-lg">
                                 {item.name}
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

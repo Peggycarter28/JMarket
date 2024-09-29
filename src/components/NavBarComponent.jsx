@@ -82,7 +82,7 @@ const NavBarComponent = () => {
             </div>
             <nav className="flex w-full justify-between md:justify-around items-center p-2 md:p-8">
                 <Link to={"/"}>
-                    <img src={siteLogo} alt="BConnect Logo" />
+                    <img src={siteLogo} className="h-15 w-15" alt="BConnect Logo" />
                 </Link>
 
                 <div className='hidden md:flex'>

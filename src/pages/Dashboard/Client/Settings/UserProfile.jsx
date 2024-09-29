@@ -26,7 +26,7 @@ const UserProfile = ({ }) => {
         <div className="size-[150px] border rounded-full flex justify-center items-center">
             <img className="" src={fetchedUser?.image_url} />
         </div>
-
+           
         <Link to={"../settings/edit-profile"}>Edit</Link>
         </div>
 

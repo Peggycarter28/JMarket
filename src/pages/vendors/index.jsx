@@ -141,11 +141,13 @@ const Vendors = () => {
         <>
             <div className="absolute w-full min-h-screen">
                 <header>
-                    <NavBarComponent />
+                  <div className="flex flex-col gap-8 p-3">
+                  <NavBarComponent />
                     {/* Vendor cover image */}
-                    <div className="h-auto md:h-[480px] w-full overflow-hidden bg-[gray] flex justify-center">
+                    <div className="h-auto md:h-[480px] w-full  overflow-hidden bg-[gray] flex justify-center">
                         <img src={item?.image_url} className="" />
                     </div>
+                  </div>
                 </header>
 
                 <div className="relative p-8 px-2 md:px-[136px] flex flex-col md:flex-row gap-4">
@@ -174,10 +176,10 @@ const Vendors = () => {
                         </div>
 
                         {/*  */}
-                        <div className="flex gap-4 justify-start mb-[30px]">
-                            {item.id && <MessageVendorButton listing_id={item?.id} receiver_id={item?.owner.id} />}
+                        <div  className="flex gap-4 justify-start mb-[30px]">
+                            {item.id && <MessageVendorButton  listing_id={item?.id} receiver_id={item?.owner.id} />}
 
-                            <div onClick={handleProcessOrder}>
+                            <div className="cursor-pointer" onClick={handleProcessOrder}>
                                 <CTAButton iconBtnUrl="/message-text.svg" isIconBtn={false} title={user.lang == 'ha' ? `Order Yanzu` : `Order Now`} />
                             </div>
                         </div>
@@ -201,8 +203,8 @@ const Vendors = () => {
                                 <h5>
                                     {user.lang == 'ha' ? `Lokacin bude` : `Opening time`}
                                 </h5>
-                                <p>Mon-Fri 09:00–16:00</p>
-                                <p>Saturday (Only Appointments)</p>
+                                <p className="text-sm font-semibold">Mon-Fri 09:00–16:00</p>
+                                <p className="text-sm font-semibold">Saturday (Only Appointments)</p>
                             </WhiteInGrayContainer>
 
                             

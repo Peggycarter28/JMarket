@@ -58,7 +58,7 @@ const NavBarLandingComponent = () => {
 }
 
                 <div className="flex gap-1">
-                    {user.isLoggedIn == true && user.username !== null && <p className="mr-2 mt-2 text-[#d9d9d9] font-semibold text-[10px] md:text-[14px]">Hello {`${user.username}`}.<br/>Go to <Link to={'/dashboard/user/'}>Dashboard</Link></p>}
+                    {user.isLoggedIn == true && user.username !== null && <p className="mr-2 mt-2 text-[#d9d9d9] font-semibold text-[10px] md:text-[14px]"><span className='text-xl'>Hello, </span> {`${user.username}`}.<br/>Go to <Link className='border-b-2 border-orange-300 hover:border-orange-500 transition-all duration-300' to={'/dashboard/user/'}>Dashboard</Link></p>}
                 <div className="size-[50px] p-2 md:hidden">
                     
                     <img className="size-[30px]" onClick={handleToggleNavBar} src="https://img.icons8.com/ios-filled/50/737373/menu--v1.png" alt="Menu Icon" />
