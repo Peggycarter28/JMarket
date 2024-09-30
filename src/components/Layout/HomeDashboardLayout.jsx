@@ -2,9 +2,12 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import GrayContainer from "./GrayContainer";
 import DashSideNav from "./DashSideNav";
 import { useEffect, useState } from "react";
+import Cookies from 'js-cookie'
+import { API_URL } from "../../constants/config";
 
 const HomeDashboardLayout = ({ children }) => {
   const { curr_section } = useParams();
+  
   const [user, setUser] = useState(null);
   const navigate = useNavigate(); // Hook to programmatically navigate
 
@@ -24,6 +27,36 @@ const HomeDashboardLayout = ({ children }) => {
       setUser({});
     }
   }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+        if (Cookies.get('token') !== null && (user.email == null || user.username == null)) {
+            const userRes = await axios.get(`${API_URL}/api/auth/users/me/`, { headers: { "Authorization": `Token ${Cookies.get('token')}` } })
+            if (userRes.status == 200 || userRes.status == 201) {
+                setUser(
+                    prev => ({
+                        ...prev,
+                        token: Cookies.get('token'),
+                        isLoggedIn: true,
+                        username: userRes.data.username,
+                        email: userRes.data.email,
+                        id: userRes.data.id
+                    })
+                )
+
+                localStorage.setItem('user', JSON.stringify(userRes.data))
+                console.log(userRes.data)
+
+            }
+        }
+        else {
+            console.log("no token")
+        }
+    }
+
+    fetchUser()
+  }
+  )
 
   // Logout function to clear localStorage and redirect
   const handleLogout = () => {
