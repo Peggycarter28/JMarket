@@ -26,6 +26,27 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
     const [photoFour, setPhotoFour] = useState(null);
     const [uploadedUrls, setUploadedUrls] = useState([]);
 
+    // For photoOne
+    const [photoOneTitle, setPhotoOneTitle] = useState("");
+    const [photoOneDescription, setPhotoOneDescription] = useState("");
+    const [photoOnePrice, setPhotoOnePrice] = useState("");
+
+    // For photoTwo
+    const [photoTwoTitle, setPhotoTwoTitle] = useState("");
+    const [photoTwoDescription, setPhotoTwoDescription] = useState("");
+    const [photoTwoPrice, setPhotoTwoPrice] = useState("");
+
+    // For photoThree
+    const [photoThreeTitle, setPhotoThreeTitle] = useState("");
+    const [photoThreeDescription, setPhotoThreeDescription] = useState("");
+    const [photoThreePrice, setPhotoThreePrice] = useState("");
+
+    // For photoFour
+    const [photoFourTitle, setPhotoFourTitle] = useState("");
+    const [photoFourDescription, setPhotoFourDescription] = useState("");
+    const [photoFourPrice, setPhotoFourPrice] = useState("");
+
+
     // Image Cropping
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
@@ -183,7 +204,11 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                         name: `Photo ${index + 1}`,
                         serviceID: serviceID,
                         image_url: item,
-                    }).then(res => {
+                        title: index == 0 ? photoOneTitle : index == 1 ? photoTwoTitle : index == 2 ? photoThreeTitle : index == 3 ? photoFourTitle : "No Title",
+                        description: index == 0 ? photoOneDescription : index == 1 ? photoTwoDescription : index == 2 ? photoThreeDescription : index == 3 ? photoFourDescription : "No Description",
+                        price: index == 0 ? photoOnePrice : index == 1 ? photoTwoPrice : index == 2 ? photoThreePrice : index == 3 ? photoFourPrice : 0,
+                    
+                        }).then(res => {
                         console.log("Upload complete", res);
                     });
                 }
@@ -314,25 +339,37 @@ const AddServiceModal = ({ handleModal, fetchedUser }) => {
                     <div className="flex-1">
                     <p>Service Picture 1</p>
                     <input onChange={handleFileChange(setPhotoOne, "photoOne")} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
-
+                    <input onChange={(e) => setPhotoOneTitle(e.target.value)} value={photoOneTitle} className="border px-4 py-2 w-full" placeholder="Title for Photo 1" />
+                <textarea onChange={(e) => setPhotoOneDescription(e.target.value)} value={photoOneDescription} className="border px-4 py-2 w-full" placeholder="Description for Photo 1" />
+                <input onChange={(e) => setPhotoOnePrice(e.target.value)} value={photoOnePrice} className="border px-4 py-2 w-full" placeholder="Price for Photo 1" />
+            
                     </div>
 
                     <div className="flex-1">
                     <p>Service Picture 2 (Optional)</p>
                     <input onChange={handleFileChange(setPhotoTwo, "photoTwo")} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
-
+                    <input onChange={(e) => setPhotoTwoTitle(e.target.value)} value={photoTwoTitle} className="border px-4 py-2 w-full" placeholder="Title for Photo 2" />
+                <textarea onChange={(e) => setPhotoTwoDescription(e.target.value)} value={photoTwoDescription} className="border px-4 py-2 w-full" placeholder="Description for Photo 2" />
+                <input onChange={(e) => setPhotoTwoPrice(e.target.value)} value={photoTwoPrice} className="border px-4 py-2 w-full" placeholder="Price for Photo 2" />
+            
                     </div>
 
                     <div className="flex-1">
                     <p>Service Picture 3  (Optional)</p>
                     <input onChange={handleFileChange(setPhotoThree, "photoThree")} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
-
+                    <input onChange={(e) => setPhotoThreeTitle(e.target.value)} value={photoThreeTitle} className="border px-4 py-2 w-full" placeholder="Title for Photo 3" />
+                <textarea onChange={(e) => setPhotoThreeDescription(e.target.value)} value={photoThreeDescription} className="border px-4 py-2 w-full" placeholder="Description for Photo 3" />
+                <input onChange={(e) => setPhotoThreePrice(e.target.value)} value={photoThreePrice} className="border px-4 py-2 w-full" placeholder="Price for Photo 3" />
+          
                     </div>
 
                     <div className="flex-1">
                     <p>Service Picture 4  (Optional)</p>
                     <input onChange={handleFileChange(setPhotoFour, "photoFour")} className="border px-4 py-2 w-full" name="email" placeholder="Enter CAC" type="file" />
-
+                    <input onChange={(e) => setPhotoFourTitle(e.target.value)} value={photoFourTitle} className="border px-4 py-2 w-full" placeholder="Title for Photo 4" />
+                <textarea onChange={(e) => setPhotoFourDescription(e.target.value)} value={photoFourDescription} className="border px-4 py-2 w-full" placeholder="Description for Photo 4" />
+                <input onChange={(e) => setPhotoFourPrice(e.target.value)} value={photoFourPrice} className="border px-4 py-2 w-full" placeholder="Price for Photo 4" />
+            
                     </div>
 
                     <div className="flex-1 flex items-center gap-2">
