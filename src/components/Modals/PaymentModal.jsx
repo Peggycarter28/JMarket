@@ -5,7 +5,7 @@ import { createOrder } from "../../service/orderService"
 import { createTransaction, sendEmailToVendor } from "../../service/transactionService"
 import { ClipLoader } from "react-spinners"
 
-const PaymentModal = ({ handleModal, fetchedUser, service_id, service_creator }) => {
+const PaymentModal = ({ handleModal, productId, fetchedUser, service_id, service_creator }) => {
     
     const user = useContext(UserContext)
 
@@ -97,7 +97,8 @@ const PaymentModal = ({ handleModal, fetchedUser, service_id, service_creator })
                 by: verify.data.customer.email,
                 referenceId: verify.data.reference,
                 service: service_id,
-                amount: verify.data.amount
+                amount: verify.data.amount,
+                product: productId
             }
 
             const orderCreate = await createOrder(order_data)
@@ -120,14 +121,14 @@ const PaymentModal = ({ handleModal, fetchedUser, service_id, service_creator })
 
             console.log(transactionCreate)
 
-            // Send Email
-            const emailStat = await sendEmailToVendor({
-                subject:"New Order Received!",
-                text:`You have received an order on Service ID ${service_id} from ${verify.data.customer.email}. An amount of NGN${verify.data.amount}`,
-                to: verify.data.customer.email
-            })
+            // // Send Email
+            // const emailStat = await sendEmailToVendor({
+            //     subject:"New Order Received!",
+            //     text:`You have received an order on Service ID ${service_id} from ${verify.data.customer.email}. An amount of NGN${verify.data.amount}`,
+            //     to: verify.data.customer.email
+            // })
 
-            console.log(emailStat)
+            // console.log(emailStat)
 
             setInProgress(false)
 

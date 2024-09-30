@@ -55,6 +55,7 @@ const CartPaymentModal = ({ handleModal, fetchedUser, cartItems, total_amount=nu
             }
         }
 
+
         else if (stage == 1) {
 
             setInProgress(true)
@@ -97,8 +98,9 @@ const CartPaymentModal = ({ handleModal, fetchedUser, cartItems, total_amount=nu
             const order_data = {
                 by: verify.data.customer.email,
                 referenceId: verify.data.reference,
-                service: item.id,
-                amount: verify.data.amount
+                // service: item.id,
+                amount: verify.data.amount,
+                product: item.id
             }
 
             const orderCreate = await createOrder(order_data)
@@ -122,14 +124,14 @@ const CartPaymentModal = ({ handleModal, fetchedUser, cartItems, total_amount=nu
             console.log(transactionCreate)
         }
     )
-            // Send Email
-            const emailStat = await sendEmailToVendor({
-                subject:"New Order Received!",
-                text:`You have received an order on Service ID ${service_id} from ${verify.data.customer.email}. An amount of NGN${verify.data.amount}`,
-                to: verify.data.customer.email
-            })
+            // // Send Email
+            // const emailStat = await sendEmailToVendor({
+            //     subject:"New Order Received!",
+            //     text:`You have received an order on Service ID ${service_id} from ${verify.data.customer.email}. An amount of NGN${verify.data.amount}`,
+            //     to: verify.data.customer.email
+            // })
 
-            console.log(emailStat)
+            // console.log(emailStat)
 
             setInProgress(false)
 
