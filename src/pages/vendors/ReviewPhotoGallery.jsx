@@ -83,7 +83,7 @@ const ReviewPhotoGallery = () => {
                 {photos.map((photo, index) => {
                     const isInCart = cart.some(cartItem => cartItem.id === photo.id); // Check if item is in cart
 
-                    return(<li key={photo+index} className="w-1/3 border-r mb-8">
+                    return(<li key={photo+index} className="w-full md:w-1/3 border-r mb-8">
                         <div className="p-2 ">
                         <img className="rounded-lg shadow-lg" height={120} width={'auto'} src={photo.image_url} alt={photo.name} />
 
