@@ -111,12 +111,6 @@ const ClientHome = () => {
                         <p className="text-[gray] text-[2.5rem] font-bold">0</p>
                         </div>
                     </div> */}
-
-                    <div className="p-2 w-full h-[120px] flex overflow-hidden rounded-[16px]">
-                    <GrayContainer noPadding={true}>
-                        Promo/Ads Area
-                    </GrayContainer>
-                    </div>
                 </div>
 
                 <div className="flex rounded-full h-[50px] bg-[#e8e8e8] p-1 mt-10">
