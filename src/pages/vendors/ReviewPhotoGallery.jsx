@@ -79,11 +79,11 @@ const ReviewPhotoGallery = () => {
         <h3>
             {user.lang == 'ha' ? "Aiki" : "Services"}</h3>
 
-            <ul className="flex gap-2">
+            <ul className="flex w-full flex-wrap">
                 {photos.map((photo, index) => {
                     const isInCart = cart.some(cartItem => cartItem.id === photo.id); // Check if item is in cart
 
-                    return(<li key={photo+index} className="w-1/2 border-r">
+                    return(<li key={photo+index} className="w-1/3 border-r mb-8">
                         <div className="p-2 ">
                         <img className="rounded-lg shadow-lg" height={120} width={'auto'} src={photo.image_url} alt={photo.name} />
 

@@ -16,9 +16,32 @@ const EcommercePage = () => {
 
     const { user, setUser } = useContext(UserContext) 
     const [categories, setCategories] = useState([]);
-    const [cart, setCart] = useState([]);
-    const [loaded, setLoaded] = useState(false); // Start as false until loading is done
-    const [offlineFound, setOfflineFound] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [fade, setFade] = useState(true);
+
+    const slides = [
+        { imgSrc: "/landing-page/slider-1.png", altText: "carousel 1", label: user.lang === "en" ? "Explore great services in Bauchi" : "Ku zo ku ga abubuwa dabam dabam daga jihar Bauchi" },
+        { imgSrc: "/landing-page/market.jpg", altText: "carousel 2", label: user.lang === "en" ? "Discover more vendors" : "Samu ƙarin yan kasuwa" },
+        { imgSrc: "/landing-page/unnamed (1).jpg", altText: "carousel 3", label: user.lang === "en" ? "Exclusive deals in your area" : "Kasuwanci na musamman a yankinku" }
+    ];
+
+    const totalSlides = slides.length;
+
+    useEffect(() => {
+        const autoSlide = setInterval(() => {
+            handleDotClick((currentSlide + 1) % slides.length);
+        }, 10000); // Auto slide every 5 seconds
+
+        return () => clearInterval(autoSlide); // Clear interval on unmount
+    }, [currentSlide]);
+
+    const handleDotClick = (index) => {
+        setFade(false); // Trigger fade-out
+        setTimeout(() => {
+            setCurrentSlide(index); // Change slide
+            setFade(true); // Trigger fade-in
+        }, 500); // Delay for fade-out
+    };
 
     useEffect(() => {
         console.log("Viewing categories");
@@ -27,42 +50,8 @@ const EcommercePage = () => {
 
         if (storedCategories) {
             setCategories(JSON.parse(storedCategories));
-            setOfflineFound(true);
-            setLoaded(true)
         }
     }, [name]);
-
-
-    useEffect(() => {
-        const fetch = async () => {
-            
-            const res = await getVendorCategoriesService();
-
-            if (res.status === 200 || res.status === 201) {
-                setCategories(res.data);
-                localStorage.setItem("categories", JSON.stringify(res.data));
-                setLoaded(true);
-                setOfflineFound(true);
-            } else {
-                alert("Unable to fetch categories");
-                setLoaded(true);
-            }
-
-            const cartRes = await getVendorCategoriesService();
-
-            if (res.status === 200 || res.status === 201) {
-                setCart(res.data);
-                localStorage.setItem("cart", JSON.stringify(res.data));
-                setLoaded(true);
-                setOfflineFound(true);
-            } else {
-                alert("Unable to fetch Cart Items");
-                setLoaded(true);
-            }
-        };
-
-        fetch();
-    }, []);
 
 
     useEffect(() => {
@@ -119,71 +108,89 @@ const EcommercePage = () => {
 
                 {/* Main Section */}
 
-                <div className="flex flex-col md:flex-row mt-4 gap-2 md:mx-[100px] mt-[80px]">
-                    {/* Categories Column */}
+                <div className="flex flex-col md:flex-row mt-4 gap-4 md:mx-[100px] mt-[80px]">
+                   {/* Categories Column */}
+<div className="w-full md:w-2/12 md:h-[390px]">
+  <WhiteInGrayContainer rounded={true} className="h-full">
+    <ul className="flex flex-row gap-8 md:gap-2 items-center md:items-start md:flex-col overflow-y-auto h-full space-y-4">
+      {categories.map((item, i) => {
+        return (
+          <li key={i} className="px-[6px]">
+            <Link className="flex items-center gap-2" to={`/search/category/${item.id}`}>
+              <img src={item.image_url} className="size-[25px]" alt={item.name} />
+              <span>
+                {user.lang == "ha" ? item?.name_ha : item?.name}
+              </span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  </WhiteInGrayContainer>
+</div>
 
-                    <div className="w-full md:w-2/12 space-y-4 md:h-[390px] overflow-y-auto">
-                        <WhiteInGrayContainer rounded={true}>
-                            <ul className='flex flex-row gap-8 md:gap-2 items-center md:items-start md:flex-col'>
-                                {categories.map((item, i) => {
-                                    return (
-                                        <li key={i} className='p-[6px]'>
-                                            <Link className='flex items-center gap-2' to={`/search/category/${item.id}`}>
-                                                <img src={item.image_url} className='size-[25px]' />
-                                                <span>
-                                                {user.lang == "ha" ? item?.name_ha
-                                                    : item?.name
-                                                }
-                                                </span>
-                                            </Link>
-                                        </li>)
-                                })}
-                            </ul>
-                        </WhiteInGrayContainer>
-                    </div>
-                    {/* Carousel Column */}
-                    <div className="md:w-8/12 h-96 relative">
-                        {/* Carousel Image */}
-                        <img
-                            src="/landing-page/slider-1.png"
-                            alt="carousel"
-                            className="w-full h-full object-cover"
-                        />
-                        {/* Image Overlay */}
-                        <div className="absolute top-4 left-4">
-                            <h2 className="text-4xl text-slate-100 font-bold">{user.lang == "en" ? "Explore great services in bauchi" : "Ku zo ku ga abubuwa dabam dabam daga jihar Bauchi"}</h2>
-                            <button className="mt-2 px-4 py-2 bg-slate-100 text-slate-950 rounded-lg">{user.lang == "ha" ? "Bude sabon Akaunt" : "Sign Up"}</button>
-                        </div>
-                        {/* Dots Indicator */}
-                        <div className="absolute bottom-4 w-full flex justify-center space-x-2">
-                            <span className="h-3 w-3 bg-slate-100 rounded-full"></span>
-                            <span className="h-3 w-3 bg-slate-200 rounded-full"></span>
-                            <span className="h-3 w-3 bg-slate-300 rounded-full"></span>
-                            <span className="h-3 w-3 bg-slate-400 rounded-full"></span>
-                            <span className="h-3 w-3 bg-slate-500 rounded-full"></span>
-                            <span className="h-3 w-3 bg-slate-600 rounded-full"></span>
-                        </div>
-                    </div>
+                   {/* Carousel Column */} 
+ <div className="md:w-8/12 h-96 relative">
+    {/* Carousel Image with Fade Transition */}
+    <img
+        src={slides[currentSlide].imgSrc}
+        alt={slides[currentSlide].altText}
+        className={`w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
+            fade ? 'opacity-100' : 'opacity-0'
+        }`}
+    />
 
-                    {/* Contact Column */}
-                    <div className="w-2/12 hidden md:flex flex-col space-y-4">
-                        <div className="flex flex-col justify-center items-center h-48">
-                            <WhiteInGrayContainer rounded={true}>
-                                <div className="flex items-center space-x-2">
-                                    <img className="w-full h-full object-cover" src="/landing-page/zzzz.png" alt="Ads 2" />
-                                </div>
-                            </WhiteInGrayContainer>
-                        </div>
-                        <div className="flex flex-col justify-center items-center bg-gray-200 h-48">
-                            <div className="flex items-center space-x-2">
-                                <img
-                                    src="/landing-page/ads-1.png"
-                                    alt="carousel"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
+    {/* Image Overlay */}
+    <div className="absolute top-4 left-4">
+        <h2 className="text-4xl text-slate-100 font-bold">
+            {slides[currentSlide].label}
+        </h2>
+        <button className="mt-2 px-4 py-2 bg-slate-100 text-slate-950 rounded-lg">
+            {user.lang === 'ha' ? 'Bude sabon Akaunt' : 'Sign Up'}
+        </button>
+    </div>
+
+    {/* Dots Indicator */}
+    <div className="absolute bottom-4 w-full flex justify-center space-x-2">
+        {slides.map((_, index) => (
+            <span
+                key={index}
+                className={`h-3 w-3 rounded-full ${index === currentSlide ? 'bg-slate-100' : 'bg-slate-400'}`}
+                onClick={() => handleDotClick(index)}
+            ></span>
+        ))}
+    </div>
+</div>
+
+
+
+                   {/* Contact Column */}
+<div className="w-2/12 hidden md:flex flex-col space-y-4">
+  {/* First Image Container */}
+  <div className="flex flex-col justify-center items-center h-48">
+    <WhiteInGrayContainer rounded={true}>
+      <div className="flex items-center space-x-2 w-full h-full">
+        <img
+          className="w-full h-full object-cover"
+          src="/landing-page/zzzz.png"
+          alt="Ads 2"
+        />
+      </div>
+    </WhiteInGrayContainer>
+  </div>
+  
+  {/* Second Image Container */}
+  <div className="flex flex-col justify-center items-center bg-gray-200 h-48">
+    <div className="flex items-center space-x-2 w-full h-full">
+      <img
+        src="/landing-page/ads-1.png"
+        alt="carousel"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  </div>
+</div>
+
                 </div>
 
                 {/* Image Containers */}
@@ -204,7 +211,7 @@ const EcommercePage = () => {
             </div>
 
             <div className='md:mx-[100px]'>
-                <TopVendorsCard cart={cart} preData={[]} title={"All Vendors"} />
+                <TopVendorsCard preData={[]} title={"All Vendors"} />
             </div>
 
             {/* <div className='mx-[100px]'>

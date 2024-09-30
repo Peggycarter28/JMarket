@@ -53,7 +53,7 @@ const TopVendorsCard = ({ title, preData }) => {
                 {title}
             </h5>
 
-            <div className="flex flex-wrap gap-8 w-full">
+            <div className="flex flex-wrap w-full">
                 {
                     loading ? (
                         <div className="flex justify-center items-center w-full text-[#EF6C00]">
@@ -65,7 +65,8 @@ const TopVendorsCard = ({ title, preData }) => {
                         
 
                         return (
-                            <div key={index} className="w-full bg-white m-2 md:w-[200px] border md:border-none rounded-lg p-2 hover:shadow-lg">
+                            <div key={index} className="w-full md:w-1/5">
+                                <div className="m-2 bg-white border md:border-none rounded-lg hover:shadow-lg p-2 cursor-pointer">
                                 <Link to={`/service/${item.category.name}/${item.id}`}>
                                     <div className="w-full flex justify-center items-center md:w-auto h-[190px] rounded-lg overflow-hidden border">
                                         <img className="bg-green-600 object-cover h-full w-full" src={item.image_url} alt={item.name} />
@@ -92,6 +93,7 @@ const TopVendorsCard = ({ title, preData }) => {
                                     <Link to={item.id} className="justify-left">View</Link>
 
                                   
+                                </div>
                                 </div>
                             </div>
                         );
