@@ -27,7 +27,7 @@ const NavBarComponent = () => {
 const calculateTotal = (items) => {
     const totalPrice = items.reduce((acc, item) => {
         // Convert amount to a number if it's a string
-        const itemAmount = Number(item.amount);
+        const itemAmount = Number(item.price);
         return itemAmount ? acc + itemAmount * (item.quantity || 1) : acc; // Default quantity to 1 if not present
     }, 0);
     setTotal(totalPrice);
@@ -150,7 +150,7 @@ const calculateTotal = (items) => {
                                         <li key={index} className="flex justify-between items-center">
                                             <span className="text-sm">
                                                 {item.name} 
-                                                {item.amount !== null ? ` (NGN${item.amount.toLocaleString()})` : " (Price Not Available)"}
+                                                {item.amount !== null ? ` (NGN${item.price.toLocaleString()})` : " (Price Not Available)"}
                                             </span>
                                             <span className="text-sm font-bold">{item.quantity}x</span>
                                         </li>

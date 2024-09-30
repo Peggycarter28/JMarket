@@ -23,16 +23,16 @@ const ReviewPhotoGallery = () => {
     };
 
     const handleConfirmAction = () => {
-        const itemToAddOrRemove = items.find(item => item.id === currentItemId);
+        const itemToAddOrRemove = photos.find(item => item.id === currentItemId);
     
         if (isAddingToCart) {
             // Add item to cart if it's not already in the cart
             const itemExists = cart.some(item => item.id === currentItemId);
     
             if (!itemExists) {
-                addToCart({ ...itemToAddOrRemove, amount: parseInt(amount) || null });
+                addToCart(itemToAddOrRemove);
 
-                console.log({ ...itemToAddOrRemove, amount: parseInt(amount) || null })
+                console.log(itemToAddOrRemove)
                 setAmount('')
             } else {
                 console.log("Item already in cart");
@@ -87,11 +87,11 @@ const ReviewPhotoGallery = () => {
                         <div className="p-2 ">
                         <img className="rounded-lg shadow-lg" height={120} width={'auto'} src={photo.image_url} alt={photo.name} />
 
-                        <h3 className="text-[24px] py-6">Service Title {index +1}</h3>
-                        <p className="py-2">Service description {index +1}</p>
+                        <h3 className="text-[24px] py-6">{photo.title}</h3>
+                        <p className="py-2">{photo.description}</p>
                        
                        <div className="flex justify-between">
-                        <p className="font-bold">NGN2,{index +1}00</p>
+                        <p className="font-bold">NGN{photo.price.toLocaleString()}</p>
                         <button className="flex gap-2" onClick={() => toggleCart(photo.id, !isInCart)}>
                                         <div className="transition-all duration-700 ease-in-out transform hover:scale-125">
                                             {isInCart ? (
