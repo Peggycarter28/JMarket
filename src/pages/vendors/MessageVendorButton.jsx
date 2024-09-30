@@ -116,7 +116,7 @@ const MessageVendorButton = ({listing_id, receiver_id}) => {
 
     return(
    <div onClick={handleChat}>
-            <CTAButton loadingState={loading} iconBtnUrl="/message-text.svg" isIconBtn={true} title={user.lang == 'ha' ? `Message` :`Message`} />
+            <CTAButton loadingState={loading} iconBtnUrl="/message-text.svg" isIconBtn={true} title={user.lang == 'ha' ? `Message` :`Chat Vendor`} />
             </div>
     )
 }

@@ -82,7 +82,7 @@ const SubmitReview = ({ listing_id }) => {
             <h6>
                 {user.lang === 'ha' ? `Bincikinka` : `Your Review`}
             </h6>
-            <textarea onChange={elem => setBody(elem.target.value)} value={body} className="border w-full min-h-[120px]" />
+            <textarea onChange={elem => setBody(elem.target.value)} value={body} className="border w-full min-h-[120px] appearance-none p-2 " placeholder="Type your review text here" />
 
             <fieldset><input id="rememberMe" type="checkbox" /> <label htmlFor="rememberMe">
                 {user.lang === 'ha' ? `Ajiye sunana, imel, da shafin yanar gizo a wanan mai bincike don karo na gaba da zan yi sharhi` : `Save my name, email, and website in this browser for the next time I comment.`}
