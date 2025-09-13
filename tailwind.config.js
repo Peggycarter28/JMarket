@@ -9,7 +9,7 @@ export default {
       backgroundImage: 
       {
         'header_image':"url('/header-bg.svg')",
-        'footer_image':"url('/footer-bg.svg');",
+        'footer_image':"url('/footer.png');",
         'auth_form_image':"url('/form-bg.svg');"
       },
       fontFamily:{

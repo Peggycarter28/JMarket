@@ -88,7 +88,7 @@ const {categoryId} = useParams()
 
                             </div>
 
-                            <button className="bg-[#EF6C00] h-[2rem] md:h-auto text-white rounded pl-4 pr-4 text-[16px] font-semibold">
+                            <button className="bg-[#993420] h-[2rem] md:h-auto text-white rounded pl-4 pr-4 text-[16px] font-semibold">
                                 {user.lang == 'ha' ? "Nema" : `Search`}
                                 </button>
                         </div>

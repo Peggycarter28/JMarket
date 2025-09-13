@@ -50,8 +50,8 @@ const LeftsideBar = () => {
                     : loaded && categories.length === 0
                     ? <p>No categories found</p>
                     : (
-                        <div className="flex justify-center items-center w-full text-[#EF6C00]">
-                          <ClipLoader color="#EF6C00" size={35} />
+                        <div className="flex justify-center items-center w-full text-[#993420]">
+                          <ClipLoader color="#993420" size={35} />
                         </div>
                     )}
             </div>

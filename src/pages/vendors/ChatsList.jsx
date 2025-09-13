@@ -79,7 +79,7 @@ const ChatsList = () => {
         {/* Chats Search bar */}
         <div className="border rounded-full h-[50px] bg-[white] flex overflow-hidden mb-2">
             <input type="text" className="appearance-none flex-1 pl-6 decoration-none" placeholder="Search chat" />
-            <button className="rounded-full h-[50px] bg-[#EF6C00] text-[white] w-[95px] px-[20px] py-[10px]">
+            <button className="rounded-full h-[50px] bg-[#993420] text-[white] w-[95px] px-[20px] py-[10px]">
                 Search
             </button>
         </div>

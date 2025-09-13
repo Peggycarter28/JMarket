@@ -1,6 +1,6 @@
 import NavBar from "./LandingPage/NavBar";
 import SignInNav from "./LandingPage/SignInNav";
-import siteLogo from '../assets/bauchi-connect-logo.svg';
+import siteLogo from '../assets/JMarket.png';
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../context/AppContextt";

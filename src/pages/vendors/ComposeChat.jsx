@@ -69,7 +69,7 @@ const ComposeChat = ({ updateMessageCallBack, scrollToBottom, }) => {
 
             <OrangeContainer>
                {loading == true 
-               ? <div className="flex w-full h-full justify-center items-center"> <ClipLoader color="#EF6C00" size={18} /></div>
+               ? <div className="flex w-full h-full justify-center items-center"> <ClipLoader color="#993420" size={18} /></div>
                : <img onClick={handleSendChat} className="size-[24px] cursor-pointer" src="/send.svg" alt="Send" />}
             </OrangeContainer> 
         </div>

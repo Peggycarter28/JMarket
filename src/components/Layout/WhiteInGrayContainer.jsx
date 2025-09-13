@@ -1,7 +1,6 @@
 const WhiteInGrayContainer = ({ children, rounded=false }) => {
     return (<>
     {rounded ?
-       
         <div className="bg-[white] p-4 rounded-[16px] h-full">
             {children}
         </div>

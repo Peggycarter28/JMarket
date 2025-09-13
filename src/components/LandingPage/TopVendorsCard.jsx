@@ -56,8 +56,8 @@ const TopVendorsCard = ({ title, preData }) => {
             <div className="flex flex-wrap w-full">
                 {
                     loading ? (
-                        <div className="flex justify-center items-center w-full text-[#EF6C00]">
-                            <ClipLoader color="#EF6C00" size={35} />
+                        <div className="flex justify-center items-center w-full text-[#993420]">
+                            <ClipLoader color="#993420" size={35} />
                         </div>
                     ) : items.length === 0 ? (
                         "No Vendors found"

@@ -204,12 +204,12 @@ function Home() {
 
                             </div>
 
-                            <button onClick={handleHomeSearch} className="bg-[#EF6C00] h-[2rem] md:h-auto text-white rounded-3xl pl-4 pr-4 text-[16px] font-semibold">
+                            <button onClick={handleHomeSearch} className="bg-[#993420] h-[2rem] md:h-auto text-white rounded-3xl pl-4 pr-4 text-[16px] font-semibold">
                                 {user.lang == 'ha' ? "Nema" : `Search`}
                             </button>
                         </div>
 
-                        <button onClick={handleVendorsNearMe} className="bg-[#EF6C00] fixed right-0 bottom-0 me-[30px] mb-[30px] h-[2rem] md:h-auto text-white rounded pl-4 pr-4 p-2 text-[16px] font-semibold">
+                        <button onClick={handleVendorsNearMe} className="bg-[#993420] fixed right-0 bottom-0 me-[30px] mb-[30px] h-[2rem] md:h-auto text-white rounded pl-4 pr-4 p-2 text-[16px] font-semibold">
                             {user.lang == 'ha' ? "Mafi Kusa Dani" : `Vendors near me`}
                         </button>
 

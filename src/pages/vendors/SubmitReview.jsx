@@ -63,7 +63,7 @@ const SubmitReview = ({ listing_id }) => {
                 ${index <= (hoverRating || rating) ? 'fill-orange' : 'fill-none'} 
                 ${index <= rating ? 'border-orange' : 'border-gray'}`}
                 style={{
-                    fill: index <= (hoverRating || rating) ? "#EF6C00" : "none", // Orange when hovered or selected
+                    fill: index <= (hoverRating || rating) ? "#993420" : "none", // Orange when hovered or selected
                     stroke: "#808080", // Gray border
                     strokeWidth: "0.5px"
                 }}

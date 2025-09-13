@@ -92,7 +92,7 @@ const ClientHome = () => {
             <HomeDashboardLayout>
                 <div className="flex flex-wrap">
                     <div className="p-2 flex w-full h-[120px] flex md:w-1/2 overflow-hidden ">
-                        <div className="text-[#ef6c00] border shadow-lg text-white w-full p-2 rounded-[16px]">
+                        <div className="text-[#993420] border shadow-lg text-white w-full p-2 rounded-[16px]">
                             <h5 className="text-[#2e7d32] font-semibold text-[18px]">Orders</h5>
                             <p className="text-[gray] text-[2.5rem] font-bold">{orders}</p>
                         </div>
@@ -106,7 +106,7 @@ const ClientHome = () => {
                     </div>
 
                     {/* <div className="p-2 flex w-full h-[120px] flex md:w-1/3 overflow-hidden ">
-                        <div className="text-[#ef6c00]  border shadow-lg text-white w-full p-2 rounded-[16px]">
+                        <div className="text-[#993420]  border shadow-lg text-white w-full p-2 rounded-[16px]">
                         <h5 className="text-[#2e7d32] font-semibold text-[18px]">Reviews</h5>
                         <p className="text-[gray] text-[2.5rem] font-bold">0</p>
                         </div>
@@ -114,12 +114,12 @@ const ClientHome = () => {
                 </div>
 
                 <div className="flex rounded-full h-[50px] bg-[#e8e8e8] p-1 mt-10">
-                    <h4 onClick={()=>{handleTabChange(0)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 0 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} flex justify-center items-center`}>Orders</h4>
-                    <h4 onClick={()=>{handleTabChange(1)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 1 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>My Services</h4>
+                    <h4 onClick={()=>{handleTabChange(0)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 0 ? 'bg-[#993420] text-[white] rounded-full' : "text-[#7f7d7d]"} flex justify-center items-center`}>Orders</h4>
+                    <h4 onClick={()=>{handleTabChange(1)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 1 ? 'bg-[#993420] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>My Services</h4>
 
-                    <h4 onClick={()=>{handleTabChange(2)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 2 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Withdrawal Requests</h4>
+                    <h4 onClick={()=>{handleTabChange(2)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 2 ? 'bg-[#993420] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Withdrawal Requests</h4>
 
-                    <h4 onClick={()=>{handleTabChange(3)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 3 ? 'bg-[#ef6c00] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Transaction History</h4>
+                    <h4 onClick={()=>{handleTabChange(3)}} className={`p-2 cursor-pointer text-[10px] md:text-[14px] ${currTab == 3 ? 'bg-[#993420] text-[white] rounded-full' : "text-[#7f7d7d]"} text-[#7f7d7d] flex justify-center items-center`}>Transaction History</h4>
                 </div>
                 
                 {
