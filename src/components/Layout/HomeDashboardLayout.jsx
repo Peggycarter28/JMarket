@@ -2,19 +2,20 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import GrayContainer from "./GrayContainer";
 import DashSideNav from "./DashSideNav";
 import { useEffect, useState } from "react";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import { API_URL } from "../../constants/config";
+import logo from "../../assets/JMarket.png";
 
 const HomeDashboardLayout = ({ children }) => {
   const { curr_section } = useParams();
-  
+
   const [user, setUser] = useState(null);
   const navigate = useNavigate(); // Hook to programmatically navigate
 
   const sub_sections = [
     { name: "Profile Details", slug: "profile" },
     { name: "Recently Viewed", slug: "viewed" },
-    { name: "Settings", slug: "settings" }
+    { name: "Settings", slug: "settings" },
   ];
 
   useEffect(() => {
@@ -30,33 +31,33 @@ const HomeDashboardLayout = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-        if (Cookies.get('token') !== null && (user.email == null || user.username == null)) {
-            const userRes = await axios.get(`${API_URL}/api/auth/users/me/`, { headers: { "Authorization": `Token ${Cookies.get('token')}` } })
-            if (userRes.status == 200 || userRes.status == 201) {
-                setUser(
-                    prev => ({
-                        ...prev,
-                        token: Cookies.get('token'),
-                        isLoggedIn: true,
-                        username: userRes.data.username,
-                        email: userRes.data.email,
-                        id: userRes.data.id
-                    })
-                )
+      if (
+        Cookies.get("token") !== null &&
+        (user.email == null || user.username == null)
+      ) {
+        const userRes = await axios.get(`${API_URL}/api/auth/users/me/`, {
+          headers: { Authorization: `Token ${Cookies.get("token")}` },
+        });
+        if (userRes.status == 200 || userRes.status == 201) {
+          setUser((prev) => ({
+            ...prev,
+            token: Cookies.get("token"),
+            isLoggedIn: true,
+            username: userRes.data.username,
+            email: userRes.data.email,
+            id: userRes.data.id,
+          }));
 
-                localStorage.setItem('user', JSON.stringify(userRes.data))
-                console.log(userRes.data)
-
-            }
+          localStorage.setItem("user", JSON.stringify(userRes.data));
+          console.log(userRes.data);
         }
-        else {
-            console.log("no token")
-        }
-    }
+      } else {
+        console.log("no token");
+      }
+    };
 
-    fetchUser()
-  }
-  )
+    fetchUser();
+  });
 
   // Logout function to clear localStorage and redirect
   const handleLogout = () => {
@@ -75,14 +76,16 @@ const HomeDashboardLayout = ({ children }) => {
           <main className="flex-1 flex border gap-2 md:gap-4 p-2 md:p-4">
             <div className="hidden flex-[4] border rounded-[17px] bg-[#F9F9F9] p-4 md:flex flex-col justify-center items-center">
               {/* Title */}
-              <Link to={'/'}>
-              <h3 className="py-8">
-                <img className="" src="/logo.svg" alt="BauchiConnect Logo" />
-              </h3>
+              <Link to={"/"}>
+                <h3 className="py-8">
+                  <img className="" src={logo} alt="JMarket Logo" />
+                </h3>
               </Link>
 
               {/* User Details */}
-              <h4 className="text-[#464B4F] text-[24px] fw-600">{user?.username}</h4>
+              <h4 className="text-[#464B4F] text-[24px] fw-600">
+                {user?.username}
+              </h4>
               <p className="text-[#808080] text-[16px]">{user?.email}</p>
 
               {/* Logout Button */}
